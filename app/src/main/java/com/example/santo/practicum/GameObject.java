@@ -10,10 +10,10 @@ public class GameObject {
     public Rect dimensions;
     public String spriteLocation;
 
-    public float[] vertices = {-0.5f, -0.5f, 0.0f,
-                                0.5f, -0.5f, 0.0f,
-                                0.5f, 0.5f, 0.0f,
-                                -0.5f, 0.5f, 0.0f};
+    public float[] vertices = {-1f, -1f, 0.0f,
+                                -1f, 1f, 0.0f,
+                                1f, 1f, 0.0f,
+                                1f, -1f, 0.0f};
     //transform parameters, 2d so only need [x, y] transform and scale, rotation in radians
     public float[] translation = {0, 0};
     public float[] scale = {1, 1};
@@ -32,11 +32,11 @@ public class GameObject {
     void SetVertices() {
         vertices[0] = dimensions.left;
         vertices[1] = dimensions.bottom;
-        vertices[3] = dimensions.right;
-        vertices[4] = dimensions.bottom;
+        vertices[3] = dimensions.left;
+        vertices[4] = dimensions.top;
         vertices[6] = dimensions.right;
         vertices[7] = dimensions.top;
-        vertices[9] = dimensions.left;
-        vertices[10] = dimensions.top;
+        vertices[9] = dimensions.right;
+        vertices[10] = dimensions.bottom;
     }
 }

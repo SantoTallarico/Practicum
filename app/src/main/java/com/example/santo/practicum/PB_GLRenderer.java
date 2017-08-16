@@ -3,7 +3,6 @@ package com.example.santo.practicum;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
@@ -26,34 +25,27 @@ import static javax.microedition.khronos.opengles.GL10.GL_CLAMP_TO_EDGE;
  */
 
 public class PB_GLRenderer implements GLSurfaceView.Renderer {
-
-    // Our matrices
     private final float[] mtrxProjection = new float[16];
     private final float[] mtrxView = new float[16];
     private final float[] mtrxProjectionAndView = new float[16];
 
-    // Geometric variables
-    public static float vertices[];
-    public static short indices[];
-    public static float uvs[];
-    public FloatBuffer vertexBuffer;
-    public ShortBuffer drawListBuffer;
-    public FloatBuffer uvBuffer;
+    private static float vertices[];
+    private static short indices[];
+    private static float uvs[];
+    private FloatBuffer vertexBuffer;
+    private ShortBuffer drawListBuffer;
+    private FloatBuffer uvBuffer;
 
-    int[] texturenames = new int[2];
+    private int[] texturenames = new int[2];
 
-    // Our screen resolution
-    float   mScreenWidth = 1280;
-    float   mScreenHeight = 768;
+    private float m_ScreenWidth = 1280;
+    private float m_ScreenHeight = 768;
 
-    // Misc
-    Context mContext;
-    long prevFrame;
-    int mProgram;
+    private Context mContext;
+    private long prevFrame;
+    private int mProgram;
 
-    public Rect image;
-
-    List<GameObject> m_gameObjects;
+    private List<GameObject> m_gameObjects;
 
     public PB_GLRenderer(Context c, List<GameObject> gameObjects)
     {
@@ -70,12 +62,6 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     public void SetupTriangle()
     {
-        image = new Rect();
-        image.left = 0;
-        image.right = 100;
-        image.bottom = 100;
-        image.top = 200;
-
         // We have to create the vertices of our triangle.
         vertices = new float[]
                 {   0.0f, 200f, 0.0f,
@@ -84,7 +70,8 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
                     100f, 200f, 0.0f,
                 };
 
-        indices = new short[] {0, 1, 2, 0, 2, 3}; // The order of vertex rendering.
+        indices = new short[] {0, 2, 1,
+                                0, 3, 2}; // The order of vertex rendering.
 
         // The vertex buffer.
         ByteBuffer bb = ByteBuffer.allocateDirect(vertices.length * 4);
@@ -193,11 +180,11 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
 
         // We need to know the current width and height.
-        mScreenWidth = width;
-        mScreenHeight = height;
+        m_ScreenWidth = width;
+        m_ScreenHeight = height;
 
         // Redo the Viewport, making it fullscreen.
-        GLES20.glViewport(0, 0, (int)mScreenWidth, (int)mScreenHeight);
+        GLES20.glViewport(0, 0, (int) m_ScreenWidth, (int) m_ScreenHeight);
 
         // Clear our matrices
         for(int i = 0; i < 16; i++)
@@ -208,7 +195,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         }
 
         // Setup our screen width and height for normal sprite translation.
-        Matrix.orthoM(mtrxProjection, 0, 0f, mScreenWidth, 0.0f, mScreenHeight, 0, 50);
+        Matrix.orthoM(mtrxProjection, 0, 0f, m_ScreenWidth, 0.0f, m_ScreenHeight, 0, 50);
 
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);

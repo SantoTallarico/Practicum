@@ -1,6 +1,5 @@
 package com.example.santo.practicum;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 
 /**

@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 
@@ -18,9 +19,25 @@ import java.io.IOException;
 public class MainMenuActivity extends GameScene {
     public static Bitmap bitmap;
 
+    MediaPlayer musicPlayer;
+    AudioAttributes attributes = new AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build();
+    SoundPool soundEffects = new SoundPool.Builder()
+            .setMaxStreams(10)
+            .setAudioAttributes(attributes)
+            .build();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        musicPlayer = MediaPlayer.create(this, R.raw.costadelsanto);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        musicPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        musicPlayer.start();
 
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
@@ -30,6 +47,26 @@ public class MainMenuActivity extends GameScene {
         gameObjects.add(painting);
         gameObjects.add(generatePhoto);
         touchables.add(generatePhoto);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        musicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        musicPlayer.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        musicPlayer.release();
+        soundEffects.release();
     }
 
     @Override

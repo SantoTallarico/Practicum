@@ -22,7 +22,6 @@ public class PB_GLSurfaceView extends GLSurfaceView {
 
         renderer = new PB_GLRenderer(context, gameObjects);
         setRenderer(renderer);
-        super.setRenderer(renderer);
 
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }

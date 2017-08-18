@@ -80,7 +80,6 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         drawListBuffer = dlb.asShortBuffer();
         drawListBuffer.put(indices);
         drawListBuffer.position(0);
-
     }
 
     public void SetupTextures()
@@ -138,20 +137,10 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
     }
 
     public void SetupShaders() {
-        int vertexShader = Shaders.loadShader(GLES20.GL_VERTEX_SHADER,
-                Shaders.vs_SolidColor);
-        int fragmentShader = Shaders.loadShader(GLES20.GL_FRAGMENT_SHADER,
-                Shaders.fs_SolidColor);
-
-        Shaders.sp_SolidColor = GLES20.glCreateProgram();
-        GLES20.glAttachShader(Shaders.sp_SolidColor, vertexShader);
-        GLES20.glAttachShader(Shaders.sp_SolidColor, fragmentShader);
-        GLES20.glLinkProgram(Shaders.sp_SolidColor);
-
         // Create the shaders, images
-        vertexShader = Shaders.loadShader(GLES20.GL_VERTEX_SHADER,
+        int vertexShader = Shaders.loadShader(GLES20.GL_VERTEX_SHADER,
                 Shaders.vs_Image);
-        fragmentShader = Shaders.loadShader(GLES20.GL_FRAGMENT_SHADER,
+        int fragmentShader = Shaders.loadShader(GLES20.GL_FRAGMENT_SHADER,
                 Shaders.fs_Image);
 
         Shaders.sp_Image = GLES20.glCreateProgram();
@@ -191,10 +180,10 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         }
 
         // Setup our screen width and height for normal sprite translation.
-        Matrix.orthoM(mtrxProjection, 0, 0f, m_ScreenWidth, 0.0f, m_ScreenHeight, 0, 50);
+        Matrix.orthoM(mtrxProjection, 0, 0f, m_ScreenWidth, 0.0f, m_ScreenHeight, 0, 100);
 
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 100f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mtrxProjectionAndView, 0, mtrxProjection, 0, mtrxView, 0);
@@ -234,6 +223,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         // clear Screen and Depth Buffer,
         // we have set the clear color as black.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
         int i = 0;
         for (GameObject object : m_gameObjects) {

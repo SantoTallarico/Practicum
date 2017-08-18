@@ -18,13 +18,15 @@ public class GameObject {
     public float[] translation = {0, 0};
     public float[] scale = {1, 1};
     public float rotation = 0;
+    public int spriteLayer = 0;
 
     public boolean active = true;
     public boolean touchable = false;
 
-    public GameObject(Rect d, String spriteLoc) {
+    public GameObject(Rect d, String spriteLoc, int layer) {
         dimensions = d;
         spriteLocation = spriteLoc;
+        spriteLayer = layer;
 
         SetVertices();
     }
@@ -38,6 +40,11 @@ public class GameObject {
         vertices[7] = dimensions.top;
         vertices[9] = dimensions.right;
         vertices[10] = dimensions.bottom;
+
+        vertices[2] = spriteLayer;
+        vertices[5] = spriteLayer;
+        vertices[8] = spriteLayer;
+        vertices[11] = spriteLayer;
     }
 
     public void onTouch() {

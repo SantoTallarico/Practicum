@@ -9,8 +9,8 @@ import com.example.santo.practicum.GameObjects.GameObject;
  */
 
 public class GameButton extends GameObject {
-    public GameButton(Rect d, String spriteLoc) {
-        super(d, spriteLoc);
+    public GameButton(Rect d, String spriteLoc, int layer) {
+        super(d, spriteLoc, layer);
         touchable = true;
     }
 }

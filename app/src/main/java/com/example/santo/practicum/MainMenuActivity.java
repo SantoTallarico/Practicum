@@ -43,8 +43,8 @@ public class MainMenuActivity extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        GameButton generatePhoto = new GameButton(new Rect(400, 400, 700, 500), "drawable/btngenerate");
-        GameObject painting = new GameObject(new Rect(0, 100, 100, 200), "drawable/painting");
+        GameButton generatePhoto = new GameButton(new Rect(400, 400, 700, 500), "drawable/btngenerate", 100);
+        GameObject painting = new GameObject(new Rect(0, 0, 600, 600), "drawable/painting", 0);
         gameObjects.add(painting);
         gameObjects.add(generatePhoto);
         touchables.add(generatePhoto);

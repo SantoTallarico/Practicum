@@ -3,6 +3,8 @@ package com.example.santo.practicum;
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.santo.practicum.GameObjects.GameObject;
+
 import java.util.ArrayList;
 
 /**

@@ -9,6 +9,8 @@ import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.view.MotionEvent;
 
+import com.example.santo.practicum.GameObjects.GameObject;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -29,9 +31,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
     private final float[] mtrxView = new float[16];
     private final float[] mtrxProjectionAndView = new float[16];
 
-    private static float vertices[];
     private static short indices[];
-    private static float uvs[];
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
     private FloatBuffer uvBuffer;
@@ -43,7 +43,6 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     private Context mContext;
     private long prevFrame;
-    private int mProgram;
 
     private List<GameObject> m_gameObjects;
 
@@ -57,28 +56,23 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     public void processTouchEvent(MotionEvent event)
     {
-
+        for (GameObject object : m_gameObjects) {
+            if (object.touchable == true && object.dimensions.contains((int)event.getX(), (int)event.getY())) {
+                object.onTouch();
+            }
+        }
     }
 
-    public void SetupTriangle()
+    public void SetupBuffers()
     {
-        // We have to create the vertices of our triangle.
-        vertices = new float[]
-                {   0.0f, 200f, 0.0f,
-                    0.0f, 100f, 0.0f,
-                    100f, 100f, 0.0f,
-                    100f, 200f, 0.0f,
-                };
-
+        // The order of vertex rendering.
         indices = new short[] {0, 2, 1,
-                                0, 3, 2}; // The order of vertex rendering.
+                                0, 3, 2};
 
         // The vertex buffer.
-        ByteBuffer bb = ByteBuffer.allocateDirect(vertices.length * 4);
+        ByteBuffer bb = ByteBuffer.allocateDirect(3 * 4 * 4);
         bb.order(ByteOrder.nativeOrder());
         vertexBuffer = bb.asFloatBuffer();
-        /*vertexBuffer.put(vertices);
-        vertexBuffer.position(0);*/
 
         // initialize byte buffer for the draw list
         ByteBuffer dlb = ByteBuffer.allocateDirect(indices.length * 2);
@@ -89,10 +83,10 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     }
 
-    public void SetupImage()
+    public void SetupTextures()
     {
         // Create our UV coordinates.
-        uvs = new float[] {
+        float[] uvs = new float[] {
                 0.0f, 0.0f,
                 0.0f, 1.0f,
                 1.0f, 1.0f,
@@ -143,14 +137,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         }
     }
 
-    public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-
-        SetupTriangle();
-        SetupImage();
-
-        // Set the background frame color
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
+    public void SetupShaders() {
         int vertexShader = Shaders.loadShader(GLES20.GL_VERTEX_SHADER,
                 Shaders.vs_SolidColor);
         int fragmentShader = Shaders.loadShader(GLES20.GL_FRAGMENT_SHADER,
@@ -174,6 +161,15 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
         // Set our shader programm
         GLES20.glUseProgram(Shaders.sp_Image);
+    }
+
+    public void onSurfaceCreated(GL10 unused, EGLConfig config) {
+        SetupBuffers();
+        SetupTextures();
+        SetupShaders();
+
+        // Set the background frame color
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
 
     @Override

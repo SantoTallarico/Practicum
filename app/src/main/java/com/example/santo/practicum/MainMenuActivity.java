@@ -3,7 +3,6 @@ package com.example.santo.practicum;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -12,6 +11,8 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.santo.practicum.GameObjects.GameButton;
+import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class MainMenuActivity extends GameScene {
         setContentView(glView);
 
         GameButton generatePhoto = new GameButton(new Rect(400, 400, 700, 500), "drawable/btngenerate");
-        GameButton painting = new GameButton(new Rect(0, 100, 100, 200), "drawable/painting");
+        GameObject painting = new GameObject(new Rect(0, 100, 100, 200), "drawable/painting");
         gameObjects.add(painting);
         gameObjects.add(generatePhoto);
         touchables.add(generatePhoto);

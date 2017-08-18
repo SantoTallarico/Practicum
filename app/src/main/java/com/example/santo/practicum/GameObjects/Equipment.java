@@ -1,4 +1,4 @@
-package com.example.santo.practicum;
+package com.example.santo.practicum.GameObjects;
 
 /**
  * Created by Santo on 7/20/2017.

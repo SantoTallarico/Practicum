@@ -4,6 +4,8 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
+import com.example.santo.practicum.GameObjects.GameObject;
+
 import java.util.List;
 
 /**
@@ -20,14 +22,18 @@ public class PB_GLSurfaceView extends GLSurfaceView {
 
         renderer = new PB_GLRenderer(context, gameObjects);
         setRenderer(renderer);
+        super.setRenderer(renderer);
 
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        renderer.processTouchEvent(event);
-        return true;
+        if (event != null) {
+            renderer.processTouchEvent(event);
+            return true;
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override

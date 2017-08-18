@@ -1,4 +1,4 @@
-package com.example.santo.practicum;
+package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Rect;
 
@@ -22,14 +22,14 @@ public class GameObject {
     public boolean active = true;
     public boolean touchable = false;
 
-    GameObject(Rect d, String spriteLoc) {
+    public GameObject(Rect d, String spriteLoc) {
         dimensions = d;
         spriteLocation = spriteLoc;
 
         SetVertices();
     }
 
-    void SetVertices() {
+    private void SetVertices() {
         vertices[0] = dimensions.left;
         vertices[1] = dimensions.bottom;
         vertices[3] = dimensions.left;
@@ -38,5 +38,9 @@ public class GameObject {
         vertices[7] = dimensions.top;
         vertices[9] = dimensions.right;
         vertices[10] = dimensions.bottom;
+    }
+
+    public void onTouch() {
+
     }
 }

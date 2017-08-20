@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainMenuActivity"
+        <activity android:name=".MainMenuScene"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>

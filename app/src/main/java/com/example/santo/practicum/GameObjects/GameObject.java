@@ -7,6 +7,7 @@ import android.graphics.Rect;
  */
 
 public class GameObject {
+    public Rect defaultDimensions;
     public Rect dimensions;
     public String spriteLocation;
 
@@ -20,10 +21,12 @@ public class GameObject {
     public float rotation = 0;
     public int spriteLayer = 0;
 
+    public boolean visible = true;
     public boolean active = true;
     public boolean touchable = false;
 
     public GameObject(Rect d, String spriteLoc, int layer) {
+        defaultDimensions = d;
         dimensions = d;
         spriteLocation = spriteLoc;
         spriteLayer = layer;
@@ -45,6 +48,34 @@ public class GameObject {
         vertices[5] = spriteLayer;
         vertices[8] = spriteLayer;
         vertices[11] = spriteLayer;
+    }
+
+    public void translate(float deltaX, float deltaY) {
+        translation[0] += deltaX;
+        translation[1] += deltaY;
+    }
+
+    public void translateTo(float newX, float newY) {
+        translation[0] = newX;
+        translation[1] = newY;
+    }
+
+    public void scale(float deltaX, float deltaY) {
+        scale[0] *= deltaX;
+        scale[1] *= deltaY;
+    }
+
+    public void scaleTo(float newX, float newY) {
+        scale[0] = newX;
+        scale[1] = newY;
+    }
+
+    public void rotate(float deltaR) {
+        rotation += deltaR;
+    }
+
+    public void rotateTo(float newR) {
+        rotation = newR;
     }
 
     public void onTouch() {

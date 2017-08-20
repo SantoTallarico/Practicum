@@ -13,13 +13,11 @@ import java.util.ArrayList;
 
 public class GameScene extends AppCompatActivity {
     public ArrayList<GameObject> gameObjects;
-    public ArrayList<GameObject> touchables;
     protected GLSurfaceView glView;
 
     GameScene() {
         super();
         gameObjects = new ArrayList<GameObject>();
-        touchables = new ArrayList<GameObject>();
     }
 
     @Override

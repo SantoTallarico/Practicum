@@ -17,7 +17,7 @@ import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 
 import java.io.IOException;
 
-public class MainMenuActivity extends GameScene {
+public class MainMenuScene extends GameScene {
     public static Bitmap bitmap;
 
     MediaPlayer musicPlayer;
@@ -43,11 +43,15 @@ public class MainMenuActivity extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        GameButton generatePhoto = new GameButton(new Rect(400, 400, 700, 500), "drawable/btngenerate", 100);
+        GameButton fight = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
+        GameButton generatePhoto = new GameButton(new Rect(-150, -50, 150, 50), "drawable/btngenerate", 100);
+        GameButton viewEdit = new GameButton(new Rect(-150, -350, 150, -250), "drawable/btnviewedit", 100);
+        gameObjects.add(fight);
+        gameObjects.add(generatePhoto);
+        gameObjects.add(viewEdit);
+
         GameObject painting = new GameObject(new Rect(0, 0, 600, 600), "drawable/painting", 0);
         gameObjects.add(painting);
-        gameObjects.add(generatePhoto);
-        touchables.add(generatePhoto);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.santo.practicum;
+package com.example.santo.practicum.Scenes;
 
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;

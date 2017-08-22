@@ -1,6 +1,7 @@
 package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Rect;
+import android.view.View;
 
 /**
  * Created by Santo on 7/20/2017.
@@ -24,6 +25,8 @@ public class GameObject {
     public boolean visible = true;
     public boolean active = true;
     public boolean touchable = false;
+
+    public View.OnClickListener clickListener;
 
     public GameObject(Rect d, String spriteLoc, int layer) {
         defaultDimensions = d;
@@ -78,7 +81,7 @@ public class GameObject {
         rotation = newR;
     }
 
-    public void onTouch() {
-
+    public void setOnClickListener(View.OnClickListener listener) {
+        clickListener = listener;
     }
 }

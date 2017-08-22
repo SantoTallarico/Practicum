@@ -1,6 +1,7 @@
 package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Rect;
+import android.view.View;
 
 import com.example.santo.practicum.GameObjects.GameObject;
 
@@ -13,4 +14,6 @@ public class GameButton extends GameObject {
         super(d, spriteLoc, layer);
         touchable = true;
     }
+
+
 }

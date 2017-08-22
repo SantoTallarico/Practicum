@@ -1,4 +1,4 @@
-package com.example.santo.practicum;
+package com.example.santo.practicum.Scenes;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,10 +10,13 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
+import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
+import com.example.santo.practicum.R;
 
 import java.io.IOException;
 
@@ -50,8 +53,25 @@ public class MainMenuScene extends GameScene {
         gameObjects.add(generatePhoto);
         gameObjects.add(viewEdit);
 
-        GameObject painting = new GameObject(new Rect(0, 0, 600, 600), "drawable/painting", 0);
-        gameObjects.add(painting);
+        fight.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ViewEditScene.class);
+                startActivity(i);
+            }
+        });
+
+        generatePhoto.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                PhotoAccess.performFileSearch(MainMenuScene.this);
+            }
+        });
+
+        viewEdit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ViewEditScene.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

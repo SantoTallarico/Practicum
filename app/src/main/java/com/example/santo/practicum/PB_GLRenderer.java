@@ -8,6 +8,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.santo.practicum.GameObjects.GameObject;
 
@@ -42,11 +43,12 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
     private float m_ScreenHeight = 768;
 
     private Context mContext;
+    private View mView;
     private long prevFrame;
 
     private List<GameObject> m_gameObjects;
 
-    public PB_GLRenderer(Context c, List<GameObject> gameObjects)
+    public PB_GLRenderer(View v, Context c, List<GameObject> gameObjects)
     {
         mContext = c;
         prevFrame = System.currentTimeMillis() + 100;
@@ -56,9 +58,11 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     public void processTouchEvent(MotionEvent event)
     {
+        int touchX = (int)(event.getRawX() - m_ScreenWidth / 2);
+        int touchY = (int)(m_ScreenHeight / 2 - event.getRawY());
         for (GameObject object : m_gameObjects) {
-            if (object.touchable == true && object.dimensions.contains((int)event.getX(), (int)event.getY())) {
-                object.onTouch();
+            if (object.touchable == true && event.getAction() == MotionEvent.ACTION_DOWN && object.dimensions.contains(touchX, touchY)) {
+                object.clickListener.onClick(mView);
             }
         }
     }

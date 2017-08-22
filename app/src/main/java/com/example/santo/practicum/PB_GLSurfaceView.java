@@ -20,7 +20,7 @@ public class PB_GLSurfaceView extends GLSurfaceView {
 
         setEGLContextClientVersion(2);
 
-        renderer = new PB_GLRenderer(context, gameObjects);
+        renderer = new PB_GLRenderer(this, context, gameObjects);
         setRenderer(renderer);
 
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);

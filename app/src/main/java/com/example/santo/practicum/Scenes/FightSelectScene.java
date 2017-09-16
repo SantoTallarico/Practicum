@@ -1,13 +1,16 @@
 package com.example.santo.practicum.Scenes;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.PB_GLSurfaceView;
+import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 
-public class ViewEditScene extends GameScene {
+public class FightSelectScene extends GameScene {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,8 +18,24 @@ public class ViewEditScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        GameObject painting = new GameObject(new Rect(-300, -300, 300, 300), "drawable/painting", 0);
-        gameObjects.add(painting);
+        GameButton btnCampaign = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
+        GameButton btnRandom = new GameButton(new Rect(-150, -350, 150, -250), "drawable/btnfight", 100);
+        gameObjects.add(btnCampaign);
+        gameObjects.add(btnRandom);
+
+        btnCampaign.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), FightSelectScene.class);
+                startActivity(i);
+            }
+        });
+
+        btnRandom.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), FightSelectScene.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

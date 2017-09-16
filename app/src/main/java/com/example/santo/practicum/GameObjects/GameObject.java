@@ -53,35 +53,39 @@ public class GameObject {
         vertices[11] = spriteLayer;
     }
 
-    public void translate(float deltaX, float deltaY) {
+    public void Translate(float deltaX, float deltaY) {
         translation[0] += deltaX;
         translation[1] += deltaY;
     }
 
-    public void translateTo(float newX, float newY) {
+    public void TranslateTo(float newX, float newY) {
         translation[0] = newX;
         translation[1] = newY;
     }
 
-    public void scale(float deltaX, float deltaY) {
+    public void Scale(float deltaX, float deltaY) {
         scale[0] *= deltaX;
         scale[1] *= deltaY;
     }
 
-    public void scaleTo(float newX, float newY) {
+    public void ScaleTo(float newX, float newY) {
         scale[0] = newX;
         scale[1] = newY;
     }
 
-    public void rotate(float deltaR) {
+    public void Rotate(float deltaR) {
         rotation += deltaR;
     }
 
-    public void rotateTo(float newR) {
+    public void RotateTo(float newR) {
         rotation = newR;
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
+    public void SetOnClickListener(View.OnClickListener listener) {
         clickListener = listener;
+    }
+
+    public void Update(long elapsed) {
+
     }
 }

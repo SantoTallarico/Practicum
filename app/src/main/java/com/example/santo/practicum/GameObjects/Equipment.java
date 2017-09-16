@@ -7,6 +7,7 @@ import android.graphics.Rect;
  */
 
 public class Equipment extends GameObject {
+    String name;
     int modHitPoints = 0;
     int modStrength = 0;
     int modDefence = 0;
@@ -14,7 +15,7 @@ public class Equipment extends GameObject {
     int modWisdom = 0;
     int modSpeed = 0;
 
-    public Equipment(Rect d, String spriteLoc, int layer) {
+    public Equipment(Rect d, String spriteLoc, int layer, int red, int green, int blue) {
         super(d, spriteLoc, layer);
     }
 }

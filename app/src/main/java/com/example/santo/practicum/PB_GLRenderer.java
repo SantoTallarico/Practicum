@@ -42,14 +42,15 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
     private float m_ScreenWidth = 1280;
     private float m_ScreenHeight = 768;
 
-    private Context mContext;
     private View mView;
-    private long prevFrame;
-
+    private Context mContext;
     private List<GameObject> m_gameObjects;
+
+    private long prevFrame;
 
     public PB_GLRenderer(View v, Context c, List<GameObject> gameObjects)
     {
+        mView = v;
         mContext = c;
         prevFrame = System.currentTimeMillis() + 100;
 
@@ -188,6 +189,10 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         if (prevFrame > now) return;
 
         long elapsed = now - prevFrame;
+
+        for (GameObject object : m_gameObjects) {
+            object.Update(elapsed);
+        }
 
         Render(mtrxProjectionAndView);
 

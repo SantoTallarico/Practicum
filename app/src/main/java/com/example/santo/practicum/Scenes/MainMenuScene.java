@@ -16,6 +16,7 @@ import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
+import com.example.santo.practicum.PhotoGeneration;
 import com.example.santo.practicum.R;
 
 import java.io.IOException;
@@ -46,27 +47,27 @@ public class MainMenuScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        GameButton fight = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
-        GameButton generatePhoto = new GameButton(new Rect(-150, -50, 150, 50), "drawable/btngenerate", 100);
-        GameButton viewEdit = new GameButton(new Rect(-150, -350, 150, -250), "drawable/btnviewedit", 100);
-        gameObjects.add(fight);
-        gameObjects.add(generatePhoto);
-        gameObjects.add(viewEdit);
+        GameButton btnFight = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
+        GameButton btnGeneratePhoto = new GameButton(new Rect(-150, -50, 150, 50), "drawable/btngenerate", 100);
+        GameButton btnViewEdit = new GameButton(new Rect(-150, -350, 150, -250), "drawable/btnviewedit", 100);
+        gameObjects.add(btnFight);
+        gameObjects.add(btnGeneratePhoto);
+        gameObjects.add(btnViewEdit);
 
-        fight.setOnClickListener(new View.OnClickListener() {
+        btnFight.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ViewEditScene.class);
+                Intent i = new Intent(getApplicationContext(), FightSelectScene.class);
                 startActivity(i);
             }
         });
 
-        generatePhoto.setOnClickListener(new View.OnClickListener() {
+        btnGeneratePhoto.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PhotoAccess.performFileSearch(MainMenuScene.this);
             }
         });
 
-        viewEdit.setOnClickListener(new View.OnClickListener() {
+        btnViewEdit.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ViewEditScene.class);
                 startActivity(i);
@@ -111,6 +112,7 @@ public class MainMenuScene extends GameScene {
                 uri = resultData.getData();
                 try {
                     bitmap = PhotoAccess.getBitmapFromUri(uri, this);
+                    GameObject object = PhotoGeneration.Generate(bitmap);
                 }
                 catch (IOException e) {
 

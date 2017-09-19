@@ -1,5 +1,6 @@
 package com.example.santo.practicum.GameObjects;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.view.View;
 
@@ -11,6 +12,9 @@ public class GameObject {
     public Rect defaultDimensions;
     public Rect dimensions;
     public String spriteLocation;
+    public boolean isSpriteGenerated = false;
+    public Bitmap generatedSprite;
+    public int textureID;
 
     public float[] vertices = {-1f, -1f, 0.0f,
                                 -1f, 1f, 0.0f,
@@ -32,6 +36,16 @@ public class GameObject {
         defaultDimensions = d;
         dimensions = d;
         spriteLocation = spriteLoc;
+        spriteLayer = layer;
+
+        SetVertices();
+    }
+
+    public GameObject(Rect d, Bitmap sprite, int layer) {
+        defaultDimensions = d;
+        dimensions = d;
+        generatedSprite = sprite;
+        isSpriteGenerated = true;
         spriteLayer = layer;
 
         SetVertices();

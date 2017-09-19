@@ -12,8 +12,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
+import com.example.santo.practicum.GameObjects.PB_Character;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 import com.example.santo.practicum.PhotoGeneration;
@@ -23,6 +25,12 @@ import java.io.IOException;
 
 public class MainMenuScene extends GameScene {
     public static Bitmap bitmap;
+    public static Bitmap palette1 = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+    public static Bitmap palette2 = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+    public static Bitmap palette3 = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+    GameObject p1 = new GameObject(new Rect(-550, 250, -250, 550), palette1, 100);
+    GameObject p2 = new GameObject(new Rect(-550, -150, -250, 150), palette2, 100);
+    GameObject p3 = new GameObject(new Rect(-550, -550, -250, -250), palette3, 100);
 
     MediaPlayer musicPlayer;
     AudioAttributes attributes = new AudioAttributes.Builder()
@@ -53,6 +61,11 @@ public class MainMenuScene extends GameScene {
         gameObjects.add(btnFight);
         gameObjects.add(btnGeneratePhoto);
         gameObjects.add(btnViewEdit);
+
+
+        gameObjects.add(p1);
+        gameObjects.add(p2);
+        gameObjects.add(p3);
 
         btnFight.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -112,7 +125,44 @@ public class MainMenuScene extends GameScene {
                 uri = resultData.getData();
                 try {
                     bitmap = PhotoAccess.getBitmapFromUri(uri, this);
-                    GameObject object = PhotoGeneration.Generate(bitmap);
+                    int[] colourInfo = PhotoGeneration.Generate(bitmap);
+
+                    palette1 = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+                    palette2 = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+                    palette3 = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+
+                    for (int i = 0; i < 32; i++) {
+                        for (int j = 0; j < 32; j++) {
+                            palette1.setPixel(i, j, colourInfo[3]);
+                        }
+                    }
+
+                    for (int i = 0; i < 32; i++) {
+                        for (int j = 0; j < 32; j++) {
+                            palette2.setPixel(i, j, colourInfo[4]);
+                        }
+                    }
+
+                    for (int i = 0; i < 32; i++) {
+                        for (int j = 0; j < 32; j++) {
+                            palette3.setPixel(i, j, colourInfo[5]);
+                        }
+                    }
+
+                    p1.generatedSprite = palette1;
+                    p2.generatedSprite = palette2;
+                    p3.generatedSprite = palette3;
+
+                    GameObject object;
+
+                    if (colourInfo[0] % 2 == 0) {
+
+                        object = new PB_Character(new Rect(-300, -300, 300, 300), "drawable/painting", 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                    }
+                    else {
+
+                        object = new Equipment(new Rect(-300, -300, 300, 300), "drawable/painting", 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                    }
                 }
                 catch (IOException e) {
 

@@ -4,6 +4,7 @@ import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.santo.practicum.GameObjects.GameObject;
+import com.example.santo.practicum.PB_GLSurfaceView;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class GameScene extends AppCompatActivity {
     public ArrayList<GameObject> gameObjects;
-    protected GLSurfaceView glView;
+    protected PB_GLSurfaceView glView;
 
     GameScene() {
         super();

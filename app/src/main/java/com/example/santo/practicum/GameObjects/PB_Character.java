@@ -15,7 +15,7 @@ enum Stats {
     speed
 }
 
-public class Character extends GameObject {
+public class PB_Character extends GameObject {
     String name;
     int level;
     int maxHitPoints, tempMaxHitPoints, tempHitPoints;
@@ -30,7 +30,7 @@ public class Character extends GameObject {
 
     boolean isAlive = true;
 
-    public Character(Rect d, String spriteLoc, int layer, int red, int green, int blue) {
+    public PB_Character(Rect d, String spriteLoc, int layer, int red, int green, int blue) {
         super(d, spriteLoc, layer);
         level = 1;
     }

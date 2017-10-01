@@ -9,10 +9,9 @@ import android.graphics.Rect;
 public class Equipment extends GameObject {
     String name;
     int modHitPoints = 0;
-    int modStrength = 0;
+    int modAttack = 0;
     int modDefence = 0;
-    int modIntelligence = 0;
-    int modWisdom = 0;
+    int modMagicDefence = 0;
     int modSpeed = 0;
 
     public Equipment(Rect d, String spriteLoc, int layer, int red, int green, int blue) {

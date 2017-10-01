@@ -10,7 +10,7 @@ import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 
-public class FightSelectScene extends GameScene {
+public class FightScene extends GameScene {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,20 +19,11 @@ public class FightSelectScene extends GameScene {
         setContentView(glView);
 
         GameButton btnCampaign = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
-        GameButton btnRandom = new GameButton(new Rect(-150, -350, 150, -250), "drawable/btnfight", 100);
         gameObjects.add(btnCampaign);
-        gameObjects.add(btnRandom);
 
         btnCampaign.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), FightCampaignSelectScene.class);
-                startActivity(i);
-            }
-        });
-
-        btnRandom.SetOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), FightScene.class);
+                Intent i = new Intent(getApplicationContext(), FightSelectScene.class);
                 startActivity(i);
             }
         });

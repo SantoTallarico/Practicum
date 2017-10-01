@@ -1,6 +1,13 @@
 package com.example.santo.practicum.GameObjects;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Pair;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Santo on 7/20/2017.
@@ -8,39 +15,79 @@ import android.graphics.Rect;
 
 enum Stats {
     hitPoints,
-    strength,
+    attack,
     defence,
-    intelligence,
-    wisdom,
+    magicDefence,
     speed
 }
 
-public class PB_Character extends GameObject {
+enum CharacterClass {
+    warrior,
+    rogue,
+    wizard,
+    cleric
+}
+
+public abstract class PB_Character extends GameObject {
     String name;
+    CharacterClass charClass;
     int level;
-    int maxHitPoints, tempMaxHitPoints, tempHitPoints;
-    int strength, tempStrength;
-    int defence, tempDefence;
-    int intelligence, tempIntelligence;
-    int wisdom, tempWisdom;
-    int speed, tempSpeed;
+    int maxHitPoints, tempMaxHitPoints, tempHitPoints, hitPointsGrowth;
+    int attack, tempAttack, attackGrowth;
+    int defence, tempDefence, defenceGrowth;
+    int magicDefence, tempMagicDefence, magicDefenceGrowth;
+    int speed, tempSpeed, speedGrowth;
 
     Equipment weapon;
     Equipment armor;
 
     boolean isAlive = true;
 
-    public PB_Character(Rect d, String spriteLoc, int layer, int red, int green, int blue) {
-        super(d, spriteLoc, layer);
+    //First stat is raised, second stat is lowered. If stats are the same, no change
+    protected List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
+        {
+            add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.hitPoints));
+            add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.attack));
+            add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.defence));
+            add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.magicDefence));
+            add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.speed));
+
+            add(new Pair<Stats, Stats>(Stats.attack, Stats.hitPoints));
+            add(new Pair<Stats, Stats>(Stats.attack, Stats.attack));
+            add(new Pair<Stats, Stats>(Stats.attack, Stats.defence));
+            add(new Pair<Stats, Stats>(Stats.attack, Stats.magicDefence));
+            add(new Pair<Stats, Stats>(Stats.attack, Stats.speed));
+
+            add(new Pair<Stats, Stats>(Stats.defence, Stats.hitPoints));
+            add(new Pair<Stats, Stats>(Stats.defence, Stats.attack));
+            add(new Pair<Stats, Stats>(Stats.defence, Stats.defence));
+            add(new Pair<Stats, Stats>(Stats.defence, Stats.magicDefence));
+            add(new Pair<Stats, Stats>(Stats.defence, Stats.speed));
+
+            add(new Pair<Stats, Stats>(Stats.magicDefence, Stats.hitPoints));
+            add(new Pair<Stats, Stats>(Stats.magicDefence, Stats.attack));
+            add(new Pair<Stats, Stats>(Stats.magicDefence, Stats.defence));
+            add(new Pair<Stats, Stats>(Stats.magicDefence, Stats.magicDefence));
+            add(new Pair<Stats, Stats>(Stats.magicDefence, Stats.speed));
+
+            add(new Pair<Stats, Stats>(Stats.speed, Stats.hitPoints));
+            add(new Pair<Stats, Stats>(Stats.speed, Stats.attack));
+            add(new Pair<Stats, Stats>(Stats.speed, Stats.defence));
+            add(new Pair<Stats, Stats>(Stats.speed, Stats.magicDefence));
+            add(new Pair<Stats, Stats>(Stats.speed, Stats.speed));
+        }
+    };
+
+    public PB_Character(Rect d, Bitmap sprite, int layer) {
+        super(d, sprite, layer);
         level = 1;
     }
 
     public void ApplyEquipment() {
         tempMaxHitPoints = maxHitPoints + weapon.modHitPoints + armor.modHitPoints;
-        tempStrength = strength + weapon.modStrength + armor.modStrength;
+        tempAttack = attack + weapon.modAttack + armor.modAttack;
         tempDefence = defence + weapon.modDefence + armor.modDefence;
-        tempIntelligence = intelligence + weapon.modIntelligence + armor.modIntelligence;
-        tempWisdom = wisdom + weapon.modWisdom + armor.modWisdom;
+        tempMagicDefence = magicDefence + weapon.modMagicDefence + armor.modMagicDefence;
         tempSpeed = speed + weapon.modSpeed + armor.modSpeed;
     }
 
@@ -51,18 +98,18 @@ public class PB_Character extends GameObject {
                 if (tempHitPoints <= 0) {
                     Death();
                 }
+                else if (tempHitPoints > tempMaxHitPoints) {
+                    tempHitPoints = tempMaxHitPoints;
+                }
                 break;
-            case strength:
-                tempStrength += modValue;
+            case attack:
+                tempAttack += modValue;
                 break;
             case defence:
                 tempDefence += modValue;
                 break;
-            case intelligence:
-                tempIntelligence += modValue;
-                break;
-            case wisdom:
-                tempWisdom += modValue;
+            case magicDefence:
+                tempMagicDefence += modValue;
                 break;
             case speed:
                 tempSpeed += modValue;
@@ -77,4 +124,7 @@ public class PB_Character extends GameObject {
     public void Revive() {
         isAlive = true;
     }
+
+    public abstract void LevelUp();
+    public abstract void Fight();
 }

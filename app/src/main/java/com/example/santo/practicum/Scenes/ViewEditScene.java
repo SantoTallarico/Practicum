@@ -1,13 +1,22 @@
 package com.example.santo.practicum.Scenes;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
+import com.example.santo.practicum.GameObjects.PB_Character;
 import com.example.santo.practicum.PB_GLSurfaceView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewEditScene extends GameScene {
+    PB_Character selectedCharacter;
+    List<GameButton> characterTiles = new ArrayList<GameButton>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,8 +24,39 @@ public class ViewEditScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        GameObject painting = new GameObject(new Rect(-300, -300, 300, 300), "drawable/painting", 0);
-        gameObjects.add(painting);
+        final GameButton btnEdit = new GameButton(new Rect(-150, -550, 150, -450), "drawable/btnfight", 100);
+        btnEdit.touchable = false;
+        gameObjects.add(btnEdit);
+
+        btnEdit.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EditScene.class);
+                i.putExtra("character", selectedCharacter);
+                startActivity(i);
+            }
+        });
+
+        if (MainMenuScene.generatedCharacters.size() == 0) {
+
+        }
+        else {
+            int i = 0;
+            for (final PB_Character character : MainMenuScene.generatedCharacters) {
+                GameButton button = new GameButton(new Rect(-450 + i * 100, 250, -350 + i * 100, 350), character.tileIcon, 100);
+
+                button.SetOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        selectedCharacter = character;
+                        btnEdit.touchable = true;
+                    }
+                });
+
+                characterTiles.add(button);
+                gameObjects.add(button);
+
+                i++;
+            }
+        }
     }
 
     @Override

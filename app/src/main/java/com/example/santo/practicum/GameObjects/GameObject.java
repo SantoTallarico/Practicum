@@ -4,11 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.view.View;
 
+import java.io.Serializable;
+
 /**
  * Created by Santo on 7/20/2017.
  */
 
-public class GameObject {
+public class GameObject implements Serializable {
     public Rect defaultDimensions;
     public Rect dimensions;
     public String spriteLocation;

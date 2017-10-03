@@ -2,6 +2,7 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,30 +22,28 @@ public class Warrior extends PB_Character {
         }
     };
 
-    public Warrior(Rect d, Bitmap sprite, int layer, int red, int green, int blue) {
-        super(d, sprite, layer);
+    public Warrior(Rect d, Bitmap sprite, int layer, int startingLevel, int red, int green, int blue) {
+        super(d, sprite, layer, startingLevel);
         charClass = CharacterClass.warrior;
 
         InitializeStats(red, green, blue);
+
+        for (int i = 1; i < startingLevel; i++) {
+            LevelUp();
+        }
     }
 
     private void InitializeStats(int red, int green, int blue) {
-        int modHitPoints;
+        Pair<Stats, Stats> statMods = genStatMods.get(red % 24);
 
-        genStatMods.get(red % 24);
-
-        maxHitPoints = baseStats.get(Stats.hitPoints);
-        attack = baseStats.get(Stats.attack);
-        defence = baseStats.get(Stats.defence);
-        magicDefence = baseStats.get(Stats.magicDefence);
-        speed = baseStats.get(Stats.speed);
+        maxHitPoints = baseStats.get(Stats.hitPoints) + (statMods.first == Stats.hitPoints ? 10 : 0) + (statMods.second == Stats.hitPoints ? -10 : 0);
+        attack = baseStats.get(Stats.attack) + (statMods.first == Stats.attack ? 5 : 0) + (statMods.second == Stats.attack ? -5 : 0);
+        defence = baseStats.get(Stats.defence) + (statMods.first == Stats.defence ? 5 : 0) + (statMods.second == Stats.defence ? -5 : 0);
+        magicDefence = baseStats.get(Stats.magicDefence) + (statMods.first == Stats.magicDefence ? 5 : 0) + (statMods.second == Stats.magicDefence ? -5 : 0);
+        speed = baseStats.get(Stats.speed) + (statMods.first == Stats.speed ? 5 : 0) + (statMods.second == Stats.speed ? -5 : 0);
     }
 
     public void Fight() {
-
-    }
-
-    public void LevelUp() {
 
     }
 }

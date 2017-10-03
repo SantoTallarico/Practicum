@@ -32,6 +32,7 @@ public abstract class PB_Character extends GameObject {
     String name;
     CharacterClass charClass;
     int level;
+    int experience;
     int maxHitPoints, tempMaxHitPoints, tempHitPoints, hitPointsGrowth;
     int attack, tempAttack, attackGrowth;
     int defence, tempDefence, defenceGrowth;
@@ -42,6 +43,7 @@ public abstract class PB_Character extends GameObject {
     Equipment armor;
 
     boolean isAlive = true;
+    public Bitmap tileIcon;
 
     //First stat is raised, second stat is lowered. If stats are the same, no change
     protected List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
@@ -78,9 +80,12 @@ public abstract class PB_Character extends GameObject {
         }
     };
 
-    public PB_Character(Rect d, Bitmap sprite, int layer) {
+    public int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900};
+
+    public PB_Character(Rect d, Bitmap sprite, int layer, int startingLevel) {
         super(d, sprite, layer);
-        level = 1;
+        level = startingLevel;
+        tileIcon = sprite;
     }
 
     public void ApplyEquipment() {
@@ -125,6 +130,16 @@ public abstract class PB_Character extends GameObject {
         isAlive = true;
     }
 
-    public abstract void LevelUp();
+    public void LevelUp() {
+        level++;
+        maxHitPoints += hitPointsGrowth;
+        attack += attackGrowth;
+        defence += defenceGrowth;
+        magicDefence += magicDefenceGrowth;
+        speed += speedGrowth;
+
+        ApplyEquipment();
+    }
+
     public abstract void Fight();
 }

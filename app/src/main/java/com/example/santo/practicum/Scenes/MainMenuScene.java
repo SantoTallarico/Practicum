@@ -23,8 +23,11 @@ import com.example.santo.practicum.PhotoGeneration;
 import com.example.santo.practicum.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainMenuScene extends GameScene {
+    public static List<PB_Character> generatedCharacters = new ArrayList<PB_Character>();
     public static Bitmap bitmap;
     public static Bitmap palette1 = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
     GameObject p1 = new GameObject(new Rect(-550, 250, -250, 550), palette1, 100);
@@ -144,11 +147,12 @@ public class MainMenuScene extends GameScene {
 
                     p1.generatedSprite = palette1;
 
-                    GameObject object;
+                    PB_Character object;
 
                     //if (colourInfo[0] % 2 == 0) {
 
-                        object = new Warrior(new Rect(-300, -300, 300, 300), "drawable/painting", 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        object = new Warrior(new Rect(-300, -300, 300, 300), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        generatedCharacters.add(object);
                     /*}
                     else {
 

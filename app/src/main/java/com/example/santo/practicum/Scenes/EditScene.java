@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.GameObjects.PB_Character;
@@ -20,7 +21,7 @@ public class EditScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        selectedCharacter = (PB_Character)getIntent().getSerializableExtra("character");
+        selectedCharacter = ViewEditScene.selectedCharacter;
 
         gameObjects.add(selectedCharacter);
     }

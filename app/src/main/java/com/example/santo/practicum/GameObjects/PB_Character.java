@@ -2,8 +2,11 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Pair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +31,7 @@ enum CharacterClass {
     cleric
 }
 
-public abstract class PB_Character extends GameObject {
+public abstract class PB_Character extends GameObject implements Serializable {
     String name;
     CharacterClass charClass;
     int level;
@@ -43,10 +46,10 @@ public abstract class PB_Character extends GameObject {
     Equipment armor;
 
     boolean isAlive = true;
-    public Bitmap tileIcon;
+    public transient Bitmap tileIcon;
 
     //First stat is raised, second stat is lowered. If stats are the same, no change
-    protected List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
+    protected transient static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
         {
             add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.hitPoints));
             add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.attack));

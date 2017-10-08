@@ -2,8 +2,11 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Pair;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +14,8 @@ import java.util.Map;
  * Created by Santo on 9/28/2017.
  */
 
-public class Warrior extends PB_Character {
-    private Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
+public class Warrior extends PB_Character implements Serializable {
+    private transient static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 100);
             put(Stats.attack, 50);
@@ -46,4 +49,24 @@ public class Warrior extends PB_Character {
     public void Fight() {
 
     }
+/*
+    //Parcelable methods
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(name);
+    }
+
+    public static final Parcelable.Creator<Warrior> CREATOR
+            = new Parcelable.Creator<Warrior>() {
+        public Warrior createFromParcel(Parcel in) {
+            return new Warrior(in);
+        }
+
+        public Warrior[] newArray(int size) {
+            return new Warrior[size];
+        }
+    };*/
 }

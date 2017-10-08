@@ -2,11 +2,13 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Rect;
 
+import java.io.Serializable;
+
 /**
  * Created by Santo on 7/20/2017.
  */
 
-public class Equipment extends GameObject {
+public class Equipment extends GameObject implements Serializable {
     String name;
     int modHitPoints = 0;
     int modAttack = 0;

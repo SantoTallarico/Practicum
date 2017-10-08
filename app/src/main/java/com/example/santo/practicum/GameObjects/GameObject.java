@@ -11,11 +11,11 @@ import java.io.Serializable;
  */
 
 public class GameObject implements Serializable {
-    public Rect defaultDimensions;
-    public Rect dimensions;
+    public transient Rect defaultDimensions;
+    public transient Rect dimensions;
     public String spriteLocation;
     public boolean isSpriteGenerated = false;
-    public Bitmap generatedSprite;
+    public transient Bitmap generatedSprite;
     public int textureID;
 
     public float[] vertices = {-1f, -1f, 0.0f,
@@ -32,7 +32,7 @@ public class GameObject implements Serializable {
     public boolean active = true;
     public boolean touchable = false;
 
-    public View.OnClickListener clickListener;
+    public transient View.OnClickListener clickListener;
 
     public GameObject(Rect d, String spriteLoc, int layer) {
         defaultDimensions = d;

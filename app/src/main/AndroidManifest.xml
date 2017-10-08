@@ -24,6 +24,26 @@
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
+
+        <activity android:name=".Scenes.EditScene"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+
+        <activity android:name=".Scenes.FightSelectScene"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+
+        <activity android:name=".Scenes.FightCampaignSelectScene"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+
+        <activity android:name=".Scenes.FightScene"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
     </application>
 
 </manifest>

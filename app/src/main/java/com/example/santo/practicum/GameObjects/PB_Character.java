@@ -49,7 +49,7 @@ public abstract class PB_Character extends GameObject implements Serializable {
     public transient Bitmap tileIcon;
 
     //First stat is raised, second stat is lowered. If stats are the same, no change
-    protected transient static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
+    protected transient final static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
         {
             add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.hitPoints));
             add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.attack));
@@ -83,7 +83,7 @@ public abstract class PB_Character extends GameObject implements Serializable {
         }
     };
 
-    public int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900};
+    public static final transient int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900 };
 
     public PB_Character(Rect d, Bitmap sprite, int layer, int startingLevel) {
         super(d, sprite, layer);

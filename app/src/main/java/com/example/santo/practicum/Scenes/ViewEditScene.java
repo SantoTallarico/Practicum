@@ -42,7 +42,7 @@ public class ViewEditScene extends GameScene {
         else {
             int i = 0;
             for (final PB_Character character : MainMenuScene.generatedCharacters) {
-                GameButton button = new GameButton(new Rect(-450 + i * 100, 250, -350 + i * 100, 350), character.tileIcon, 100);
+                GameButton button = new GameButton(new Rect(-450 + i * 150, 250, -350 + i * 150, 350), character.tileIcon, 100);
 
                 button.SetOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {

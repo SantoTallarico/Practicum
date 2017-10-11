@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 public class Warrior extends PB_Character implements Serializable {
-    private transient static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
+    private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 100);
             put(Stats.attack, 50);

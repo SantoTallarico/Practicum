@@ -28,6 +28,7 @@ import java.util.List;
 
 public class MainMenuScene extends GameScene {
     public static List<PB_Character> generatedCharacters = new ArrayList<PB_Character>();
+    public static List<Equipment> generatedEquipment = new ArrayList<Equipment>();
     public static Bitmap bitmap;
     public static Bitmap palette1 = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
     GameObject p1 = new GameObject(new Rect(-550, 250, -250, 550), palette1, 100);
@@ -61,7 +62,6 @@ public class MainMenuScene extends GameScene {
         gameObjects.add(btnFight);
         gameObjects.add(btnGeneratePhoto);
         gameObjects.add(btnViewEdit);
-
 
         gameObjects.add(p1);
 
@@ -147,17 +147,16 @@ public class MainMenuScene extends GameScene {
 
                     p1.generatedSprite = palette1;
 
-                    PB_Character object;
+                    if (colourInfo[0] % 2 == 0) {
 
-                    //if (colourInfo[0] % 2 == 0) {
-
-                        object = new Warrior(new Rect(-300, -300, 300, 300), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
-                        generatedCharacters.add(object);
-                    /*}
+                        PB_Character character = new Warrior(new Rect(-300, -300, 300, 300), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        generatedCharacters.add(character);
+                    }
                     else {
 
-                        object = new Equipment(new Rect(-300, -300, 300, 300), "drawable/painting", 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
-                    }*/
+                        Equipment equipment = new Equipment(new Rect(-300, -300, 300, 300), palette1, 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        generatedEquipment.add(equipment);
+                    }
                 }
                 catch (IOException e) {
 

@@ -2,38 +2,22 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Pair;
+
+import com.example.santo.practicum.Enums.CharacterClass;
+import com.example.santo.practicum.Enums.Stats;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Santo on 7/20/2017.
  */
 
-enum Stats {
-    hitPoints,
-    attack,
-    defence,
-    magicDefence,
-    speed
-}
-
-enum CharacterClass {
-    warrior,
-    rogue,
-    wizard,
-    cleric
-}
-
 public abstract class PB_Character extends GameObject implements Serializable {
     String name;
-    CharacterClass charClass;
+    public CharacterClass charClass;
     int level;
     int experience;
     int maxHitPoints, tempMaxHitPoints, tempHitPoints, hitPointsGrowth;
@@ -47,6 +31,8 @@ public abstract class PB_Character extends GameObject implements Serializable {
 
     boolean isAlive = true;
     public transient Bitmap tileIcon;
+
+    public static final int MAX_LEVEL = 20;
 
     //First stat is raised, second stat is lowered. If stats are the same, no change
     protected transient final static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
@@ -125,6 +111,24 @@ public abstract class PB_Character extends GameObject implements Serializable {
         }
     }
 
+    public int GetStat(Stats stat) {
+        switch(stat) {
+            case hitPoints:
+                return tempHitPoints;
+            case attack:
+                return tempAttack;
+            case defence:
+                return tempDefence;
+            case magicDefence:
+                return tempMagicDefence;
+            case speed:
+                return tempSpeed;
+            default:
+                //should not get here
+                return 0;
+        }
+    }
+
     public void Death() {
         isAlive = false;
     }
@@ -142,6 +146,10 @@ public abstract class PB_Character extends GameObject implements Serializable {
         speed += speedGrowth;
 
         ApplyEquipment();
+    }
+
+    public void Update(long elapsed) {
+
     }
 
     public abstract void Fight();

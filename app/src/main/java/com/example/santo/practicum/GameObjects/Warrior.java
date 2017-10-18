@@ -2,9 +2,9 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Pair;
+
+import com.example.santo.practicum.Enums.Stats;
 
 import java.io.Serializable;
 import java.util.HashMap;

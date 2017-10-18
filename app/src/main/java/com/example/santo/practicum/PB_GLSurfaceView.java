@@ -14,6 +14,7 @@ import java.util.List;
 
 public class PB_GLSurfaceView extends GLSurfaceView {
     private final PB_GLRenderer renderer;
+    public boolean touchLock = false;
 
     public PB_GLSurfaceView(Context context, List<GameObject> gameObjects) {
         super(context);
@@ -36,7 +37,7 @@ public class PB_GLSurfaceView extends GLSurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event != null) {
+        if (event != null && touchLock == false) {
             renderer.processTouchEvent(event);
             return true;
         }

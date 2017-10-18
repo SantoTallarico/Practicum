@@ -5,12 +5,17 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.GameObjects.FightController;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
+import com.example.santo.practicum.GameObjects.PB_Character;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 
 public class FightScene extends GameScene {
+    FightController controller = new FightController();
+    PB_Character activeCharacter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

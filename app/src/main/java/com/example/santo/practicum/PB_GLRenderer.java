@@ -40,8 +40,8 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     private int[] textureNames;
 
-    private float m_ScreenWidth = 1280;
-    private float m_ScreenHeight = 768;
+    private float m_ScreenWidth = 1080;
+    private float m_ScreenHeight = 1776;
 
     private View mView;
     private Context mContext;
@@ -145,7 +145,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
         Bitmap bmp;
         if (object.isSpriteGenerated) {
-            bmp = object.generatedSprite;
+            bmp = object.generatedSprite.copy(object.generatedSprite.getConfig(), object.generatedSprite.isMutable());
         }
         else {
             int id = mContext.getResources().getIdentifier(object.spriteLocation, null, mContext.getPackageName());

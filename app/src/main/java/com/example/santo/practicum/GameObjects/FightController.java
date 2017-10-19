@@ -19,6 +19,12 @@ public class FightController extends GameObject {
 
     }
 
+    void RunActions() {
+        for (FightAction action : queuedActions) {
+            action.ApplyAction();
+        }
+    }
+
     public void Update(long elapsed) {
 
     }

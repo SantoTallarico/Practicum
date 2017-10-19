@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Pair;
 
+import com.example.santo.practicum.Enums.CharacterClass;
 import com.example.santo.practicum.Enums.Stats;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Created by Santo on 9/28/2017.
  */
 
-public class Warrior extends PB_Character implements Serializable {
+public class Warrior extends Fighter implements Serializable {
     private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 100);

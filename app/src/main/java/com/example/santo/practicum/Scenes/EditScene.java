@@ -1,18 +1,12 @@
 package com.example.santo.practicum.Scenes;
 
-import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.santo.practicum.GameObjects.Equipment;
-import com.example.santo.practicum.GameObjects.GameButton;
-import com.example.santo.practicum.GameObjects.GameObject;
-import com.example.santo.practicum.GameObjects.PB_Character;
+import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.PB_GLSurfaceView;
 
 public class EditScene extends GameScene {
-    PB_Character selectedCharacter;
+    Fighter selectedCharacter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

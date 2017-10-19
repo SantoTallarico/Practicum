@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Santo on 7/20/2017.
  */
 
-public abstract class PB_Character extends GameObject implements Serializable {
+public abstract class Fighter extends GameObject implements Serializable {
     String name;
     public CharacterClass charClass;
     int level;
@@ -71,7 +71,7 @@ public abstract class PB_Character extends GameObject implements Serializable {
 
     public static final transient int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900 };
 
-    public PB_Character(Rect d, Bitmap sprite, int layer, int startingLevel) {
+    public Fighter(Rect d, Bitmap sprite, int layer, int startingLevel) {
         super(d, sprite, layer);
         level = startingLevel;
         tileIcon = sprite;

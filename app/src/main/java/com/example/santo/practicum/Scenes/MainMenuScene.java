@@ -3,6 +3,7 @@ package com.example.santo.practicum.Scenes;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -15,7 +16,8 @@ import android.view.View;
 import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
-import com.example.santo.practicum.GameObjects.PB_Character;
+import com.example.santo.practicum.GameObjects.Fighter;
+import com.example.santo.practicum.GameObjects.Team;
 import com.example.santo.practicum.GameObjects.Warrior;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
@@ -27,10 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenuScene extends GameScene {
-    public static List<PB_Character> generatedCharacters = new ArrayList<PB_Character>();
+    public static List<Fighter> generatedCharacters = new ArrayList<Fighter>();
     public static List<Equipment> generatedEquipment = new ArrayList<Equipment>();
     public static Bitmap bitmap;
     public static Bitmap palette1 = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
+    public static Fighter EMPTY_CHARACTER;
+
+    public static Team team = new Team(4);
+
     GameObject p1 = new GameObject(new Rect(-550, 250, -250, 550), palette1, 100);
 
     MediaPlayer musicPlayer;
@@ -55,6 +61,20 @@ public class MainMenuScene extends GameScene {
 
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
+
+        EMPTY_CHARACTER = new Fighter(new Rect(0, 0, 0, 0),
+                BitmapFactory.decodeResource(this.getResources(), this.getResources().getIdentifier("drawable/painting", null, this.getPackageName())),
+                100, 1) {
+            @Override
+            public void Fight() {
+
+            }
+        };
+
+        team.Init(EMPTY_CHARACTER);
+
+        GameObject backgroundImage = new GameObject(new Rect(-540, -960, 540, 960), "drawable/argyle", 1);
+        gameObjects.add(backgroundImage);
 
         GameButton btnFight = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
         GameButton btnGeneratePhoto = new GameButton(new Rect(-150, -50, 150, 50), "drawable/btngenerate", 100);
@@ -149,7 +169,7 @@ public class MainMenuScene extends GameScene {
 
                     if (colourInfo[0] % 2 == 0) {
 
-                        PB_Character character = new Warrior(new Rect(-300, -300, 300, 300), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Fighter character = new Warrior(new Rect(-300, -300, 300, 300), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
                         generatedCharacters.add(character);
                     }
                     else {

@@ -8,11 +8,13 @@ import android.view.View;
 import com.example.santo.practicum.GameObjects.FightController;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.Fighter;
+import com.example.santo.practicum.GameObjects.Team;
 import com.example.santo.practicum.PB_GLSurfaceView;
 
 public class FightScene extends GameScene {
-    FightController controller = new FightController();
+    FightController controller;
     Fighter activeCharacter;
+    Team playerTeam = MainMenuScene.team;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +23,20 @@ public class FightScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        gameObjects.add(controller);
+        playerTeam.Get(0).TranslateTo(300, 300);
+        playerTeam.Get(1).TranslateTo(300, 100);
+        playerTeam.Get(2).TranslateTo(300, -100);
+        playerTeam.Get(3).TranslateTo(300, -300);
 
-        GameButton btnCampaign = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
+        gameObjects.add(playerTeam.Get(0));
+        gameObjects.add(playerTeam.Get(1));
+        gameObjects.add(playerTeam.Get(2));
+        gameObjects.add(playerTeam.Get(3));
+
+        controller = new FightController(playerTeam.GetTeam());
+        //gameObjects.add(controller);
+
+        GameButton btnCampaign = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnfight", 100);
         gameObjects.add(btnCampaign);
 
         btnCampaign.SetOnClickListener(new View.OnClickListener() {

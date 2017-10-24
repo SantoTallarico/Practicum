@@ -27,10 +27,10 @@ public class ViewEditScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        final GameButton btnTeam1 = new GameButton(new Rect(-350, 450, -250, 550), team.Get(0).tileIcon, 100);
-        final GameButton btnTeam2 = new GameButton(new Rect(-150, 450, -50, 550), team.Get(1).tileIcon, 100);
-        final GameButton btnTeam3 = new GameButton(new Rect(50, 450, 150, 550), team.Get(2).tileIcon, 100);
-        final GameButton btnTeam4 = new GameButton(new Rect(250, 450, 350, 550), team.Get(3).tileIcon, 100);
+        final GameButton btnTeam1 = new GameButton(new Rect(-350, 550, -250, 450), team.Get(0).tileIcon, 100);
+        final GameButton btnTeam2 = new GameButton(new Rect(-150, 550, -50, 450), team.Get(1).tileIcon, 100);
+        final GameButton btnTeam3 = new GameButton(new Rect(50, 550, 150, 450), team.Get(2).tileIcon, 100);
+        final GameButton btnTeam4 = new GameButton(new Rect(250, 550, 350, 450), team.Get(3).tileIcon, 100);
         gameObjects.add(btnTeam1);
         gameObjects.add(btnTeam2);
         gameObjects.add(btnTeam3);
@@ -77,7 +77,7 @@ public class ViewEditScene extends GameScene {
             }
         });
 
-        final GameButton btnEdit = new GameButton(new Rect(-150, -550, 150, -450), "drawable/btnfight", 100);
+        final GameButton btnEdit = new GameButton(new Rect(-150, -450, 150, -550), "drawable/btnfight", 100);
         btnEdit.touchable = false;
         gameObjects.add(btnEdit);
 
@@ -95,7 +95,7 @@ public class ViewEditScene extends GameScene {
         else {
             int i = 0;
             for (final Fighter character : MainMenuScene.generatedCharacters) {
-                GameButton button = new GameButton(new Rect(-450 + i * 150, 250, -350 + i * 150, 350), character.tileIcon, 100);
+                GameButton button = new GameButton(new Rect(-450 + i * 150, 350, -350 + i * 150, 250), character.tileIcon, 100);
 
                 button.SetOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -117,7 +117,7 @@ public class ViewEditScene extends GameScene {
         else {
             int i = 0;
             for (final Equipment equipment : MainMenuScene.generatedEquipment) {
-                GameObject object = new GameObject(new Rect(-450 + i * 150, -350, -350 + i * 150, -250), equipment.tileIcon, 100);
+                GameObject object = new GameObject(new Rect(-450 + i * 150, -250, -350 + i * 150, -350), equipment.tileIcon, 100);
 
                 gameObjects.add(object);
 

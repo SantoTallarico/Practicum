@@ -9,6 +9,7 @@ import com.example.santo.practicum.Enums.Stats;
  */
 
 public class DamageAction extends FightAction {
+
     public DamageAction(Fighter u, Fighter t) {
         super(u, t, 1, u.GetStat(Stats.speed));
     }

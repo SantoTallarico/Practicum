@@ -41,4 +41,8 @@ public class Team {
     public Fighter Get(int position) {
         return teamCharacters.get(position);
     }
+
+    public List<Fighter> GetTeam() {
+        return teamCharacters;
+    }
 }

@@ -37,7 +37,7 @@ public class MainMenuScene extends GameScene {
 
     public static Team team = new Team(4);
 
-    GameObject p1 = new GameObject(new Rect(-550, 250, -250, 550), palette1, 100);
+    GameObject p1 = new GameObject(new Rect(-550, 550, -250, 250), palette1, 100);
 
     MediaPlayer musicPlayer;
     AudioAttributes attributes = new AudioAttributes.Builder()
@@ -73,12 +73,12 @@ public class MainMenuScene extends GameScene {
 
         team.Init(EMPTY_CHARACTER);
 
-        GameObject backgroundImage = new GameObject(new Rect(-540, -960, 540, 960), "drawable/argyle", 1);
+        GameObject backgroundImage = new GameObject(new Rect(-540, 960, 540, -960), "drawable/argyle", 1);
         gameObjects.add(backgroundImage);
 
-        GameButton btnFight = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
-        GameButton btnGeneratePhoto = new GameButton(new Rect(-150, -50, 150, 50), "drawable/btngenerate", 100);
-        GameButton btnViewEdit = new GameButton(new Rect(-150, -350, 150, -250), "drawable/btnviewedit", 100);
+        GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnfight", 100);
+        GameButton btnGeneratePhoto = new GameButton(new Rect(-150, 50, 150, -50), "drawable/btngenerate", 100);
+        GameButton btnViewEdit = new GameButton(new Rect(-150, -250, 150, -350), "drawable/btnviewedit", 100);
         gameObjects.add(btnFight);
         gameObjects.add(btnGeneratePhoto);
         gameObjects.add(btnViewEdit);
@@ -169,12 +169,12 @@ public class MainMenuScene extends GameScene {
 
                     if (colourInfo[0] % 2 == 0) {
 
-                        Fighter character = new Warrior(new Rect(-300, -300, 300, 300), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
                         generatedCharacters.add(character);
                     }
                     else {
 
-                        Equipment equipment = new Equipment(new Rect(-300, -300, 300, 300), palette1, 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
                         generatedEquipment.add(equipment);
                     }
                 }

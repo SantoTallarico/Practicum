@@ -12,11 +12,12 @@ import java.util.List;
  */
 
 public class FightController extends GameObject {
+    public List<Fighter> playerFighters = new ArrayList<Fighter>();
     public List<FightAction> queuedActions = new ArrayList<FightAction>();
 
-    public FightController() {
+    public FightController(List<Fighter> pFighters) {
         super(new Rect(0, 0, 0, 0), "", 0);
-
+        playerFighters = pFighters;
     }
 
     void RunActions() {

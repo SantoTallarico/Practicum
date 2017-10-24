@@ -18,7 +18,7 @@ public class FightCampaignSelectScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        GameButton btnCampaign = new GameButton(new Rect(-150, 250, 150, 350), "drawable/btnfight", 100);
+        GameButton btnCampaign = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnfight", 100);
         gameObjects.add(btnCampaign);
 
         btnCampaign.SetOnClickListener(new View.OnClickListener() {

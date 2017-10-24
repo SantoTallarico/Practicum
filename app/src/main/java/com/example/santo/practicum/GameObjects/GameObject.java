@@ -11,17 +11,17 @@ import java.io.Serializable;
  */
 
 public class GameObject implements Serializable {
-    public transient Rect defaultDimensions;
-    public transient Rect dimensions;
     public String spriteLocation;
     public boolean isSpriteGenerated = false;
     public transient Bitmap generatedSprite;
     public int textureID;
 
-    public float[] vertices = {-1f, -1f, 0.0f,
-                                -1f, 1f, 0.0f,
-                                1f, 1f, 0.0f,
-                                1f, -1f, 0.0f};
+    public final float[] VERTICES = {-0.5f, 0.5f, 0.0f,
+                                    -0.5f, -0.5f, 0.0f,
+                                    0.5f, -0.5f, 0.0f,
+                                    0.5f, 0.5f, 0.0f};
+
+    public float[] vertices = VERTICES.clone();
     //transform parameters, 2d so only need [x, y] transform and scale, rotation in radians
     public float[] translation = {0, 0};
     public float[] scale = {1, 1};
@@ -35,8 +35,10 @@ public class GameObject implements Serializable {
     public transient View.OnClickListener clickListener;
 
     public GameObject(Rect d, String spriteLoc, int layer) {
-        defaultDimensions = d;
-        dimensions = d;
+        translation[0] = d.left + d.width() / 2;
+        translation[1] = d.top + d.height() / 2;
+        scale[0] = d.width();
+        scale[1] = -d.height();
         spriteLocation = spriteLoc;
         spriteLayer = layer;
 
@@ -44,8 +46,10 @@ public class GameObject implements Serializable {
     }
 
     public GameObject(Rect d, Bitmap sprite, int layer) {
-        defaultDimensions = d;
-        dimensions = d;
+        translation[0] = d.left + d.width() / 2;
+        translation[1] = d.top + d.height() / 2;
+        scale[0] = d.width();
+        scale[1] = -d.height();
         generatedSprite = sprite;
         isSpriteGenerated = true;
         spriteLayer = layer;
@@ -54,14 +58,8 @@ public class GameObject implements Serializable {
     }
 
     private void SetVertices() {
-        vertices[0] = dimensions.left;
-        vertices[1] = dimensions.bottom;
-        vertices[3] = dimensions.left;
-        vertices[4] = dimensions.top;
-        vertices[6] = dimensions.right;
-        vertices[7] = dimensions.top;
-        vertices[9] = dimensions.right;
-        vertices[10] = dimensions.bottom;
+        ApplyScale();
+        ApplyTranslation();
 
         vertices[2] = spriteLayer;
         vertices[5] = spriteLayer;
@@ -69,24 +67,37 @@ public class GameObject implements Serializable {
         vertices[11] = spriteLayer;
     }
 
+    public boolean Contains(float x, float y) {
+        return x > translation[0] - scale[0] / 2 && x < translation[0] + scale[0] / 2 &&
+                y > translation[1] - scale[1] / 2 && y < translation[1] + scale[1] / 2;
+    }
+
     public void Translate(float deltaX, float deltaY) {
         translation[0] += deltaX;
         translation[1] += deltaY;
+
+        SetVertices();
     }
 
     public void TranslateTo(float newX, float newY) {
         translation[0] = newX;
         translation[1] = newY;
+
+        SetVertices();
     }
 
     public void Scale(float deltaX, float deltaY) {
         scale[0] *= deltaX;
         scale[1] *= deltaY;
+
+        SetVertices();
     }
 
     public void ScaleTo(float newX, float newY) {
         scale[0] = newX;
         scale[1] = newY;
+
+        SetVertices();
     }
 
     public void Rotate(float deltaR) {
@@ -95,6 +106,28 @@ public class GameObject implements Serializable {
 
     public void RotateTo(float newR) {
         rotation = newR;
+    }
+
+    public void ApplyScale() {
+        vertices[0] = VERTICES[0] * scale[0];
+        vertices[1] = VERTICES[1] * scale[1];
+        vertices[3] = VERTICES[3] * scale[0];
+        vertices[4] = VERTICES[4] * scale[1];
+        vertices[6] = VERTICES[6] * scale[0];
+        vertices[7] = VERTICES[7] * scale[1];
+        vertices[9] = VERTICES[9] * scale[0];
+        vertices[10] = VERTICES[10] * scale[1];
+    }
+
+    public void ApplyTranslation() {
+        vertices[0] += translation[0];
+        vertices[1] += translation[1];
+        vertices[3] += translation[0];
+        vertices[4] += translation[1];
+        vertices[6] += translation[0];
+        vertices[7] += translation[1];
+        vertices[9] += translation[0];
+        vertices[10] += translation[1];
     }
 
     public void SetOnClickListener(View.OnClickListener listener) {

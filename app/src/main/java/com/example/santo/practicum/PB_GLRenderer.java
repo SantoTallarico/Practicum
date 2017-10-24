@@ -60,10 +60,10 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     public void processTouchEvent(MotionEvent event)
     {
-        int touchX = (int)(event.getRawX() - m_ScreenWidth / 2);
-        int touchY = (int)(m_ScreenHeight / 2 - event.getRawY());
+        float touchX = event.getRawX() - m_ScreenWidth / 2;
+        float touchY = m_ScreenHeight / 2 - event.getRawY();
         for (GameObject object : m_gameObjects) {
-            if (object.touchable == true && event.getAction() == MotionEvent.ACTION_DOWN && object.dimensions.contains(touchX, touchY)) {
+            if (object.touchable == true && event.getAction() == MotionEvent.ACTION_DOWN && object.Contains(touchX, touchY)) {
                 object.clickListener.onClick(mView);
             }
         }
@@ -240,11 +240,10 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         prevFrame = now;
     }
 
-    private void Render(float[] m) {
+    private void Render(float[] pvMatrix) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
-        int i = 0;
         for (GameObject object : m_gameObjects) {
             if (object.visible) {
                 vertexBuffer.put(object.vertices);
@@ -276,7 +275,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
                 int mtrxhandle = GLES20.glGetUniformLocation(Shaders.sp_Image, "uMVPMatrix");
 
                 // Apply the projection and view transformation
-                GLES20.glUniformMatrix4fv(mtrxhandle, 1, false, m, 0);
+                GLES20.glUniformMatrix4fv(mtrxhandle, 1, false, pvMatrix, 0);
 
                 // Get handle to textures locations
                 int mSamplerLoc = GLES20.glGetUniformLocation(Shaders.sp_Image, "s_texture");
@@ -289,8 +288,6 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
                 GLES20.glDisableVertexAttribArray(mPositionHandle);
                 GLES20.glDisableVertexAttribArray(mTexCoordLoc);
             }
-
-            i++;
         }
     }
 }

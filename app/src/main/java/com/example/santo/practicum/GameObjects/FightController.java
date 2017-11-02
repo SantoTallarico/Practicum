@@ -16,11 +16,15 @@ public class FightController extends GameObject {
     public List<FightAction> queuedActions = new ArrayList<FightAction>();
 
     public FightController(List<Fighter> pFighters) {
-        super(new Rect(0, 0, 0, 0), "", 0);
+        super(new Rect(0, 0, 0, 0), "drawable/painting", 0);
         playerFighters = pFighters;
     }
 
-    void RunActions() {
+    public void ListActions() {
+
+    }
+
+    public void RunActions() {
         for (FightAction action : queuedActions) {
             action.ApplyAction();
         }

@@ -64,7 +64,7 @@ public class MainMenuScene extends GameScene {
 
         EMPTY_CHARACTER = new Fighter(new Rect(0, 0, 0, 0),
                 BitmapFactory.decodeResource(this.getResources(), this.getResources().getIdentifier("drawable/painting", null, this.getPackageName())),
-                100, 1) {
+                0, 0, 0, 100, 1) {
             @Override
             public void Fight() {
 
@@ -169,12 +169,12 @@ public class MainMenuScene extends GameScene {
 
                     if (colourInfo[0] % 2 == 0) {
 
-                        Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, 0, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
                         generatedCharacters.add(character);
                     }
                     else {
 
-                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 0, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 90, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
                         generatedEquipment.add(equipment);
                     }
                 }

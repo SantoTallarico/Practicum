@@ -77,12 +77,23 @@ public class ViewEditScene extends GameScene {
             }
         });
 
-        final GameButton btnEdit = new GameButton(new Rect(-150, -450, 150, -550), "drawable/btnfight", 100);
+        final GameButton btnEdit = new GameButton(new Rect(-150, -350, 150, -450), "drawable/btnfight", 100);
         btnEdit.touchable = false;
         gameObjects.add(btnEdit);
 
 
         btnEdit.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EditScene.class);
+                startActivity(i);
+            }
+        });
+
+
+        final GameButton btnSendTeam = new GameButton(new Rect(-150, -550, 150, -650), "drawable/btnfight", 100);
+        gameObjects.add(btnSendTeam);
+
+        btnSendTeam.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), EditScene.class);
                 startActivity(i);
@@ -117,7 +128,7 @@ public class ViewEditScene extends GameScene {
         else {
             int i = 0;
             for (final Equipment equipment : MainMenuScene.generatedEquipment) {
-                GameObject object = new GameObject(new Rect(-450 + i * 150, -250, -350 + i * 150, -350), equipment.tileIcon, 100);
+                GameObject object = new GameObject(new Rect(-450 + i * 150, -150, -350 + i * 150, -250), equipment.tileIcon, 100);
 
                 gameObjects.add(object);
 

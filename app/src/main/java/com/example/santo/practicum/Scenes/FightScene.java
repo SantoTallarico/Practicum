@@ -1,7 +1,6 @@
 package com.example.santo.practicum.Scenes;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +14,7 @@ public class FightScene extends GameScene {
     FightController controller;
     Fighter activeCharacter;
     Team playerTeam = MainMenuScene.team;
+    Team enemyTeam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +33,25 @@ public class FightScene extends GameScene {
         gameObjects.add(playerTeam.Get(2));
         gameObjects.add(playerTeam.Get(3));
 
+        enemyTeam = new Team(4);
+        enemyTeam.Init(MainMenuScene.EMPTY_CHARACTER);
+        enemyTeam.Add(Fighter.RandomFighter(), 0);
+        enemyTeam.Add(Fighter.RandomFighter(), 1);
+        enemyTeam.Add(Fighter.RandomFighter(), 2);
+        enemyTeam.Add(Fighter.RandomFighter(), 3);
+
+        enemyTeam.Get(0).TranslateTo(-300, 300);
+        enemyTeam.Get(1).TranslateTo(-300, 100);
+        enemyTeam.Get(2).TranslateTo(-300, -100);
+        enemyTeam.Get(3).TranslateTo(-300, -300);
+
+        gameObjects.add(enemyTeam.Get(0));
+        gameObjects.add(enemyTeam.Get(1));
+        gameObjects.add(enemyTeam.Get(2));
+        gameObjects.add(enemyTeam.Get(3));
+
         controller = new FightController(playerTeam.GetTeam());
         //gameObjects.add(controller);
-
-        GameButton btnCampaign = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnfight", 100);
-        gameObjects.add(btnCampaign);
-
-        btnCampaign.SetOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), FightSelectScene.class);
-                startActivity(i);
-            }
-        });
     }
 
     @Override

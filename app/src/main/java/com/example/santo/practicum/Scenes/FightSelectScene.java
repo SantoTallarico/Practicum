@@ -27,10 +27,13 @@ public class FightSelectScene extends GameScene {
         gameObjects.add(btnTeam3);
         gameObjects.add(btnTeam4);
 
-        GameButton btnCampaign = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnfight", 100);
+        GameButton btnCampaign = new GameButton(new Rect(-150, 150, 150, 50), "drawable/btnfight", 100);
         GameButton btnRandom = new GameButton(new Rect(-150, -250, 150, -350), "drawable/btnfight", 100);
+        GameButton btnNetwork = new GameButton(new Rect(-150, -650, 150, -750), "drawable/btnfight", 100);
         gameObjects.add(btnCampaign);
         gameObjects.add(btnRandom);
+        gameObjects.add(btnNetwork);
+
 
         btnCampaign.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -40,6 +43,13 @@ public class FightSelectScene extends GameScene {
         });
 
         btnRandom.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), FightScene.class);
+                startActivity(i);
+            }
+        });
+
+        btnNetwork.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
                 startActivity(i);

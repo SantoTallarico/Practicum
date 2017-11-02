@@ -26,8 +26,8 @@ public class Warrior extends Fighter implements Serializable {
         }
     };
 
-    public Warrior(Rect d, Bitmap sprite, int layer, int startingLevel, int red, int green, int blue) {
-        super(d, sprite, layer, startingLevel);
+    public Warrior(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel, int red, int green, int blue) {
+        super(d, sprite, p1, p2, p3, layer, startingLevel);
         charClass = CharacterClass.warrior;
 
         InitializeStats(red, green, blue);

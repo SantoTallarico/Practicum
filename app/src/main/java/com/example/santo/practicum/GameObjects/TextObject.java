@@ -22,6 +22,7 @@ public class TextObject extends GameObject {
         paint.setAntiAlias(true);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawText(t, 16, -d.height() / 2 + 8, paint);
+
+        canvas.drawText(t, d.width() / 2 - paint.measureText(t) / 2, -d.height() / 2 + 8, paint);
     }
 }

@@ -76,7 +76,7 @@ public class MainMenuScene extends GameScene {
 
         GameObject backgroundImage = new GameObject(new Rect(-540, 960, 540, -960), "drawable/argyle", 1);
         gameObjects.add(backgroundImage);
-        
+
         TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100);
         gameObjects.add(text);
 

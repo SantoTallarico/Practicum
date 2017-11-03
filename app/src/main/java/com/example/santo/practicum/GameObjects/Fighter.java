@@ -100,11 +100,12 @@ public abstract class Fighter extends GameObject implements Serializable {
     }
 
     public void ApplyEquipment() {
-        tempMaxHitPoints = maxHitPoints + weapon.modHitPoints + armor.modHitPoints;
-        tempAttack = attack + weapon.modAttack + armor.modAttack;
-        tempDefence = defence + weapon.modDefence + armor.modDefence;
-        tempMagicDefence = magicDefence + weapon.modMagicDefence + armor.modMagicDefence;
-        tempSpeed = speed + weapon.modSpeed + armor.modSpeed;
+        tempMaxHitPoints = maxHitPoints + (weapon == null ? 0 : weapon.modHitPoints) + (armor == null ? 0 : armor.modHitPoints);
+        tempHitPoints = tempMaxHitPoints;
+        tempAttack = attack + (weapon == null ? 0 : weapon.modAttack) + (armor == null ? 0 : armor.modAttack);
+        tempDefence = defence + (weapon == null ? 0 : weapon.modDefence) + (armor == null ? 0 : armor.modDefence);
+        tempMagicDefence = magicDefence + (weapon == null ? 0 : weapon.modMagicDefence) + (armor == null ? 0 : armor.modMagicDefence);
+        tempSpeed = speed + (weapon == null ? 0 : weapon.modSpeed) + (armor == null ? 0 : armor.modSpeed);
     }
 
     public void ModifyStat(Stats stat, int modValue) {

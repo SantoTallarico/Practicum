@@ -76,6 +76,9 @@ public class MainMenuScene extends GameScene {
 
         GameObject backgroundImage = new GameObject(new Rect(-540, 960, 540, -960), "drawable/argyle", 1);
         gameObjects.add(backgroundImage);
+        
+        TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100);
+        gameObjects.add(text);
 
         GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
         TextObject btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Fight!", 100);
@@ -107,9 +110,6 @@ public class MainMenuScene extends GameScene {
                 startActivity(i);
             }
         });
-
-        TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100);
-        gameObjects.add(text);
     }
 
     @Override
@@ -175,12 +175,12 @@ public class MainMenuScene extends GameScene {
 
                     if (colourInfo[0] % 2 == 0) {
 
-                        Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                         generatedCharacters.add(character);
                     }
                     else {
 
-                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 90, colourInfo[0] / (32 * 32), colourInfo[1] / (32 * 32), colourInfo[2] / (32 * 32));
+                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 90, colourInfo[0], colourInfo[1], colourInfo[2]);
                         generatedEquipment.add(equipment);
                     }
                 }

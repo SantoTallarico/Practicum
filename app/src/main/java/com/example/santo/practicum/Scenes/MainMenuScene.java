@@ -18,6 +18,7 @@ import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.Team;
+import com.example.santo.practicum.GameObjects.TextObject;
 import com.example.santo.practicum.GameObjects.Warrior;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
@@ -76,10 +77,12 @@ public class MainMenuScene extends GameScene {
         GameObject backgroundImage = new GameObject(new Rect(-540, 960, 540, -960), "drawable/argyle", 1);
         gameObjects.add(backgroundImage);
 
-        GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnfight", 100);
+        GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
+        TextObject btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Fight!", 100);
         GameButton btnGeneratePhoto = new GameButton(new Rect(-150, 50, 150, -50), "drawable/btngenerate", 100);
         GameButton btnViewEdit = new GameButton(new Rect(-150, -250, 150, -350), "drawable/btnviewedit", 100);
         gameObjects.add(btnFight);
+        gameObjects.add(btnFightText);
         gameObjects.add(btnGeneratePhoto);
         gameObjects.add(btnViewEdit);
 
@@ -104,6 +107,9 @@ public class MainMenuScene extends GameScene {
                 startActivity(i);
             }
         });
+
+        TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100);
+        gameObjects.add(text);
     }
 
     @Override

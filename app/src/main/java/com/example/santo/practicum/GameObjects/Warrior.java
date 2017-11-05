@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import com.example.santo.practicum.Enums.CharacterClass;
 import com.example.santo.practicum.Enums.Stats;
+import com.example.santo.practicum.FightActions.DamageAction;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class Warrior extends Fighter implements Serializable {
         charClass = CharacterClass.warrior;
 
         InitializeStats(red, green, blue);
+
+        fightActions.add(new DamageAction(this, this));
 
         for (int i = 1; i < startingLevel; i++) {
             LevelUp();

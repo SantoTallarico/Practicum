@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.Enums.TextAlign;
 import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
@@ -77,11 +78,11 @@ public class MainMenuScene extends GameScene {
         GameObject backgroundImage = new GameObject(new Rect(-540, 960, 540, -960), "drawable/argyle", 1);
         gameObjects.add(backgroundImage);
 
-        TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100);
+        TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100, TextAlign.center);
         gameObjects.add(text);
 
         GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
-        TextObject btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Fight!", 100);
+        TextObject btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Fight!", 100, TextAlign.center);
         GameButton btnGeneratePhoto = new GameButton(new Rect(-150, 50, 150, -50), "drawable/btngenerate", 100);
         GameButton btnViewEdit = new GameButton(new Rect(-150, -250, 150, -350), "drawable/btnviewedit", 100);
         gameObjects.add(btnFight);

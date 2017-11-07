@@ -6,17 +6,22 @@ import com.example.santo.practicum.GameObjects.Fighter;
  * Created by Santo on 10/16/2017.
  */
 
-public abstract class FightAction {
+public abstract class FightAction implements Comparable<FightAction> {
     public Fighter user;
     public Fighter target;
-    int actionCount;
-    int priority;
+    public int priority;
+    public String name;
 
-    public FightAction(Fighter u, Fighter t, int count, int p) {
+    public FightAction(String n, Fighter u, Fighter t, int p) {
+        name = n;
         user = u;
         target = t;
-        actionCount = count;
         priority = p;
+    }
+
+    @Override
+    public int compareTo(FightAction other) {
+        return Integer.compare(this.priority, other.priority);
     }
 
     public abstract void ApplyAction();

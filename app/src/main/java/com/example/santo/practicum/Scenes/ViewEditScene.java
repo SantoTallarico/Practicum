@@ -95,8 +95,7 @@ public class ViewEditScene extends GameScene {
 
         btnSendTeam.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), EditScene.class);
-                startActivity(i);
+
             }
         });
 

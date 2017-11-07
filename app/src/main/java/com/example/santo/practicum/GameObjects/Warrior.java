@@ -20,7 +20,7 @@ public class Warrior extends Fighter implements Serializable {
     private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 100);
-            put(Stats.attack, 50);
+            put(Stats.attack, 5000);
             put(Stats.defence, 50);
             put(Stats.magicDefence, 10);
             put(Stats.speed, 30);
@@ -33,7 +33,9 @@ public class Warrior extends Fighter implements Serializable {
 
         InitializeStats(red, green, blue);
 
-        fightActions.add(new DamageAction(this, this));
+        fightActions.add(new DamageAction("Attack", this, this));
+        fightActions.add(new DamageAction("Defend", this, this));
+        fightActions.add(new DamageAction("Guard Ally", this, this));
 
         for (int i = 1; i < startingLevel; i++) {
             LevelUp();

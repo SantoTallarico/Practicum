@@ -10,8 +10,8 @@ import com.example.santo.practicum.Enums.Stats;
 
 public class DamageAction extends FightAction {
 
-    public DamageAction(Fighter u, Fighter t) {
-        super(u, t, 1, u.GetStat(Stats.speed));
+    public DamageAction(String n, Fighter u, Fighter t) {
+        super(n, u, t, u.GetStat(Stats.speed));
     }
 
     public void ApplyAction() {
@@ -25,12 +25,10 @@ public class DamageAction extends FightAction {
 
         int damage = user.GetStat(Stats.attack) - target.GetStat(defenceType);
 
-        if (damage < 0) {
-            damage = 0;
+        if (damage < 1) {
+            damage = 1;
         }
 
-        target.ModifyStat(Stats.hitPoints, damage);
-
-        actionCount--;
+        target.ModifyStat(Stats.hitPoints, -damage);
     }
 }

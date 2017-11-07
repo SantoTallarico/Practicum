@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.Enums.TextAlign;
 import com.example.santo.practicum.FightListener;
 import com.example.santo.practicum.GameObjects.FightController;
@@ -17,13 +18,14 @@ import com.example.santo.practicum.PB_GLSurfaceView;
 
 public class FightScene extends GameScene implements FightListener {
     FightController controller;
-    Fighter activeCharacter;
     Team playerTeam = MainMenuScene.team;
     Team enemyTeam;
 
     TextObject btnFightText;
     TextObject txtAction1, txtAction2, txtAction3;
     GameButton btnAction1, btnAction2, btnAction3;
+
+    TextObject txtFighter1HP, txtFighter2HP, txtFighter3HP, txtFighter4HP;
 
     Rect action1 = new Rect(-100, -300, 100, -400);
     Rect action2 = new Rect(-100, -400, 100, -500);
@@ -37,6 +39,17 @@ public class FightScene extends GameScene implements FightListener {
 
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
+
+        GameObject statsBackground = new GameObject(new Rect(150, -450, 450, -850), "drawable/btnbackground", 90);
+        txtFighter1HP = new TextObject(new Rect(150, -450, 450, -550), "Fighter 1 HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter2HP = new TextObject(new Rect(150, -550, 450, -650), "Fighter 2 HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter3HP = new TextObject(new Rect(150, -650, 450, -750), "Fighter 3 HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter4HP = new TextObject(new Rect(150, -750, 450, -850), "Fighter 4 HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        gameObjects.add(statsBackground);
+        gameObjects.add(txtFighter1HP);
+        gameObjects.add(txtFighter2HP);
+        gameObjects.add(txtFighter3HP);
+        gameObjects.add(txtFighter4HP);
 
         GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
         btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Result", 100, TextAlign.center);
@@ -105,8 +118,33 @@ public class FightScene extends GameScene implements FightListener {
         });
 
         txtAction2.SetText(controller.activeFighter.fightActions.get(1).name, TextAlign.center);
+        btnAction2.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeFighter.fightActions.get(1));
+                controller.NextFighter();
+            }
+        });
 
         txtAction3.SetText(controller.activeFighter.fightActions.get(2).name, TextAlign.center);
+        btnAction3.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeFighter.fightActions.get(2));
+                controller.NextFighter();
+            }
+        });
+    }
+
+    @Override
+    public void UpdateText() {
+        txtFighter1HP.SetText("Fighter 1 HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter2HP.SetText("Fighter 2 HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter3HP.SetText("Fighter 3 HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter4HP.SetText("Fighter 4 HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
+
+        glView.AddTexture(txtFighter1HP);
+        glView.AddTexture(txtFighter2HP);
+        glView.AddTexture(txtFighter3HP);
+        glView.AddTexture(txtFighter4HP);
     }
 
     @Override

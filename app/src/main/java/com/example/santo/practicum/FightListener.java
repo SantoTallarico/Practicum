@@ -7,4 +7,5 @@ package com.example.santo.practicum;
 public interface FightListener {
     void ListActions();
     void EndFight(boolean isPlayerWinner);
+    void UpdateText();
 }

@@ -20,7 +20,7 @@ public class Warrior extends Fighter implements Serializable {
     private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 100);
-            put(Stats.attack, 5000);
+            put(Stats.attack, 70);
             put(Stats.defence, 50);
             put(Stats.magicDefence, 10);
             put(Stats.speed, 30);

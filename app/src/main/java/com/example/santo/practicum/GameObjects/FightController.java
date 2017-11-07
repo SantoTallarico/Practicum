@@ -43,7 +43,10 @@ public class FightController {
 
         for (FightAction action : queuedActions) {
             action.ApplyAction();
+            listener.UpdateText();
         }
+
+        queuedActions.clear();
     }
 
     public void AddAction(FightAction action) {

@@ -75,28 +75,28 @@ public class Equipment extends GameObject implements Serializable {
 
         switch (type) {
             case sword:
-                modAttack = 5 + blue % 5;
-                modDefence = 5 - blue % 5;
+                modAttack = 5 + (blue % 5 + 1);
+                modDefence = 5 - (blue % 5 + 1);
                 break;
             case knife:
-                modAttack = 5 + blue % 5;
-                modSpeed = 5 - blue % 5;
+                modAttack = 5 + (blue % 5 + 1);
+                modSpeed = 5 - (blue % 5 + 1);
                 break;
             case staff:
-                modAttack = 5 + blue % 5;
-                modSpeed = 5 - blue % 5;
+                modAttack = 5 + (blue % 5 + 1);
+                modSpeed = 5 - (blue % 5 + 1);
                 break;
             case mace:
-                modAttack = 5 + blue % 5;
-                modMagicDefence = 5 - blue % 5;
+                modAttack = 5 + (blue % 5 + 1);
+                modMagicDefence = 5 - (blue % 5 + 1);
                 break;
             case armor:
-                modDefence = 4 + blue % 5;
-                modHitPoints = 5 - blue % 5;
+                modDefence = 4 + (blue % 5 + 1);
+                modHitPoints = 5 - (blue % 5 + 1);
                 break;
             case robe:
-                modDefence = 2 + blue % 5;
-                modMagicDefence = 2 + 5 - blue % 5;
+                modDefence = 2 + (blue % 5 + 1);
+                modMagicDefence = 2 + 5 - (blue % 5 + 1);
                 break;
         }
     }

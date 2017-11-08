@@ -77,6 +77,7 @@ public class EquipScene extends GameScene {
                         selectedCharacter.ApplyEquipment();
                     }
 
+                    finish();
                 }
             });
 

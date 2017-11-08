@@ -44,9 +44,9 @@ public abstract class Fighter extends GameObject implements Serializable {
     public transient Bitmap tileIcon;
     public int palette1, palette2, palette3;
 
-    public static final int MAX_LEVEL = 20;
+    public transient static final int MAX_LEVEL = 20;
 
-    public List<FightAction> fightActions = new ArrayList<FightAction>();
+    public transient List<FightAction> fightActions = new ArrayList<FightAction>();
 
     //First stat is raised, second stat is lowered. If stats are the same, no change
     protected transient final static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {

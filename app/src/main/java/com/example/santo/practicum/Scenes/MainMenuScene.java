@@ -185,11 +185,21 @@ public class MainMenuScene extends GameScene {
 
                         Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                         generatedCharacters.add(character);
+
+                        Intent i = new Intent(getApplicationContext(), GenerationResultsScene.class);
+                        i.putExtra("typeFlag", true);
+                        i.putExtra("fighter", character);
+                        startActivity(i);
                     }
                     else {
 
                         Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 90, colourInfo[0], colourInfo[1], colourInfo[2]);
                         generatedEquipment.add(equipment);
+
+                        Intent i = new Intent(getApplicationContext(), GenerationResultsScene.class);
+                        i.putExtra("typeFlag", false);
+                        i.putExtra("equipment", equipment);
+                        startActivity(i);
                     }
                 }
                 catch (IOException e) {

@@ -1,12 +1,15 @@
 package com.example.santo.practicum.Scenes;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.santo.practicum.Enums.CharacterClassHelper;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.Enums.TextAlign;
 import com.example.santo.practicum.GameObjects.Fighter;
+import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.GameObjects.TextObject;
 import com.example.santo.practicum.PB_GLSurfaceView;
@@ -40,6 +43,27 @@ public class EditScene extends GameScene {
         gameObjects.add(txtDefence);
         gameObjects.add(txtMagicDefence);
         gameObjects.add(txtSpeed);
+
+        GameButton btnEquipWeapon = new GameButton(new Rect(-450, 350, -150, 250), "drawable/btnbackground", 90);
+        TextObject txtEquipWeapon = new TextObject(new Rect(-450, 350, -150, 250), "Equip Weapon", 100, TextAlign.center);
+        GameButton btnEquipArmor = new GameButton(new Rect(-450, 150, -150, 50), "drawable/btnbackground", 90);
+        TextObject txtEquipArmor = new TextObject(new Rect(-450, 150, -150, 50), "Equip Armor", 100, TextAlign.center);
+        gameObjects.add(btnEquipWeapon);
+        gameObjects.add(txtEquipWeapon);
+        gameObjects.add(btnEquipArmor);
+        gameObjects.add(txtEquipArmor);
+
+        btnEquipWeapon.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnEquipArmor.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

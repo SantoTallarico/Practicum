@@ -109,7 +109,6 @@ public class FightScene extends GameScene implements FightListener {
         activeFighterHighlight.TranslateTo(controller.activeFighter.translation[0], controller.activeFighter.translation[1]);
 
         txtAction1.SetText(controller.activeFighter.fightActions.get(0).name, TextAlign.center);
-
         btnAction1.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 controller.AddAction(controller.activeFighter.fightActions.get(0));

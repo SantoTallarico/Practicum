@@ -1,5 +1,6 @@
 package com.example.santo.practicum.GameObjects;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -100,6 +101,34 @@ public abstract class Fighter extends GameObject implements Serializable {
         int[] colourInfo = PhotoGeneration.Generate(b);
         Fighter random = new Warrior(new Rect(-50, 50, 50, -50), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
         return random;
+    }
+
+    public static Bitmap ApplyPalette(Context context, int p1, int p2, int p3) {
+        int id = context.getResources().getIdentifier("drawable/palettetest", null, context.getPackageName());
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inMutable = true;
+
+        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), id, options);
+
+        for (int i = 0; i < temp.getWidth(); i++) {
+            for (int j = 0; j < temp.getHeight(); j++) {
+                int colour = temp.getPixel(i, j);
+
+                switch (colour) {
+                    case 0xff7f7f7f:
+                        temp.setPixel(i, j, p1);
+                        break;
+                    case 0xff3f3f3f:
+                        temp.setPixel(i, j, p2);
+                        break;
+                    case 0xffbfbfbf:
+                        temp.setPixel(i, j, p3);
+                        break;
+                }
+            }
+        }
+
+        return temp;
     }
 
     public void ApplyEquipment() {

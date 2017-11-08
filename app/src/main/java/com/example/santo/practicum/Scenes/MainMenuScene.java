@@ -157,6 +157,8 @@ public class MainMenuScene extends GameScene {
                     bitmap = PhotoAccess.getBitmapFromUri(uri, this);
                     int[] colourInfo = PhotoGeneration.Generate(bitmap);
 
+                    //palette1 = Fighter.ApplyPalette(this, colourInfo[3], colourInfo[4], colourInfo[5]);
+
                     palette1 = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
 
                     for (int i = 0; i < 10; i++) {

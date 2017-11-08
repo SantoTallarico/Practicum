@@ -1,25 +1,31 @@
 package com.example.santo.practicum.Scenes;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.Enums.CharacterClassHelper;
+import com.example.santo.practicum.Enums.Stats;
+import com.example.santo.practicum.Enums.TextAlign;
 import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.GameObject;
+import com.example.santo.practicum.GameObjects.TextObject;
 import com.example.santo.practicum.PB_GLSurfaceView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.santo.practicum.Scenes.MainMenuScene.team;
 
 
 public class ViewEditScene extends GameScene {
     static Fighter selectedCharacter;
-    List<GameButton> characterTiles = new ArrayList<GameButton>();
+
+    TextObject txtClass, txtHP, txtAttack, txtDefence, txtMagicDefence, txtSpeed;
+
+    GameObject selectedCharacterHighlight = new GameObject(new Rect(10000, 10150, 10150, 10000), Bitmap.createBitmap(new int[] { 0xffffffff }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +33,27 @@ public class ViewEditScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        final GameButton btnTeam1 = new GameButton(new Rect(-350, 550, -250, 450), team.Get(0).tileIcon, 100);
-        final GameButton btnTeam2 = new GameButton(new Rect(-150, 550, -50, 450), team.Get(1).tileIcon, 100);
-        final GameButton btnTeam3 = new GameButton(new Rect(50, 550, 150, 450), team.Get(2).tileIcon, 100);
-        final GameButton btnTeam4 = new GameButton(new Rect(250, 550, 350, 450), team.Get(3).tileIcon, 100);
+        gameObjects.add(selectedCharacterHighlight);
+
+        GameObject statsBackground = new GameObject(new Rect(-400, 750, 400, 450), "drawable/btnbackground", 90);
+        txtClass = new TextObject(new Rect(-350, 750, -50, 650), "Class: ", 100, TextAlign.right);
+        txtHP = new TextObject(new Rect(-350, 650, -50, 550), "Hit Points: ", 100, TextAlign.right);
+        txtAttack = new TextObject(new Rect(-350, 550, -50, 450), "Attack: ", 100, TextAlign.right);
+        txtDefence = new TextObject(new Rect(50, 750, 350, 650), "Defence: ", 100, TextAlign.right);
+        txtMagicDefence = new TextObject(new Rect(50, 650, 350, 550), "Magic Defence: ", 100, TextAlign.right);
+        txtSpeed = new TextObject(new Rect(50, 550, 350, 450), "Speed: ", 100, TextAlign.right);
+        gameObjects.add(statsBackground);
+        gameObjects.add(txtClass);
+        gameObjects.add(txtHP);
+        gameObjects.add(txtAttack);
+        gameObjects.add(txtDefence);
+        gameObjects.add(txtMagicDefence);
+        gameObjects.add(txtSpeed);
+
+        final GameButton btnTeam1 = new GameButton(new Rect(-350, 400, -250, 300), team.Get(0).tileIcon, 100);
+        final GameButton btnTeam2 = new GameButton(new Rect(-150, 400, -50, 300), team.Get(1).tileIcon, 100);
+        final GameButton btnTeam3 = new GameButton(new Rect(50, 400, 150, 300), team.Get(2).tileIcon, 100);
+        final GameButton btnTeam4 = new GameButton(new Rect(250, 400, 350, 300), team.Get(3).tileIcon, 100);
         gameObjects.add(btnTeam1);
         gameObjects.add(btnTeam2);
         gameObjects.add(btnTeam3);
@@ -81,7 +104,6 @@ public class ViewEditScene extends GameScene {
         btnEdit.touchable = false;
         gameObjects.add(btnEdit);
 
-
         btnEdit.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), EditScene.class);
@@ -105,16 +127,17 @@ public class ViewEditScene extends GameScene {
         else {
             int i = 0;
             for (final Fighter character : MainMenuScene.generatedCharacters) {
-                GameButton button = new GameButton(new Rect(-450 + i * 150, 350, -350 + i * 150, 250), character.tileIcon, 100);
+                final GameButton button = new GameButton(new Rect(-450 + (i % 5) * 150, 250 - (i / 5) * 150, -350 + (i % 5) * 150, 150 - (i / 5) * 150), character.tileIcon, 100);
 
                 button.SetOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         selectedCharacter = character;
                         btnEdit.touchable = true;
+                        UpdateText();
+                        selectedCharacterHighlight.TranslateTo(button.translation[0], button.translation[1]);
                     }
                 });
 
-                characterTiles.add(button);
                 gameObjects.add(button);
 
                 i++;
@@ -134,6 +157,22 @@ public class ViewEditScene extends GameScene {
                 i++;
             }
         }
+    }
+
+    public void UpdateText() {
+        txtClass.SetText("Class: " + CharacterClassHelper.ToString(selectedCharacter.charClass), TextAlign.right);
+        txtHP.SetText("Hit Points: " + selectedCharacter.GetStat(Stats.hitPoints), TextAlign.right);
+        txtAttack.SetText("Attack: " + selectedCharacter.GetStat(Stats.attack), TextAlign.right);
+        txtDefence.SetText("Defence: " + selectedCharacter.GetStat(Stats.defence), TextAlign.right);
+        txtMagicDefence.SetText("Magic Defence: " + selectedCharacter.GetStat(Stats.magicDefence), TextAlign.right);
+        txtSpeed.SetText("Speed: " + selectedCharacter.GetStat(Stats.speed), TextAlign.right);
+
+        glView.AddTexture(txtClass);
+        glView.AddTexture(txtHP);
+        glView.AddTexture(txtAttack);
+        glView.AddTexture(txtDefence);
+        glView.AddTexture(txtMagicDefence);
+        glView.AddTexture(txtSpeed);
     }
 
     @Override

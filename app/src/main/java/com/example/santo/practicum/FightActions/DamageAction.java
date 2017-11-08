@@ -15,20 +15,21 @@ public class DamageAction extends FightAction {
     }
 
     public void ApplyAction() {
-        Stats defenceType;
-        if (user.charClass == CharacterClass.wizard) {
-            defenceType = Stats.magicDefence;
-        }
-        else {
-            defenceType = Stats.defence;
-        }
+        if (user.isAlive) {
+            Stats defenceType;
+            if (user.charClass == CharacterClass.wizard) {
+                defenceType = Stats.magicDefence;
+            } else {
+                defenceType = Stats.defence;
+            }
 
-        int damage = user.GetStat(Stats.attack) - target.GetStat(defenceType);
+            int damage = user.GetStat(Stats.attack) - target.GetStat(defenceType);
 
-        if (damage < 1) {
-            damage = 1;
+            if (damage < 1) {
+                damage = 1;
+            }
+
+            target.ModifyStat(Stats.hitPoints, -damage);
         }
-
-        target.ModifyStat(Stats.hitPoints, -damage);
     }
 }

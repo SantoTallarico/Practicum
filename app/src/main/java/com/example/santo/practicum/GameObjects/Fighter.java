@@ -9,6 +9,7 @@ import android.support.v4.graphics.ColorUtils;
 import android.util.Pair;
 
 import com.example.santo.practicum.Enums.CharacterClass;
+import com.example.santo.practicum.Enums.EquipmentType;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.PhotoGeneration;
@@ -33,8 +34,10 @@ public abstract class Fighter extends GameObject implements Serializable {
     int magicDefence, tempMagicDefence, magicDefenceGrowth;
     int speed, tempSpeed, speedGrowth;
 
-    Equipment weapon;
-    Equipment armor;
+    public Equipment weapon;
+    public Equipment armor;
+    public EquipmentType weaponType;
+    public EquipmentType armorType;
 
     boolean isPlayerControlled = true;
     public boolean isAlive = true;

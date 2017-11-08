@@ -32,6 +32,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
 
+        <activity android:name=".Scenes.EquipScene"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+
         <activity android:name=".Scenes.FightSelectScene"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize">

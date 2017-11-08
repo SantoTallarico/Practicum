@@ -22,7 +22,7 @@ import static com.example.santo.practicum.Scenes.MainMenuScene.team;
 public class ViewEditScene extends GameScene {
     static Fighter selectedCharacter;
 
-    TextObject txtClass, txtHP, txtAttack, txtDefence, txtMagicDefence, txtSpeed;
+    TextObject txtClass, txtHitPoints, txtAttack, txtDefence, txtMagicDefence, txtSpeed;
 
     GameObject selectedCharacterHighlight = new GameObject(new Rect(10000, 10150, 10150, 10000), Bitmap.createBitmap(new int[] { 0xffffffff }, 1, 1, Bitmap.Config.ARGB_8888), 10);
 
@@ -37,14 +37,14 @@ public class ViewEditScene extends GameScene {
 
         GameObject statsBackground = new GameObject(new Rect(-400, 750, 400, 450), "drawable/btnbackground", 90);
         txtClass = new TextObject(new Rect(-350, 750, -50, 650), "Class: ", 100, TextAlign.right);
-        txtHP = new TextObject(new Rect(-350, 650, -50, 550), "Hit Points: ", 100, TextAlign.right);
+        txtHitPoints = new TextObject(new Rect(-350, 650, -50, 550), "Hit Points: ", 100, TextAlign.right);
         txtAttack = new TextObject(new Rect(-350, 550, -50, 450), "Attack: ", 100, TextAlign.right);
         txtDefence = new TextObject(new Rect(50, 750, 350, 650), "Defence: ", 100, TextAlign.right);
         txtMagicDefence = new TextObject(new Rect(50, 650, 350, 550), "Magic Defence: ", 100, TextAlign.right);
         txtSpeed = new TextObject(new Rect(50, 550, 350, 450), "Speed: ", 100, TextAlign.right);
         gameObjects.add(statsBackground);
         gameObjects.add(txtClass);
-        gameObjects.add(txtHP);
+        gameObjects.add(txtHitPoints);
         gameObjects.add(txtAttack);
         gameObjects.add(txtDefence);
         gameObjects.add(txtMagicDefence);
@@ -100,9 +100,11 @@ public class ViewEditScene extends GameScene {
             }
         });
 
-        final GameButton btnEdit = new GameButton(new Rect(-150, -350, 150, -450), "drawable/btnfight", 100);
+        final GameButton btnEdit = new GameButton(new Rect(-150, -350, 150, -450), "drawable/btnbackground", 90);
         btnEdit.touchable = false;
+        TextObject btnEditText = new TextObject(new Rect(-150, -350, 150, -450), "Edit", 100, TextAlign.center);
         gameObjects.add(btnEdit);
+        gameObjects.add(btnEditText);
 
         btnEdit.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -112,8 +114,10 @@ public class ViewEditScene extends GameScene {
         });
 
 
-        final GameButton btnSendTeam = new GameButton(new Rect(-150, -550, 150, -650), "drawable/btnfight", 100);
+        final GameButton btnSendTeam = new GameButton(new Rect(-150, -550, 150, -650), "drawable/btnbackground", 90);
+        TextObject btnSendTeamText = new TextObject(new Rect(-150, -550, 150, -650), "Send Team", 100, TextAlign.center);
         gameObjects.add(btnSendTeam);
+        gameObjects.add(btnSendTeamText);
 
         btnSendTeam.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -161,14 +165,14 @@ public class ViewEditScene extends GameScene {
 
     public void UpdateText() {
         txtClass.SetText("Class: " + CharacterClassHelper.ToString(selectedCharacter.charClass), TextAlign.right);
-        txtHP.SetText("Hit Points: " + selectedCharacter.GetStat(Stats.hitPoints), TextAlign.right);
+        txtHitPoints.SetText("Hit Points: " + selectedCharacter.GetStat(Stats.hitPoints), TextAlign.right);
         txtAttack.SetText("Attack: " + selectedCharacter.GetStat(Stats.attack), TextAlign.right);
         txtDefence.SetText("Defence: " + selectedCharacter.GetStat(Stats.defence), TextAlign.right);
         txtMagicDefence.SetText("Magic Defence: " + selectedCharacter.GetStat(Stats.magicDefence), TextAlign.right);
         txtSpeed.SetText("Speed: " + selectedCharacter.GetStat(Stats.speed), TextAlign.right);
 
         glView.AddTexture(txtClass);
-        glView.AddTexture(txtHP);
+        glView.AddTexture(txtHitPoints);
         glView.AddTexture(txtAttack);
         glView.AddTexture(txtDefence);
         glView.AddTexture(txtMagicDefence);
@@ -183,6 +187,9 @@ public class ViewEditScene extends GameScene {
     @Override
     protected void onResume() {
         super.onResume();
+        if (selectedCharacter != null) {
+            UpdateText();
+        }
     }
 
     @Override

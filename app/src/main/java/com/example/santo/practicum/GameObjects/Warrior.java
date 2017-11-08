@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.util.Pair;
 
 import com.example.santo.practicum.Enums.CharacterClass;
+import com.example.santo.practicum.Enums.EquipmentType;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.DamageAction;
 
@@ -19,17 +20,20 @@ import java.util.Map;
 public class Warrior extends Fighter implements Serializable {
     private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
-            put(Stats.hitPoints, 100);
-            put(Stats.attack, 70);
-            put(Stats.defence, 50);
+            put(Stats.hitPoints, 50);
+            put(Stats.attack, 40);
+            put(Stats.defence, 20);
             put(Stats.magicDefence, 10);
-            put(Stats.speed, 30);
+            put(Stats.speed, 20);
         }
     };
 
     public Warrior(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel, int red, int green, int blue) {
         super(d, sprite, p1, p2, p3, layer, startingLevel);
         charClass = CharacterClass.warrior;
+
+        weaponType = EquipmentType.sword;
+        armorType = EquipmentType.armor;
 
         InitializeStats(red, green, blue);
 

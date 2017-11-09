@@ -6,5 +6,7 @@ package com.example.santo.practicum.Enums;
 
 public enum FightState {
     selectingAction,
-    selectingTarget
+    selectingTarget,
+    enemyAction,
+    actionsRunning
 }

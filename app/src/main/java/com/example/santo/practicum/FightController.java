@@ -11,6 +11,7 @@ import com.example.santo.practicum.GameObjects.Team;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Santo on 10/16/2017.
@@ -28,6 +29,8 @@ public class FightController {
 
     public FightListener listener;
 
+    public Random r = new Random();
+
     public FightController(Team playerTeam, Team enemyTeam) {
         playerFighters = playerTeam.GetTeam();
         enemyFighters = enemyTeam.GetTeam();
@@ -43,6 +46,7 @@ public class FightController {
     }
 
     public void RunActions() {
+        listener.UpdateState(FightState.actionsRunning);
         Collections.sort(queuedActions);
 
         for (FightAction action : queuedActions) {
@@ -59,7 +63,8 @@ public class FightController {
 
             if (isPlayerDefeated == true) {
                 listener.EndFight(false);
-                break;
+                queuedActions.clear();
+                return;
             }
 
             boolean isEnemyDefeated = true;
@@ -72,7 +77,8 @@ public class FightController {
 
             if (isEnemyDefeated == true) {
                 listener.EndFight(true);
-                break;
+                queuedActions.clear();
+                return;
             }
         }
 
@@ -112,7 +118,7 @@ public class FightController {
 
         if (activeIndex == 8) {
             RunActions();
-            
+
             StartRound();
             return;
         }
@@ -125,8 +131,30 @@ public class FightController {
         }
 
         if (activeFighter.isAlive) {
-            ListActions();
-            listener.UpdateState(FightState.selectingAction);
+            if (activeFighter.isPlayerControlled) {
+                listener.UpdateState(FightState.selectingAction);
+                ListActions();
+            }
+            else {
+                listener.UpdateState(FightState.enemyAction);
+                int actionIndex = 0;
+                switch (r.nextInt(4)) {
+                    case 0:
+                    case 1:
+                        actionIndex = 0;
+                        break;
+                    case 2:
+                        actionIndex = 1;
+                        break;
+                    case 3:
+                        actionIndex = 2;
+                        break;
+                }
+                SetActiveAction(activeFighter.fightActions.get(actionIndex));
+                AddAction(activeAction, AIChooseTarget());
+                NextFighter();
+                return;
+            }
         }
         else if (activeFighter.isAlive == false && activeIndex == 7) {
 
@@ -134,6 +162,47 @@ public class FightController {
         else {
             NextFighter();
             return;
+        }
+    }
+
+    public Fighter AIChooseTarget() {
+        List<Integer> validTargets = new ArrayList<Integer>();
+
+        int i = 0;
+
+        switch (activeAction.aiming) {
+            case enemy:
+                for (Fighter fighter : playerFighters) {
+                    if (fighter.isAlive) {
+                        validTargets.add(i);
+                    }
+                    i++;
+                }
+
+                return playerFighters.get(validTargets.get(r.nextInt(validTargets.size())));
+            case ally:
+                for (Fighter fighter : enemyFighters) {
+                    if (fighter.isAlive) {
+                        validTargets.add(i);
+                    }
+                    i++;
+                }
+
+                return enemyFighters.get(validTargets.get(r.nextInt(validTargets.size())));
+            case otherAlly:
+                for (Fighter fighter : enemyFighters) {
+                    if (fighter.isAlive && fighter != activeFighter) {
+                        validTargets.add(i);
+                    }
+                    i++;
+                }
+
+                return enemyFighters.get(validTargets.get(r.nextInt(validTargets.size())));
+            case self:
+                return activeFighter;
+            default:
+                //should not get here
+                return activeFighter;
         }
     }
 }

@@ -21,10 +21,6 @@ public abstract class FightAction implements Comparable<FightAction> {
         aiming = a;
     }
 
-    public void SetTarget(Fighter t) {
-        target = t;
-    }
-
     @Override
     public int compareTo(FightAction other) {
         return Integer.compare(this.priority, other.priority);

@@ -39,7 +39,7 @@ public abstract class Fighter extends GameObject implements Serializable {
     public EquipmentType weaponType;
     public EquipmentType armorType;
 
-    boolean isPlayerControlled = true;
+    public boolean isPlayerControlled = true;
     public boolean isAlive = true;
     public boolean isGuarding = false;
     public boolean isStunned = false;
@@ -105,6 +105,7 @@ public abstract class Fighter extends GameObject implements Serializable {
         Bitmap b = Bitmap.createBitmap(randColours, 32, 32, Bitmap.Config.ARGB_8888);
         int[] colourInfo = PhotoGeneration.Generate(b);
         Fighter random = new Warrior(new Rect(-50, 50, 50, -50), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+        random.isPlayerControlled = false;
         return random;
     }
 
@@ -187,6 +188,13 @@ public abstract class Fighter extends GameObject implements Serializable {
                 //should not get here
                 return 0;
         }
+    }
+
+    public void ResetStats() {
+        isAlive = true;
+        isGuarding = false;
+        isStunned = false;
+        tempHitPoints = tempMaxHitPoints;
     }
 
     public void Death() {

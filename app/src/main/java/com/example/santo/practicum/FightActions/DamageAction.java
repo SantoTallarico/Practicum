@@ -1,5 +1,6 @@
 package com.example.santo.practicum.FightActions;
 
+import com.example.santo.practicum.Enums.Aiming;
 import com.example.santo.practicum.Enums.CharacterClass;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.Enums.Stats;
@@ -10,8 +11,8 @@ import com.example.santo.practicum.Enums.Stats;
 
 public class DamageAction extends FightAction {
 
-    public DamageAction(String n, Fighter u, Fighter t) {
-        super(n, u, t, u.GetStat(Stats.speed));
+    public DamageAction(String n, Fighter u) {
+        super(n, u, u.GetStat(Stats.speed), Aiming.enemy);
     }
 
     public void ApplyAction() {

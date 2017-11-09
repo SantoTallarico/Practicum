@@ -5,10 +5,12 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.santo.practicum.Enums.Aiming;
+import com.example.santo.practicum.Enums.FightState;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.Enums.TextAlign;
 import com.example.santo.practicum.FightListener;
-import com.example.santo.practicum.GameObjects.FightController;
+import com.example.santo.practicum.FightController;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.GameObject;
@@ -21,7 +23,7 @@ public class FightScene extends GameScene implements FightListener {
     Team playerTeam = MainMenuScene.team;
     Team enemyTeam;
 
-    TextObject btnFightText;
+    TextObject txtCurrentState;
     TextObject txtAction1, txtAction2, txtAction3;
     GameButton btnAction1, btnAction2, btnAction3;
 
@@ -30,8 +32,17 @@ public class FightScene extends GameScene implements FightListener {
     Rect action1 = new Rect(-100, -300, 100, -400);
     Rect action2 = new Rect(-100, -400, 100, -500);
     Rect action3 = new Rect(-100, -500, 100, -600);
+    Rect highlight = new Rect(0, 150, 150, 0);
 
-    GameObject activeFighterHighlight = new GameObject(new Rect(0, 150, 150, 0), Bitmap.createBitmap(new int[] { 0xffffffff }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameObject activeFighterHighlight = new GameObject(highlight, Bitmap.createBitmap(new int[] { 0xffffffff }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton enemy1Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton enemy2Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton enemy3Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton enemy4Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton ally1Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xff00ff00 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton ally2Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xff00ff00 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton ally3Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xff00ff00 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameButton ally4Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xff00ff00 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +62,10 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(txtFighter3HP);
         gameObjects.add(txtFighter4HP);
 
-        GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
-        btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Result", 100, TextAlign.center);
+        GameObject btnFight = new GameObject(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
+        txtCurrentState = new TextObject(new Rect(-150, 350, 150, 250), "Choose Action", 100, TextAlign.center);
         gameObjects.add(btnFight);
-        gameObjects.add(btnFightText);
+        gameObjects.add(txtCurrentState);
 
         btnAction1 = new GameButton(action1, "drawable/btnbackground", 90);
         txtAction1 = new TextObject(action1, "action 1", 100, TextAlign.center);
@@ -73,6 +84,39 @@ public class FightScene extends GameScene implements FightListener {
         playerTeam.Get(1).TranslateTo(300, 100);
         playerTeam.Get(2).TranslateTo(300, -100);
         playerTeam.Get(3).TranslateTo(300, -300);
+        ally1Highlight.TranslateTo(300, 300);
+        ally2Highlight.TranslateTo(300, 100);
+        ally3Highlight.TranslateTo(300, -100);
+        ally4Highlight.TranslateTo(300, -300);
+        ally1Highlight.visible = false;
+        ally2Highlight.visible = false;
+        ally3Highlight.visible = false;
+        ally4Highlight.visible = false;
+
+        ally1Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, playerTeam.Get(0));
+                controller.NextFighter();
+            }
+        });
+        ally2Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, playerTeam.Get(1));
+                controller.NextFighter();
+            }
+        });
+        ally3Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, playerTeam.Get(2));
+                controller.NextFighter();
+            }
+        });
+        ally4Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, playerTeam.Get(3));
+                controller.NextFighter();
+            }
+        });
 
         gameObjects.add(playerTeam.Get(0));
         gameObjects.add(playerTeam.Get(1));
@@ -90,6 +134,39 @@ public class FightScene extends GameScene implements FightListener {
         enemyTeam.Get(1).TranslateTo(-300, 100);
         enemyTeam.Get(2).TranslateTo(-300, -100);
         enemyTeam.Get(3).TranslateTo(-300, -300);
+        enemy1Highlight.TranslateTo(-300, 300);
+        enemy2Highlight.TranslateTo(-300, 100);
+        enemy3Highlight.TranslateTo(-300, -100);
+        enemy4Highlight.TranslateTo(-300, -300);
+        enemy1Highlight.visible = false;
+        enemy2Highlight.visible = false;
+        enemy3Highlight.visible = false;
+        enemy4Highlight.visible = false;
+
+        enemy1Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, enemyTeam.Get(0));
+                controller.NextFighter();
+            }
+        });
+        enemy2Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, enemyTeam.Get(1));
+                controller.NextFighter();
+            }
+        });
+        enemy3Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, enemyTeam.Get(2));
+                controller.NextFighter();
+            }
+        });
+        enemy4Highlight.SetOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.AddAction(controller.activeAction, enemyTeam.Get(3));
+                controller.NextFighter();
+            }
+        });
 
         gameObjects.add(enemyTeam.Get(0));
         gameObjects.add(enemyTeam.Get(1));
@@ -100,6 +177,14 @@ public class FightScene extends GameScene implements FightListener {
         controller.AssignListener(this);
 
         gameObjects.add(activeFighterHighlight);
+        gameObjects.add(enemy1Highlight);
+        gameObjects.add(enemy2Highlight);
+        gameObjects.add(enemy3Highlight);
+        gameObjects.add(enemy4Highlight);
+        gameObjects.add(ally1Highlight);
+        gameObjects.add(ally2Highlight);
+        gameObjects.add(ally3Highlight);
+        gameObjects.add(ally4Highlight);
 
         controller.StartRound();
     }
@@ -111,24 +196,42 @@ public class FightScene extends GameScene implements FightListener {
         txtAction1.SetText(controller.activeFighter.fightActions.get(0).name, TextAlign.center);
         btnAction1.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                controller.AddAction(controller.activeFighter.fightActions.get(0));
-                controller.NextFighter();
+                controller.SetActiveAction(controller.activeFighter.fightActions.get(0));
+                if (controller.activeAction.aiming == Aiming.self) {
+                    controller.AddAction(controller.activeFighter.fightActions.get(0), controller.activeFighter);
+                    controller.NextFighter();
+                }
+                else {
+                    UpdateState(FightState.selectingTarget);
+                }
             }
         });
 
         txtAction2.SetText(controller.activeFighter.fightActions.get(1).name, TextAlign.center);
         btnAction2.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                controller.AddAction(controller.activeFighter.fightActions.get(1));
-                controller.NextFighter();
+                controller.SetActiveAction(controller.activeFighter.fightActions.get(1));
+                if (controller.activeAction.aiming == Aiming.self) {
+                    controller.AddAction(controller.activeFighter.fightActions.get(1), controller.activeFighter);
+                    controller.NextFighter();
+                }
+                else {
+                    UpdateState(FightState.selectingTarget);
+                }
             }
         });
 
         txtAction3.SetText(controller.activeFighter.fightActions.get(2).name, TextAlign.center);
         btnAction3.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                controller.AddAction(controller.activeFighter.fightActions.get(2));
-                controller.NextFighter();
+                controller.SetActiveAction(controller.activeFighter.fightActions.get(2));
+                if (controller.activeAction.aiming == Aiming.self) {
+                    controller.AddAction(controller.activeFighter.fightActions.get(2), controller.activeFighter);
+                    controller.NextFighter();
+                }
+                else {
+                    UpdateState(FightState.selectingTarget);
+                }
             }
         });
     }
@@ -147,15 +250,106 @@ public class FightScene extends GameScene implements FightListener {
     }
 
     @Override
+    public void UpdateState(FightState state) {
+        txtCurrentState.SetText("" + state, TextAlign.center);
+
+        glView.AddTexture(txtCurrentState);
+
+        switch (state) {
+            case selectingAction:
+                btnAction1.touchable = true;
+                btnAction2.touchable = true;
+                btnAction3.touchable = true;
+
+                enemy1Highlight.visible = false;
+                enemy2Highlight.visible = false;
+                enemy3Highlight.visible = false;
+                enemy4Highlight.visible = false;
+                ally1Highlight.visible = false;
+                ally2Highlight.visible = false;
+                ally3Highlight.visible = false;
+                ally4Highlight.visible = false;
+                enemy1Highlight.touchable = false;
+                enemy2Highlight.touchable = false;
+                enemy3Highlight.touchable = false;
+                enemy4Highlight.touchable = false;
+                ally1Highlight.touchable = false;
+                ally2Highlight.touchable = false;
+                ally3Highlight.touchable = false;
+                ally4Highlight.touchable = false;
+                break;
+            case selectingTarget:
+                btnAction1.touchable = false;
+                btnAction2.touchable = false;
+                btnAction3.touchable = false;
+
+                switch (controller.activeAction.aiming) {
+                    case enemy:
+                        enemy1Highlight.visible = enemyTeam.Get(0).isAlive;
+                        enemy2Highlight.visible = enemyTeam.Get(1).isAlive;
+                        enemy3Highlight.visible = enemyTeam.Get(2).isAlive;
+                        enemy4Highlight.visible = enemyTeam.Get(3).isAlive;
+                        enemy1Highlight.touchable = enemyTeam.Get(0).isAlive;
+                        enemy2Highlight.touchable = enemyTeam.Get(1).isAlive;
+                        enemy3Highlight.touchable = enemyTeam.Get(2).isAlive;
+                        enemy4Highlight.touchable = enemyTeam.Get(3).isAlive;
+                        break;
+                    case ally:
+                        ally1Highlight.visible = playerTeam.Get(0).isAlive;
+                        ally2Highlight.visible = playerTeam.Get(0).isAlive;
+                        ally3Highlight.visible = playerTeam.Get(0).isAlive;
+                        ally4Highlight.visible = playerTeam.Get(0).isAlive;
+                        ally1Highlight.touchable = playerTeam.Get(0).isAlive;
+                        ally2Highlight.touchable = playerTeam.Get(0).isAlive;
+                        ally3Highlight.touchable = playerTeam.Get(0).isAlive;
+                        ally4Highlight.touchable = playerTeam.Get(0).isAlive;
+                        break;
+                    case otherAlly:
+                        ally1Highlight.visible = playerTeam.Get(0).isAlive;
+                        ally2Highlight.visible = playerTeam.Get(1).isAlive;
+                        ally3Highlight.visible = playerTeam.Get(2).isAlive;
+                        ally4Highlight.visible = playerTeam.Get(3).isAlive;
+                        ally1Highlight.touchable = playerTeam.Get(0).isAlive;
+                        ally2Highlight.touchable = playerTeam.Get(1).isAlive;
+                        ally3Highlight.touchable = playerTeam.Get(2).isAlive;
+                        ally4Highlight.touchable = playerTeam.Get(3).isAlive;
+                        break;
+                }
+                break;
+        }
+    }
+
+    @Override
     public void EndFight(boolean isPlayerWinner) {
         if (isPlayerWinner == true) {
-            btnFightText.SetText("You win!", TextAlign.center);
+            txtCurrentState.SetText("You win!", TextAlign.center);
         }
         else {
-            btnFightText.SetText("You lose...", TextAlign.center);
+            txtCurrentState.SetText("You lose...", TextAlign.center);
         }
 
-        glView.AddTexture(btnFightText);
+        glView.AddTexture(txtCurrentState);
+
+        btnAction1.touchable = false;
+        btnAction2.touchable = false;
+        btnAction3.touchable = false;
+        enemy1Highlight.visible = false;
+        enemy2Highlight.visible = false;
+        enemy3Highlight.visible = false;
+        enemy4Highlight.visible = false;
+        ally1Highlight.visible = false;
+        ally2Highlight.visible = false;
+        ally3Highlight.visible = false;
+        ally4Highlight.visible = false;
+        enemy1Highlight.touchable = false;
+        enemy2Highlight.touchable = false;
+        enemy3Highlight.touchable = false;
+        enemy4Highlight.touchable = false;
+        ally1Highlight.touchable = false;
+        ally2Highlight.touchable = false;
+        ally3Highlight.touchable = false;
+        ally4Highlight.touchable = false;
+
     }
 
     @Override

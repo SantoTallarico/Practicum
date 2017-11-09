@@ -37,9 +37,9 @@ public class Warrior extends Fighter implements Serializable {
 
         InitializeStats(red, green, blue);
 
-        fightActions.add(new DamageAction("Attack", this, this));
-        fightActions.add(new DamageAction("Defend", this, this));
-        fightActions.add(new DamageAction("Guard Ally", this, this));
+        fightActions.add(new DamageAction("Attack", this));
+        fightActions.add(new DamageAction("Defend", this));
+        fightActions.add(new DamageAction("Guard Ally", this));
 
         for (int i = 1; i < startingLevel; i++) {
             LevelUp();

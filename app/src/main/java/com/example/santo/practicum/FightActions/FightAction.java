@@ -1,5 +1,6 @@
 package com.example.santo.practicum.FightActions;
 
+import com.example.santo.practicum.Enums.Aiming;
 import com.example.santo.practicum.GameObjects.Fighter;
 
 /**
@@ -11,12 +12,17 @@ public abstract class FightAction implements Comparable<FightAction> {
     public Fighter target;
     public int priority;
     public String name;
+    public Aiming aiming;
 
-    public FightAction(String n, Fighter u, Fighter t, int p) {
+    public FightAction(String n, Fighter u, int p, Aiming a) {
         name = n;
         user = u;
-        target = t;
         priority = p;
+        aiming = a;
+    }
+
+    public void SetTarget(Fighter t) {
+        target = t;
     }
 
     @Override

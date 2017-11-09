@@ -1,9 +1,12 @@
-package com.example.santo.practicum.GameObjects;
+package com.example.santo.practicum;
 
 import android.graphics.Rect;
 
+import com.example.santo.practicum.Enums.FightState;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.FightListener;
+import com.example.santo.practicum.GameObjects.Fighter;
+import com.example.santo.practicum.GameObjects.Team;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +24,7 @@ public class FightController {
 
     public Fighter activeFighter;
     public int activeIndex = 0;
+    public FightAction activeAction;
 
     public FightListener listener;
 
@@ -47,9 +51,16 @@ public class FightController {
         }
 
         queuedActions.clear();
+
+        listener.UpdateState(FightState.selectingAction);
     }
 
-    public void AddAction(FightAction action) {
+    public void SetActiveAction(FightAction action) {
+        activeAction = action;
+    }
+
+    public void AddAction(FightAction action, Fighter target) {
+        action.target = target;
         queuedActions.add(action);
     }
 
@@ -104,6 +115,7 @@ public class FightController {
 
         if (activeFighter.isAlive) {
             ListActions();
+            listener.UpdateState(FightState.selectingAction);
         }
         else if (activeFighter.isAlive == false && activeIndex == 7) {
 

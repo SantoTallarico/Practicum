@@ -41,6 +41,8 @@ public abstract class Fighter extends GameObject implements Serializable {
 
     boolean isPlayerControlled = true;
     public boolean isAlive = true;
+    public boolean isGuarding = false;
+    public boolean isStunned = false;
     public transient Bitmap tileIcon;
     public int palette1, palette2, palette3;
 

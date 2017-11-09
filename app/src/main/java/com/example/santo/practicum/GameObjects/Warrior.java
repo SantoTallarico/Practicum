@@ -8,6 +8,7 @@ import com.example.santo.practicum.Enums.CharacterClass;
 import com.example.santo.practicum.Enums.EquipmentType;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.DamageAction;
+import com.example.santo.practicum.FightActions.GuardAction;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class Warrior extends Fighter implements Serializable {
         InitializeStats(red, green, blue);
 
         fightActions.add(new DamageAction("Attack", this));
-        fightActions.add(new DamageAction("Defend", this));
+        fightActions.add(new GuardAction("Defend", this));
         fightActions.add(new DamageAction("Guard Ally", this));
 
         for (int i = 1; i < startingLevel; i++) {

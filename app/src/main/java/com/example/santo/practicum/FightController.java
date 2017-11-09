@@ -48,6 +48,32 @@ public class FightController {
         for (FightAction action : queuedActions) {
             action.ApplyAction();
             listener.UpdateText();
+
+            boolean isPlayerDefeated = true;
+            for (Fighter f : playerFighters) {
+                if (f.isAlive) {
+                    isPlayerDefeated = false;
+                    break;
+                }
+            }
+
+            if (isPlayerDefeated == true) {
+                listener.EndFight(false);
+                break;
+            }
+
+            boolean isEnemyDefeated = true;
+            for (Fighter f : enemyFighters) {
+                if (f.isAlive) {
+                    isEnemyDefeated = false;
+                    break;
+                }
+            }
+
+            if (isEnemyDefeated == true) {
+                listener.EndFight(true);
+                break;
+            }
         }
 
         queuedActions.clear();
@@ -67,6 +93,17 @@ public class FightController {
     public void StartRound() {
         activeFighter = playerFighters.get(0);
         activeIndex = 0;
+
+        for (Fighter fighter : playerFighters) {
+            fighter.isGuarding = false;
+            fighter.isStunned = false;
+        }
+
+        for (Fighter fighter : enemyFighters) {
+            fighter.isGuarding = false;
+            fighter.isStunned = false;
+        }
+
         ListActions();
     }
 
@@ -75,33 +112,7 @@ public class FightController {
 
         if (activeIndex == 8) {
             RunActions();
-
-            boolean isPlayerDefeated = true;
-            for (Fighter f : playerFighters) {
-                if (f.isAlive) {
-                    isPlayerDefeated = false;
-                    break;
-                }
-            }
-
-            if (isPlayerDefeated == true) {
-                listener.EndFight(false);
-                return;
-            }
-
-            boolean isEnemyDefeated = true;
-            for (Fighter f : enemyFighters) {
-                if (f.isAlive) {
-                    isEnemyDefeated = false;
-                    break;
-                }
-            }
-
-            if (isEnemyDefeated == true) {
-                listener.EndFight(true);
-                return;
-            }
-
+            
             StartRound();
             return;
         }

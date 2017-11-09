@@ -28,6 +28,7 @@ public class FightScene extends GameScene implements FightListener {
     GameButton btnAction1, btnAction2, btnAction3;
 
     TextObject txtFighter1HP, txtFighter2HP, txtFighter3HP, txtFighter4HP;
+    TextObject txtEnemy1HP, txtEnemy2HP, txtEnemy3HP, txtEnemy4HP;
 
     Rect action1 = new Rect(-100, -300, 100, -400);
     Rect action2 = new Rect(-100, -400, 100, -500);
@@ -61,6 +62,17 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(txtFighter2HP);
         gameObjects.add(txtFighter3HP);
         gameObjects.add(txtFighter4HP);
+
+        GameObject enemyStatsBackground = new GameObject(new Rect(-450, -450, -150, -850), "drawable/btnbackground", 90);
+        txtEnemy1HP = new TextObject(new Rect(-450, -450, -150, -550), "Enemy 1 HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy2HP = new TextObject(new Rect(-450, -550, -150, -650), "Enemy 2 HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy3HP = new TextObject(new Rect(-450, -650, -150, -750), "Enemy 3 HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy4HP = new TextObject(new Rect(-450, -750, -150, -850), "Enemy 4 HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        gameObjects.add(enemyStatsBackground);
+        gameObjects.add(txtEnemy1HP);
+        gameObjects.add(txtEnemy2HP);
+        gameObjects.add(txtEnemy3HP);
+        gameObjects.add(txtEnemy4HP);
 
         GameObject btnFight = new GameObject(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
         txtCurrentState = new TextObject(new Rect(-150, 350, 150, 250), "Choose Action", 100, TextAlign.center);
@@ -247,6 +259,16 @@ public class FightScene extends GameScene implements FightListener {
         glView.AddTexture(txtFighter2HP);
         glView.AddTexture(txtFighter3HP);
         glView.AddTexture(txtFighter4HP);
+
+        txtEnemy1HP.SetText("Enemy 1 HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy2HP.SetText("Enemy 2 HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy3HP.SetText("Enemy 3 HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy4HP.SetText("Enemy 4 HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
+
+        glView.AddTexture(txtFighter1HP);
+        glView.AddTexture(txtFighter2HP);
+        glView.AddTexture(txtFighter3HP);
+        glView.AddTexture(txtFighter4HP);
     }
 
     @Override
@@ -349,7 +371,6 @@ public class FightScene extends GameScene implements FightListener {
         ally2Highlight.touchable = false;
         ally3Highlight.touchable = false;
         ally4Highlight.touchable = false;
-
     }
 
     @Override

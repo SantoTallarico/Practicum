@@ -24,7 +24,7 @@ public class DamageAction extends FightAction {
                 defenceType = Stats.defence;
             }
 
-            int damage = user.GetStat(Stats.attack) - target.GetStat(defenceType);
+            int damage = user.GetStat(Stats.attack) - target.GetStat(defenceType) / (target.isGuarding ? 2 : 1);
 
             if (damage < 1) {
                 damage = 1;

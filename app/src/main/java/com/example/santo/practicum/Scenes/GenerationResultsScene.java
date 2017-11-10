@@ -17,6 +17,7 @@ import com.example.santo.practicum.PB_GLSurfaceView;
 
 public class GenerationResultsScene extends GameScene {
     TextObject txtClass, txtHitPoints, txtAttack, txtDefence, txtMagicDefence, txtSpeed;
+    GameObject displayedObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,24 +38,29 @@ public class GenerationResultsScene extends GameScene {
         final boolean isFighter = i.getBooleanExtra("typeFlag", true);
 
         if (isFighter) {
-            Fighter generatedCharacter = (Fighter)i.getSerializableExtra("fighter");
-            txtClass = new TextObject(new Rect(100, 600, 500, 500), "Class: " + CharacterClassHelper.ToString(generatedCharacter.charClass), 100, TextAlign.right);
-            txtHitPoints = new TextObject(new Rect(100, 400, 500, 300), "Hit Points: " + generatedCharacter.GetStat(Stats.hitPoints), 100, TextAlign.right);
-            txtAttack = new TextObject(new Rect(100, 200, 500, 100), "Attack: " + generatedCharacter.GetStat(Stats.attack), 100, TextAlign.right);
-            txtDefence = new TextObject(new Rect(100, 0, 500, -100), "Defence: " + generatedCharacter.GetStat(Stats.defence), 100, TextAlign.right);
-            txtMagicDefence = new TextObject(new Rect(100, -200, 500, -300), "Magic Defence: " + generatedCharacter.GetStat(Stats.magicDefence), 100, TextAlign.right);
-            txtSpeed = new TextObject(new Rect(100, -400, 500, -500), "Speed: " + generatedCharacter.GetStat(Stats.speed), 100, TextAlign.right);
+            Fighter generatedCharacter = (Fighter)MainMenuScene.generatedObject;
+            txtClass = new TextObject(new Rect(150, 600, 450, 500), "Class: " + CharacterClassHelper.ToString(generatedCharacter.charClass), 100, TextAlign.right);
+            txtHitPoints = new TextObject(new Rect(150, 400, 450, 300), "Hit Points: " + generatedCharacter.GetStat(Stats.hitPoints), 100, TextAlign.right);
+            txtAttack = new TextObject(new Rect(150, 200, 450, 100), "Attack: " + generatedCharacter.GetStat(Stats.attack), 100, TextAlign.right);
+            txtDefence = new TextObject(new Rect(150, 0, 450, -100), "Defence: " + generatedCharacter.GetStat(Stats.defence), 100, TextAlign.right);
+            txtMagicDefence = new TextObject(new Rect(150, -200, 450, -300), "Magic Defence: " + generatedCharacter.GetStat(Stats.magicDefence), 100, TextAlign.right);
+            txtSpeed = new TextObject(new Rect(150, -400, 450, -500), "Speed: " + generatedCharacter.GetStat(Stats.speed), 100, TextAlign.right);
+            displayedObject = generatedCharacter;
         }
         else {
-            Equipment generatedEquipment = (Equipment)i.getSerializableExtra("equipment");
-            txtClass = new TextObject(new Rect(100, 600, 500, 500), "Type: " + generatedEquipment.type, 100, TextAlign.right);
-            txtHitPoints = new TextObject(new Rect(100, 400, 500, 300), "Hit Points: " + generatedEquipment.modHitPoints, 100, TextAlign.right);
-            txtAttack = new TextObject(new Rect(100, 200, 500, 100), "Attack: " + generatedEquipment.modAttack, 100, TextAlign.right);
-            txtDefence = new TextObject(new Rect(100, 0, 500, -100), "Defence: " + generatedEquipment.modDefence, 100, TextAlign.right);
-            txtMagicDefence = new TextObject(new Rect(100, -200, 500, -300), "Magic Defence: " + generatedEquipment.modMagicDefence, 100, TextAlign.right);
-            txtSpeed = new TextObject(new Rect(100, -400, 500, -500), "Speed: " + generatedEquipment.modSpeed, 100, TextAlign.right);
+            Equipment generatedEquipment = (Equipment)MainMenuScene.generatedObject;
+            txtClass = new TextObject(new Rect(150, 600, 450, 500), "Type: " + generatedEquipment.type, 100, TextAlign.right);
+            txtHitPoints = new TextObject(new Rect(150, 400, 450, 300), "Hit Points: " + generatedEquipment.modHitPoints, 100, TextAlign.right);
+            txtAttack = new TextObject(new Rect(150, 200, 450, 100), "Attack: " + generatedEquipment.modAttack, 100, TextAlign.right);
+            txtDefence = new TextObject(new Rect(150, 0, 450, -100), "Defence: " + generatedEquipment.modDefence, 100, TextAlign.right);
+            txtMagicDefence = new TextObject(new Rect(150, -200, 450, -300), "Magic Defence: " + generatedEquipment.modMagicDefence, 100, TextAlign.right);
+            txtSpeed = new TextObject(new Rect(150, -400, 450, -500), "Speed: " + generatedEquipment.modSpeed, 100, TextAlign.right);
+            displayedObject = generatedEquipment;
         }
 
+        displayedObject.ScaleTo(300, 300);
+        displayedObject.TranslateTo(-250, 0);
+        gameObjects.add(displayedObject);
         gameObjects.add(txtClass);
         gameObjects.add(txtHitPoints);
         gameObjects.add(txtAttack);

@@ -50,6 +50,8 @@ public abstract class Fighter extends GameObject implements Serializable {
 
     public transient List<FightAction> fightActions = new ArrayList<FightAction>();
 
+    public String type = this.getClass().getSimpleName();
+
     //First stat is raised, second stat is lowered. If stats are the same, no change
     protected transient final static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
         {
@@ -94,6 +96,30 @@ public abstract class Fighter extends GameObject implements Serializable {
         palette3 = p3;
         level = startingLevel;
         tileIcon = sprite;
+    }
+
+    public void Init() {
+        generatedSprite = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 30; j++) {
+                generatedSprite.setPixel(i, j, palette1);
+            }
+        }
+
+        for (int i = 10; i < 20; i++) {
+            for (int j = 0; j < 30; j++) {
+                generatedSprite.setPixel(i, j, palette2);
+            }
+        }
+
+        for (int i = 20; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
+                generatedSprite.setPixel(i, j, palette3);
+            }
+        }
+
+        tileIcon = generatedSprite;
     }
 
     public static Fighter RandomFighter() {
@@ -221,6 +247,4 @@ public abstract class Fighter extends GameObject implements Serializable {
     public void Update(long elapsed) {
 
     }
-
-    public abstract void Fight();
 }

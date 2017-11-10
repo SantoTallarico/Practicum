@@ -2,8 +2,10 @@ package com.example.santo.practicum.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Base64;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**

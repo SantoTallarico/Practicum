@@ -45,6 +45,15 @@ public class Warrior extends Fighter implements Serializable {
         for (int i = 1; i < startingLevel; i++) {
             LevelUp();
         }
+
+        type = this.getClass().getSimpleName();
+    }
+
+    @Override
+    public void Init() {
+        super.Init();
+
+        type = this.getClass().getSimpleName();
     }
 
     private void InitializeStats(int red, int green, int blue) {
@@ -58,28 +67,4 @@ public class Warrior extends Fighter implements Serializable {
 
         ApplyEquipment();
     }
-
-    public void Fight() {
-
-    }
-/*
-    //Parcelable methods
-    public int describeContents() {
-        return 0;
-    }
-
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(name);
-    }
-
-    public static final Parcelable.Creator<Warrior> CREATOR
-            = new Parcelable.Creator<Warrior>() {
-        public Warrior createFromParcel(Parcel in) {
-            return new Warrior(in);
-        }
-
-        public Warrior[] newArray(int size) {
-            return new Warrior[size];
-        }
-    };*/
 }

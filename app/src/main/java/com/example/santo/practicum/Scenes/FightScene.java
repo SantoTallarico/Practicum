@@ -115,10 +115,10 @@ public class FightScene extends GameScene implements FightListener {
 
         enemyTeam = new Team(4);
         enemyTeam.Init(MainMenuScene.EMPTY_CHARACTER);
-        enemyTeam.Add(Fighter.RandomFighter(), 0);
-        enemyTeam.Add(Fighter.RandomFighter(), 1);
-        enemyTeam.Add(Fighter.RandomFighter(), 2);
-        enemyTeam.Add(Fighter.RandomFighter(), 3);
+        enemyTeam.Add(Fighter.RandomFighter(this), 0);
+        enemyTeam.Add(Fighter.RandomFighter(this), 1);
+        enemyTeam.Add(Fighter.RandomFighter(this), 2);
+        enemyTeam.Add(Fighter.RandomFighter(this), 3);
 
         enemyTeam.Get(0).TranslateTo(-300, 300);
         enemyTeam.Get(1).TranslateTo(-300, 100);

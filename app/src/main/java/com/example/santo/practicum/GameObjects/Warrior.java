@@ -1,5 +1,6 @@
 package com.example.santo.practicum.GameObjects;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Pair;
@@ -8,9 +9,11 @@ import com.example.santo.practicum.Enums.CharacterClass;
 import com.example.santo.practicum.Enums.EquipmentType;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.DamageAction;
+import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.FightActions.GuardAction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,10 +41,6 @@ public class Warrior extends Fighter implements Serializable {
 
         InitializeStats(red, green, blue);
 
-        fightActions.add(new DamageAction("Attack", this));
-        fightActions.add(new GuardAction("Defend", this));
-        fightActions.add(new DamageAction("Guard Ally", this));
-
         for (int i = 1; i < startingLevel; i++) {
             LevelUp();
         }
@@ -50,10 +49,15 @@ public class Warrior extends Fighter implements Serializable {
     }
 
     @Override
-    public void Init() {
-        super.Init();
+    public void Init(Context context) {
+        super.Init(context);
 
         type = this.getClass().getSimpleName();
+
+        fightActions = new ArrayList<FightAction>();
+        fightActions.add(new DamageAction("Attack", this));
+        fightActions.add(new GuardAction("Defend", this));
+        fightActions.add(new DamageAction("Guard Ally", this));
     }
 
     private void InitializeStats(int red, int green, int blue) {

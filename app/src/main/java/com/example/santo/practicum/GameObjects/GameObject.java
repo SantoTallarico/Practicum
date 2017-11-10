@@ -23,12 +23,25 @@ public class GameObject implements Serializable {
                                     0.5f, -0.5f, 0.0f,
                                     0.5f, 0.5f, 0.0f};
 
+    public float[] uvsAnimation = new float[] {
+            0.0f, 0.0f,
+            0.0f, 1.0f,
+            0.5f, 1.0f,
+            0.5f, 0.0f
+    };
+
     public float[] vertices = VERTICES.clone();
     //transform parameters, 2d so only need [x, y] transform and scale, rotation in radians
     public float[] translation = {0, 0};
     public float[] scale = {1, 1};
     public float rotation = 0;
     public int spriteLayer = 0;
+    public boolean animates = false;
+    public int currentFrame = 0;
+    public int numFrames = 2;
+    public float xOffset = 0.5f;
+    public final int FRAME_LENGTH = 500;
+    public long time = 0;
 
     public boolean visible = true;
     public boolean active = true;
@@ -137,6 +150,13 @@ public class GameObject implements Serializable {
     }
 
     public void Update(long elapsed) {
-
+        time += elapsed;
+        if (time > FRAME_LENGTH) {
+            currentFrame++;
+            if (currentFrame >= numFrames) {
+                currentFrame = 0;
+            }
+            time = 0;
+        }
     }
 }

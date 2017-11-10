@@ -90,7 +90,7 @@ public class MainMenuScene extends GameScene {
         }
         else {
             for (Fighter fighter : generatedCharacters) {
-                fighter.Init();
+                fighter.Init(this);
             }
         }
 
@@ -246,7 +246,7 @@ public class MainMenuScene extends GameScene {
                     if (colourInfo[0] % 2 == 0) {
 
                         Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
-                        character.Init();
+                        character.Init(this);
                         generatedCharacters.add(character);
 
                         Intent i = new Intent(getApplicationContext(), GenerationResultsScene.class);

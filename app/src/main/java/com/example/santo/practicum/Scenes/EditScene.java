@@ -46,10 +46,10 @@ public class EditScene extends GameScene {
         gameObjects.add(txtMagicDefence);
         gameObjects.add(txtSpeed);
 
-        GameButton btnEquipWeapon = new GameButton(new Rect(-450, 350, -150, 250), "drawable/btnbackground", 90);
-        TextObject txtEquipWeapon = new TextObject(new Rect(-450, 350, -150, 250), "Equip Weapon", 100, TextAlign.center);
-        GameButton btnEquipArmor = new GameButton(new Rect(-450, 150, -150, 50), "drawable/btnbackground", 90);
-        TextObject txtEquipArmor = new TextObject(new Rect(-450, 150, -150, 50), "Equip Armor", 100, TextAlign.center);
+        GameButton btnEquipWeapon = new GameButton(new Rect(-450, -150, -150, -250), "drawable/btnbackground", 90);
+        TextObject txtEquipWeapon = new TextObject(new Rect(-450, -150, -150, -250), "Equip Weapon", 100, TextAlign.center);
+        GameButton btnEquipArmor = new GameButton(new Rect(-450, -350, -150, -450), "drawable/btnbackground", 90);
+        TextObject txtEquipArmor = new TextObject(new Rect(-450, -350, -150, -450), "Equip Armor", 100, TextAlign.center);
         gameObjects.add(btnEquipWeapon);
         gameObjects.add(txtEquipWeapon);
         gameObjects.add(btnEquipArmor);

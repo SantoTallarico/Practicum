@@ -49,6 +49,13 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     private long prevFrame;
 
+    float[] uvs = new float[] {
+            0.0f, 0.0f,
+            0.0f, 1.0f,
+            1.0f, 1.0f,
+            1.0f, 0.0f
+    };
+
     public PB_GLRenderer(View v, Context c, List<GameObject> gameObjects)
     {
         mView = v;
@@ -88,13 +95,6 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     public void SetupTextures()
     {
-        float[] uvs = new float[] {
-                0.0f, 0.0f,
-                0.0f, 1.0f,
-                1.0f, 1.0f,
-                1.0f, 0.0f
-        };
-
         ByteBuffer bb = ByteBuffer.allocateDirect(uvs.length * 4);
         bb.order(ByteOrder.nativeOrder());
         uvBuffer = bb.asFloatBuffer();
@@ -250,6 +250,21 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
             if (object.visible) {
                 vertexBuffer.put(object.vertices);
                 vertexBuffer.position(0);
+
+                if (object.animates) {
+                    uvBuffer.put(0, object.uvsAnimation[0] + object.xOffset * object.currentFrame);
+                    uvBuffer.put(1, object.uvsAnimation[1]);
+                    uvBuffer.put(2, object.uvsAnimation[2] + object.xOffset * object.currentFrame);
+                    uvBuffer.put(3, object.uvsAnimation[3]);
+                    uvBuffer.put(4, object.uvsAnimation[4] + object.xOffset * object.currentFrame);
+                    uvBuffer.put(5, object.uvsAnimation[5]);
+                    uvBuffer.put(6, object.uvsAnimation[6] + object.xOffset * object.currentFrame);
+                    uvBuffer.put(7, object.uvsAnimation[7]);
+                }
+                else {
+                    uvBuffer.put(uvs);
+                }
+                uvBuffer.position(0);
 
                 // Bind texture to texturename
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);

@@ -96,10 +96,11 @@ public abstract class Fighter extends GameObject implements Serializable {
         palette3 = p3;
         level = startingLevel;
         tileIcon = sprite;
+        animates = true;
     }
 
-    public void Init() {
-        generatedSprite = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
+    public void Init(Context context) {
+        /*generatedSprite = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 30; j++) {
@@ -117,12 +118,16 @@ public abstract class Fighter extends GameObject implements Serializable {
             for (int j = 0; j < 30; j++) {
                 generatedSprite.setPixel(i, j, palette3);
             }
-        }
+        }*/
+
+        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriorwalkpalette", null, context.getPackageName()));
+
+        generatedSprite = ApplyPalette();
 
         tileIcon = generatedSprite;
     }
 
-    public static Fighter RandomFighter() {
+    public static Fighter RandomFighter(Context context) {
         Random r = new Random();
         int[] randColours = new int[32 * 32];
         for (int i = 0; i < 32 * 32; i++) {
@@ -132,33 +137,38 @@ public abstract class Fighter extends GameObject implements Serializable {
         int[] colourInfo = PhotoGeneration.Generate(b);
         Fighter random = new Warrior(new Rect(-50, 50, 50, -50), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
         random.isPlayerControlled = false;
+        random.Init(context);
+        random.ApplyPalette();
         return random;
     }
 
-    public static Bitmap ApplyPalette(Context context, int p1, int p2, int p3) {
-        int id = context.getResources().getIdentifier("drawable/palettetest", null, context.getPackageName());
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inMutable = true;
+    public Bitmap ApplyPalette() {
+        Bitmap temp = generatedSprite.copy(generatedSprite.getConfig(), true);
 
-        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), id, options);
+        int w = temp.getWidth();
+        int h = temp.getHeight();
+        int[] pixels = new int[w * h];
+        temp.getPixels(pixels, 0, w, 0, 0, w, h);
 
-        for (int i = 0; i < temp.getWidth(); i++) {
-            for (int j = 0; j < temp.getHeight(); j++) {
-                int colour = temp.getPixel(i, j);
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                int colour = pixels[i + j * w];
 
                 switch (colour) {
                     case 0xff7f7f7f:
-                        temp.setPixel(i, j, p1);
+                        pixels[i + j * w] = palette1;
                         break;
                     case 0xff3f3f3f:
-                        temp.setPixel(i, j, p2);
+                        pixels[i + j * w] = palette2;
                         break;
                     case 0xffbfbfbf:
-                        temp.setPixel(i, j, p3);
+                        pixels[i + j * w] = palette3;
                         break;
                 }
             }
         }
+
+        temp.setPixels(pixels, 0, w, 0, 0, w, h);
 
         return temp;
     }
@@ -242,9 +252,5 @@ public abstract class Fighter extends GameObject implements Serializable {
 
             ApplyEquipment();
         }
-    }
-
-    public void Update(long elapsed) {
-
     }
 }

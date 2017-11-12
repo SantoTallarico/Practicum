@@ -18,13 +18,16 @@ import android.view.View;
 
 import com.example.santo.practicum.Enums.TextAlign;
 import com.example.santo.practicum.FighterClassAdapter;
+import com.example.santo.practicum.GameObjects.Cleric;
 import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.GameObjects.Fighter;
+import com.example.santo.practicum.GameObjects.Rogue;
 import com.example.santo.practicum.GameObjects.Team;
 import com.example.santo.practicum.GameObjects.TextObject;
 import com.example.santo.practicum.GameObjects.Warrior;
+import com.example.santo.practicum.GameObjects.Wizard;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 import com.example.santo.practicum.PhotoGeneration;
@@ -69,7 +72,11 @@ public class MainMenuScene extends GameScene {
     GsonBuilder gsonBuilder = new GsonBuilder();
     public static final String PREFERENCES = "PBPreferences";
 
-    RuntimeTypeAdapterFactory<Fighter> typeFactory = RuntimeTypeAdapterFactory.of(Fighter.class, "type").registerSubtype(Warrior.class, "Warrior");
+    RuntimeTypeAdapterFactory<Fighter> typeFactory = RuntimeTypeAdapterFactory.of(Fighter.class, "type")
+            .registerSubtype(Warrior.class, "Warrior")
+            .registerSubtype(Rogue.class, "Rogue")
+            .registerSubtype(Wizard.class, "Wizard")
+            .registerSubtype(Cleric.class, "Cleric");
 
     SharedPreferences settings;
     SharedPreferences.Editor settingsEditor;
@@ -83,14 +90,26 @@ public class MainMenuScene extends GameScene {
         gsonBuilder.registerTypeAdapterFactory(typeFactory);
         Gson gson = gsonBuilder.create();
 
-        Type collectionType = new TypeToken<List<Fighter>>(){}.getType();
-        generatedCharacters = gson.fromJson(settings.getString("generatedCharacters", ""), collectionType);
+        Type fightCollectionType = new TypeToken<List<Fighter>>(){}.getType();
+        generatedCharacters = gson.fromJson(settings.getString("generatedCharacters", ""), fightCollectionType);
+        Type equipCollectionType = new TypeToken<List<Equipment>>(){}.getType();
+        generatedEquipment = gson.fromJson(settings.getString("generatedEquipment", ""), equipCollectionType);
+
         if (generatedCharacters == null) {
             generatedCharacters = new ArrayList<Fighter>();
         }
         else {
             for (Fighter fighter : generatedCharacters) {
                 fighter.Init(this);
+            }
+        }
+
+        if (generatedEquipment == null) {
+            generatedEquipment = new ArrayList<Equipment>();
+        }
+        else {
+            for (Equipment equipment : generatedEquipment) {
+                equipment.Init(this);
             }
         }
 
@@ -161,7 +180,9 @@ public class MainMenuScene extends GameScene {
                 gsonBuilder.registerTypeAdapterFactory(typeFactory);
                 Gson innerGson = gsonBuilder.create();
                 String genChars = innerGson.toJson(generatedCharacters);
+                String genEquip = innerGson.toJson(generatedEquipment);
                 settingsEditor.putString("generatedCharacters", genChars);
+                settingsEditor.putString("generatedEquipment", genEquip);
                 settingsEditor.commit();
             }
         });
@@ -219,8 +240,6 @@ public class MainMenuScene extends GameScene {
                     bitmap = PhotoAccess.getBitmapFromUri(uri, this);
                     int[] colourInfo = PhotoGeneration.Generate(bitmap);
 
-                    //palette1 = Fighter.ApplyPalette(this, colourInfo[3], colourInfo[4], colourInfo[5]);
-
                     palette1 = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
 
                     for (int i = 0; i < 10; i++) {
@@ -244,8 +263,24 @@ public class MainMenuScene extends GameScene {
                     p1.generatedSprite = palette1;
 
                     if (colourInfo[0] % 2 == 0) {
-
-                        Fighter character = new Warrior(new Rect(-50, 50, 50, -50), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                        Fighter character;
+                        switch (colourInfo[1] % 4) {
+                            case 0:
+                                character = new Warrior(new Rect(-75, 100, 75, -100), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                                break;
+                            case 1:
+                                character = new Rogue(new Rect(-75, 100, 75, -100), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                                break;
+                            case 2:
+                                character = new Wizard(new Rect(-75, 100, 75, -100), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                                break;
+                            case 3:
+                                character = new Cleric(new Rect(-75, 100, 75, -100), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                                break;
+                            default:
+                                character = new Warrior(new Rect(-75, 100, 75, -100), palette1, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                                break;
+                        }
                         character.Init(this);
                         generatedCharacters.add(character);
 
@@ -255,7 +290,8 @@ public class MainMenuScene extends GameScene {
                         startActivity(i);
                     }
                     else {
-                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 90, colourInfo[0], colourInfo[1], colourInfo[2]);
+                        Equipment equipment = new Equipment(new Rect(-50, 50, 50, -50), palette1, 90, colourInfo[0], colourInfo[1], colourInfo[2], colourInfo[3], colourInfo[4], colourInfo[5]);
+                        equipment.Init(this);
                         generatedEquipment.add(equipment);
 
                         Intent i = new Intent(getApplicationContext(), GenerationResultsScene.class);

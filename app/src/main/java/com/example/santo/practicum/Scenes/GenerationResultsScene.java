@@ -58,7 +58,6 @@ public class GenerationResultsScene extends GameScene {
             displayedObject = generatedEquipment;
         }
 
-        //displayedObject.ScaleTo(300, 300);
         displayedObject.TranslateTo(-250, 0);
         gameObjects.add(displayedObject);
         gameObjects.add(txtClass);

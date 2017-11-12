@@ -40,7 +40,7 @@ public class GameObject implements Serializable {
     public int currentFrame = 0;
     public int numFrames = 2;
     public float xOffset = 0.5f;
-    public final int FRAME_LENGTH = 500;
+    public final int FRAME_LENGTH = 250;
     public long time = 0;
 
     public boolean visible = true;

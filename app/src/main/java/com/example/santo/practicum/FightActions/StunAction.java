@@ -6,17 +6,17 @@ import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.GameObjects.Fighter;
 
 /**
- * Created by Santo on 11/8/2017.
+ * Created by Santo on 11/12/2017.
  */
 
-public class GuardAction extends FightAction {
-    public GuardAction(String n, Fighter u) {
-        super(n, u, 1000, Aiming.self);
+public class StunAction extends FightAction {
+    public StunAction(String n, Fighter u) {
+        super(n, u, u.GetStat(Stats.speed), Aiming.enemy);
     }
 
     public void ApplyAction() {
-        if (user.isAlive) {
-            user.Guard();
+        if (user.isAlive && !user.isStunned) {
+            target.Stun();
         }
     }
 }

@@ -102,11 +102,13 @@ public class FightController {
 
         for (Fighter fighter : playerFighters) {
             fighter.isGuarding = false;
+            fighter.isGuarded = false;
             fighter.isStunned = false;
         }
 
         for (Fighter fighter : enemyFighters) {
             fighter.isGuarding = false;
+            fighter.isGuarded = false;
             fighter.isStunned = false;
         }
 

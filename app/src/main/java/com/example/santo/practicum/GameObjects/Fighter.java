@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.support.v4.graphics.ColorUtils;
 import android.util.Pair;
 
 import com.example.santo.practicum.Enums.CharacterClass;
@@ -42,6 +41,7 @@ public abstract class Fighter extends GameObject implements Serializable {
     public boolean isPlayerControlled = true;
     public boolean isAlive = true;
     public boolean isGuarding = false;
+    public boolean isGuarded = false;
     public boolean isStunned = false;
     public transient Bitmap tileIcon;
     public int palette1, palette2, palette3;
@@ -100,31 +100,8 @@ public abstract class Fighter extends GameObject implements Serializable {
     }
 
     public void Init(Context context) {
-        /*generatedSprite = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 30; j++) {
-                generatedSprite.setPixel(i, j, palette1);
-            }
-        }
-
-        for (int i = 10; i < 20; i++) {
-            for (int j = 0; j < 30; j++) {
-                generatedSprite.setPixel(i, j, palette2);
-            }
-        }
-
-        for (int i = 20; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
-                generatedSprite.setPixel(i, j, palette3);
-            }
-        }*/
-
-        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriorwalkpalette", null, context.getPackageName()));
-
         generatedSprite = ApplyPalette();
-
-        tileIcon = generatedSprite;
+        tileIcon = Bitmap.createBitmap(generatedSprite, 0, 0, 84, 75);
     }
 
     public static Fighter RandomFighter(Context context) {
@@ -135,7 +112,24 @@ public abstract class Fighter extends GameObject implements Serializable {
         }
         Bitmap b = Bitmap.createBitmap(randColours, 32, 32, Bitmap.Config.ARGB_8888);
         int[] colourInfo = PhotoGeneration.Generate(b);
-        Fighter random = new Warrior(new Rect(-50, 50, 50, -50), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+        Fighter random;
+        switch (r.nextInt(4)) {
+            case 0:
+                random = new Warrior(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                break;
+            case 1:
+                random = new Rogue(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                break;
+            case 2:
+                random = new Wizard(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                break;
+            case 3:
+                random = new Cleric(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                break;
+            default:
+                random = new Warrior(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                break;
+        }
         random.isPlayerControlled = false;
         random.Init(context);
         random.ApplyPalette();
@@ -229,6 +223,7 @@ public abstract class Fighter extends GameObject implements Serializable {
     public void ResetStats() {
         isAlive = true;
         isGuarding = false;
+        isGuarded = false;
         isStunned = false;
         tempHitPoints = tempMaxHitPoints;
     }
@@ -237,8 +232,16 @@ public abstract class Fighter extends GameObject implements Serializable {
         isAlive = false;
     }
 
-    public void Revive() {
-        isAlive = true;
+    public void Guard() {
+        isGuarding = true;
+    }
+
+    public void Guarded(Fighter protector) {
+        isGuarded = true;
+    }
+
+    public void Stun() {
+        isStunned = true;
     }
 
     public void LevelUp() {

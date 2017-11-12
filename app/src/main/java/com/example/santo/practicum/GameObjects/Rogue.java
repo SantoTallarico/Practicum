@@ -12,6 +12,7 @@ import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.DamageAction;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.FightActions.GuardAction;
+import com.example.santo.practicum.FightActions.StunAction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,25 +20,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Santo on 9/28/2017.
+ * Created by Santo on 11/12/2017.
  */
 
-public class Warrior extends Fighter implements Serializable {
+public class Rogue extends Fighter implements Serializable {
     private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
-            put(Stats.hitPoints, 50);
-            put(Stats.attack, 40);
-            put(Stats.defence, 20);
-            put(Stats.magicDefence, 10);
-            put(Stats.speed, 20);
+            put(Stats.hitPoints, 45);
+            put(Stats.attack, 30);
+            put(Stats.defence, 15);
+            put(Stats.magicDefence, 15);
+            put(Stats.speed, 40);
         }
     };
 
-    public Warrior(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel, int red, int green, int blue) {
+    public Rogue(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel, int red, int green, int blue) {
         super(d, sprite, p1, p2, p3, layer, startingLevel);
-        charClass = CharacterClass.warrior;
+        charClass = CharacterClass.rogue;
 
-        weaponType = EquipmentType.sword;
+        weaponType = EquipmentType.knife;
         armorType = EquipmentType.armor;
 
         InitializeStats(red, green, blue);
@@ -51,7 +52,7 @@ public class Warrior extends Fighter implements Serializable {
 
     @Override
     public void Init(Context context) {
-        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriorwalkpalette", null, context.getPackageName()));
+        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/roguewalkpalette", null, context.getPackageName()));
         super.Init(context);
 
         type = this.getClass().getSimpleName();
@@ -59,7 +60,7 @@ public class Warrior extends Fighter implements Serializable {
         fightActions = new ArrayList<FightAction>();
         fightActions.add(new DamageAction("Attack", this));
         fightActions.add(new GuardAction("Defend", this));
-        fightActions.add(new DamageAction("Guard Ally", this));
+        fightActions.add(new StunAction("Stun Enemy", this));
     }
 
     private void InitializeStats(int red, int green, int blue) {

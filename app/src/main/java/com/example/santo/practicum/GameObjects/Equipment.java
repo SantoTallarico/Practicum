@@ -1,6 +1,8 @@
 package com.example.santo.practicum.GameObjects;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 import com.example.santo.practicum.Enums.EquipmentType;
@@ -24,17 +26,25 @@ public class Equipment extends GameObject implements Serializable {
 
     public transient Bitmap tileIcon;
 
-    public Equipment(Rect d, Bitmap generatedSprite, int layer, int red, int green, int blue) {
+    public int palette1, palette2, palette3;
+
+    public Equipment(Rect d, Bitmap generatedSprite, int layer, int red, int green, int blue, int p1, int p2, int p3) {
         super(d, generatedSprite, layer);
         tileIcon = generatedSprite;
+        palette1 = p1;
+        palette2 = p2;
+        palette3 = p3;
 
         boolean isWeapon = true;
-        switch (red % 2) {
-            case 0:
+        switch (red % 4) {
+            case 1:
                 isWeapon = true;
                 break;
-            case 1:
+            case 3:
                 isWeapon = false;
+                break;
+            default:
+                isWeapon = true;
                 break;
         }
 
@@ -99,5 +109,63 @@ public class Equipment extends GameObject implements Serializable {
                 modMagicDefence = 2 + 5 - (blue % 5 + 1);
                 break;
         }
+    }
+
+    public void Init(Context context) {
+        String filePath = "";
+        switch (type) {
+            case sword:
+                filePath = "drawable/swordpalette";
+                break;
+            case knife:
+                filePath = "drawable/knifepalette";
+                break;
+            case staff:
+                filePath = "drawable/staffpalette";
+                break;
+            case mace:
+                filePath = "drawable/macepalette";
+                break;
+            case armor:
+                filePath = "drawable/swordpalette";
+                break;
+            case robe:
+                filePath = "drawable/swordpalette";
+                break;
+        }
+        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier(filePath, null, context.getPackageName()));
+        generatedSprite = ApplyPalette();
+        tileIcon = generatedSprite;
+    }
+
+    public Bitmap ApplyPalette() {
+        Bitmap temp = generatedSprite.copy(generatedSprite.getConfig(), true);
+
+        int w = temp.getWidth();
+        int h = temp.getHeight();
+        int[] pixels = new int[w * h];
+        temp.getPixels(pixels, 0, w, 0, 0, w, h);
+
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                int colour = pixels[i + j * w];
+
+                switch (colour) {
+                    case 0xff7f7f7f:
+                        pixels[i + j * w] = palette1;
+                        break;
+                    case 0xff3f3f3f:
+                        pixels[i + j * w] = palette2;
+                        break;
+                    case 0xffbfbfbf:
+                        pixels[i + j * w] = palette3;
+                        break;
+                }
+            }
+        }
+
+        temp.setPixels(pixels, 0, w, 0, 0, w, h);
+
+        return temp;
     }
 }

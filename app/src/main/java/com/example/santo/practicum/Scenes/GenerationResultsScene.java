@@ -56,6 +56,7 @@ public class GenerationResultsScene extends GameScene {
             txtMagicDefence = new TextObject(new Rect(150, -200, 450, -300), "Magic Defence: " + generatedEquipment.modMagicDefence, 100, TextAlign.right);
             txtSpeed = new TextObject(new Rect(150, -400, 450, -500), "Speed: " + generatedEquipment.modSpeed, 100, TextAlign.right);
             displayedObject = generatedEquipment;
+            displayedObject.ScaleTo(300, 300);
         }
 
         displayedObject.TranslateTo(-250, 0);

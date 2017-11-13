@@ -36,6 +36,9 @@ import com.example.santo.practicum.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -57,7 +60,7 @@ public class MainMenuScene extends GameScene {
 
     public static GameObject generatedObject;
 
-    GameObject p1 = new GameObject(new Rect(-550, 550, -250, 250), palette1, 100);
+    GameObject p1 = new GameObject(new Rect(-550, 350, -250, 50), palette1, 100);
 
     MediaPlayer musicPlayer;
     AudioAttributes attributes = new AudioAttributes.Builder()
@@ -113,6 +116,13 @@ public class MainMenuScene extends GameScene {
             }
         }
 
+        MongoClientURI uri = new MongoClientURI(
+                "mongodb://santot:<Pr0t0men!>@cluster0-shard-00-00-qpcpj.mongodb.net:27017,cluster0-shard-00-01-qpcpj.mongodb.net:27017,cluster0-shard-00-02-qpcpj.mongodb.net:27017/data?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
+
+        MongoClient mongoClient = new MongoClient(uri);
+        MongoDatabase database = mongoClient.getDatabase("data");
+
+
         musicPlayer = MediaPlayer.create(this, R.raw.costadelsanto);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -135,8 +145,11 @@ public class MainMenuScene extends GameScene {
         GameObject backgroundImage = new GameObject(new Rect(-540, 960, 540, -960), "drawable/argyle", 1);
         gameObjects.add(backgroundImage);
 
-        TextObject text = new TextObject(new Rect(-150, 550, 150, 450), "Photo Battler", 100, TextAlign.center);
-        gameObjects.add(text);
+        GameObject titleBackground = new GameObject(new Rect(-300, 700, 300, 500), "drawable/btnbackground", 90);
+        TextObject txtTitle = new TextObject(new Rect(-150, 650, 150, 550), "Photo Battler", 100, TextAlign.center);
+        txtTitle.ScaleTo(600, 200);
+        gameObjects.add(titleBackground);
+        gameObjects.add(txtTitle);
 
         GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
         TextObject btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Fight!", 100, TextAlign.center);

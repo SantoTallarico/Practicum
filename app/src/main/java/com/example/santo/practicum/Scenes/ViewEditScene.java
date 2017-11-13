@@ -24,7 +24,7 @@ public class ViewEditScene extends GameScene {
 
     TextObject txtClass, txtHitPoints, txtAttack, txtDefence, txtMagicDefence, txtSpeed;
 
-    GameObject selectedCharacterHighlight = new GameObject(new Rect(10000, 10150, 10150, 10000), Bitmap.createBitmap(new int[] { 0xffffffff }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameObject selectedCharacterHighlight = new GameObject(new Rect(10000, 10150, 10150, 10000), Bitmap.createBitmap(new int[] { 0xff000000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

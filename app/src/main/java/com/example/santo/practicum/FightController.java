@@ -45,7 +45,7 @@ public class FightController {
         listener.ListActions();
     }
 
-    public void RunActions() {
+    public boolean RunActions() {
         listener.UpdateState(FightState.actionsRunning);
         Collections.sort(queuedActions);
 
@@ -64,7 +64,7 @@ public class FightController {
             if (isPlayerDefeated == true) {
                 listener.EndFight(false);
                 queuedActions.clear();
-                return;
+                return true;
             }
 
             boolean isEnemyDefeated = true;
@@ -78,13 +78,14 @@ public class FightController {
             if (isEnemyDefeated == true) {
                 listener.EndFight(true);
                 queuedActions.clear();
-                return;
+                return true;
             }
         }
 
         queuedActions.clear();
-
         listener.UpdateState(FightState.selectingAction);
+
+        return false;
     }
 
     public void SetActiveAction(FightAction action) {
@@ -97,8 +98,8 @@ public class FightController {
     }
 
     public void StartRound() {
-        activeFighter = playerFighters.get(0);
-        activeIndex = 0;
+        //activeFighter = playerFighters.get(0);
+        activeIndex = -1;
 
         for (Fighter fighter : playerFighters) {
             fighter.isGuarding = false;
@@ -112,14 +113,16 @@ public class FightController {
             fighter.isStunned = false;
         }
 
-        ListActions();
+        NextFighter();
     }
 
     public void NextFighter() {
         activeIndex++;
 
         if (activeIndex == 8) {
-            RunActions();
+            if (RunActions() == true) {
+                return;
+            }
 
             StartRound();
             return;
@@ -157,9 +160,6 @@ public class FightController {
                 NextFighter();
                 return;
             }
-        }
-        else if (activeFighter.isAlive == false && activeIndex == 7) {
-
         }
         else {
             NextFighter();

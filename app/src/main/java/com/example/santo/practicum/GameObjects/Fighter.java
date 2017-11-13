@@ -2,7 +2,6 @@ package com.example.santo.practicum.GameObjects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Pair;
@@ -26,22 +25,23 @@ public abstract class Fighter extends GameObject implements Serializable {
     String name;
     public CharacterClass charClass;
     int level;
-    int experience;
-    int maxHitPoints, tempMaxHitPoints, tempHitPoints, hitPointsGrowth;
-    int attack, tempAttack, attackGrowth;
-    int defence, tempDefence, defenceGrowth;
-    int magicDefence, tempMagicDefence, magicDefenceGrowth;
-    int speed, tempSpeed, speedGrowth;
+    transient int experience = 0;
+    int maxHitPoints, attack, defence, magicDefence, speed;
+    transient int tempMaxHitPoints, tempHitPoints, hitPointsGrowth,
+            tempAttack, attackGrowth,
+            tempDefence, defenceGrowth,
+            tempMagicDefence, magicDefenceGrowth,
+            tempSpeed, speedGrowth;
 
     public Equipment weapon;
     public Equipment armor;
-    public EquipmentType weaponType;
-    public EquipmentType armorType;
+    public transient EquipmentType weaponType;
+    public transient EquipmentType armorType;
 
-    public boolean isPlayerControlled = true;
-    public boolean isAlive = true;
-    public boolean isGuarding = false;
-    public boolean isGuarded = false;
+    public transient boolean isPlayerControlled = true;
+    public transient boolean isAlive = true;
+    public transient boolean isGuarding = false;
+    public transient boolean isGuarded = false;
     public boolean isStunned = false;
     public transient Bitmap tileIcon;
     public int palette1, palette2, palette3;
@@ -102,6 +102,12 @@ public abstract class Fighter extends GameObject implements Serializable {
     public void Init(Context context) {
         generatedSprite = ApplyPalette();
         tileIcon = Bitmap.createBitmap(generatedSprite, 0, 0, 84, 75);
+        ApplyEquipment();
+
+        isAlive = true;
+        isGuarding = false;
+        isGuarded = false;
+        isPlayerControlled = true;
     }
 
     public static Fighter RandomFighter(Context context) {
@@ -115,24 +121,24 @@ public abstract class Fighter extends GameObject implements Serializable {
         Fighter random;
         switch (r.nextInt(4)) {
             case 0:
-                random = new Warrior(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Warrior(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             case 1:
-                random = new Rogue(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Rogue(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             case 2:
-                random = new Wizard(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Wizard(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             case 3:
-                random = new Cleric(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Cleric(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             default:
-                random = new Warrior(new Rect(-75, 100, 75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Warrior(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
         }
-        random.isPlayerControlled = false;
         random.Init(context);
         random.ApplyPalette();
+        random.isPlayerControlled = false;
         return random;
     }
 

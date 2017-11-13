@@ -33,9 +33,9 @@ public class FightScene extends GameScene implements FightListener {
     Rect action1 = new Rect(-100, -300, 100, -400);
     Rect action2 = new Rect(-100, -400, 100, -500);
     Rect action3 = new Rect(-100, -500, 100, -600);
-    Rect highlight = new Rect(0, 150, 150, 0);
+    Rect highlight = new Rect(0, 250, 250, 0);
 
-    GameObject activeFighterHighlight = new GameObject(highlight, Bitmap.createBitmap(new int[] { 0xffffffff }, 1, 1, Bitmap.Config.ARGB_8888), 10);
+    GameObject activeFighterHighlight = new GameObject(highlight, Bitmap.createBitmap(new int[] { 0xff000000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
     GameButton enemy1Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
     GameButton enemy2Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
     GameButton enemy3Highlight = new GameButton(highlight, Bitmap.createBitmap(new int[] { 0xffff0000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
@@ -246,6 +246,10 @@ public class FightScene extends GameScene implements FightListener {
                 }
             }
         });
+
+        glView.AddTexture(txtAction1);
+        glView.AddTexture(txtAction2);
+        glView.AddTexture(txtAction3);
     }
 
     @Override

@@ -190,7 +190,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         SetupTextures();
         SetupShaders();
 
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     @Override

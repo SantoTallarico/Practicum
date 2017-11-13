@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Santo on 10/16/2017.
@@ -50,8 +51,20 @@ public class FightController {
         Collections.sort(queuedActions);
 
         for (FightAction action : queuedActions) {
-            action.ApplyAction();
-            listener.UpdateText();
+            if (action.user.isAlive) {
+                action.user.Translate(action.user.isPlayerControlled ? -30 : 30, 0);
+                action.ApplyAction();
+                listener.UpdateText();
+
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                }
+                catch(InterruptedException e) {
+                    //should never happen
+                }
+
+                action.user.Translate(action.user.isPlayerControlled ? 30 : -30, 0);
+            }
 
             boolean isPlayerDefeated = true;
             for (Fighter f : playerFighters) {

@@ -86,7 +86,7 @@ public abstract class FightAction implements Comparable<FightAction> {
 
     @Override
     public int compareTo(FightAction other) {
-        return Integer.compare(this.priority, other.priority);
+        return Integer.compare(other.priority, this.priority);
     }
 
     public abstract void ApplyAction();

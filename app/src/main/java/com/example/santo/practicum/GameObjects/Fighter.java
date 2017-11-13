@@ -261,16 +261,16 @@ public abstract class Fighter extends GameObject implements Serializable {
             case idle:
                 currentTextureID = textureIDs[0];
                 animates = true;
-                ScaleTo(isPlayerControlled == true ? 150 : -150, 200);
+                ScaleTo(isPlayerControlled ? 150 : -150, 200);
                 break;
             case dead:
                 currentTextureID = textureIDs[1];
                 animates = false;
-                ScaleTo(isPlayerControlled == true ? 150 : -150200, 150);
+                ScaleTo(isPlayerControlled ? 200 : -200, 150);
                 break;
             case stunned:
                 animates = false;
-                ScaleTo(isPlayerControlled == true ? 150 : -150, 200);
+                ScaleTo(isPlayerControlled ? 150 : -150, 200);
                 break;
         }
     }

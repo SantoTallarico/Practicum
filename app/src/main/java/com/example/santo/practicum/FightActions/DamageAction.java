@@ -22,6 +22,9 @@ public class DamageAction extends FightAction {
                 damage = 1;
             }
 
+            if (!target.isAlive) {
+                ChooseRandomTarget();
+            }
             target.ModifyStat(Stats.hitPoints, -damage);
         }
     }

@@ -23,11 +23,11 @@ import java.util.Map;
  * Created by Santo on 11/12/2017.
  */
 
-public class Wizard extends Fighter implements Serializable{
+public class Wizard extends Fighter implements Serializable {
     private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 35);
-            put(Stats.attack, 40);
+            put(Stats.attack, 20);
             put(Stats.defence, 10);
             put(Stats.magicDefence, 25);
             put(Stats.speed, 20);

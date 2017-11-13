@@ -1,10 +1,7 @@
 package com.example.santo.practicum;
 
-import android.graphics.Rect;
-
 import com.example.santo.practicum.Enums.FightState;
 import com.example.santo.practicum.FightActions.FightAction;
-import com.example.santo.practicum.FightListener;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.Team;
 
@@ -34,6 +31,8 @@ public class FightController {
     public FightController(Team playerTeam, Team enemyTeam) {
         playerFighters = playerTeam.GetTeam();
         enemyFighters = enemyTeam.GetTeam();
+        FightAction.playerFighters = playerFighters;
+        FightAction.enemyFighters = enemyFighters;
     }
 
     public void AssignListener(FightListener l) {

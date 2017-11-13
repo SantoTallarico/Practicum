@@ -16,6 +16,9 @@ public class StunAction extends FightAction {
 
     public void ApplyAction() {
         if (user.isAlive && !user.isStunned) {
+            if (!target.isAlive) {
+                ChooseRandomTarget();
+            }
             target.Stun();
         }
     }

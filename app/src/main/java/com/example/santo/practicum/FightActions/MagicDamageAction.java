@@ -16,12 +16,15 @@ public class MagicDamageAction extends FightAction {
 
     public void ApplyAction() {
         if (user.isAlive && !user.isStunned) {
-            int damage = user.GetStat(Stats.attack) - target.GetStat(Stats.magicDefence) / (target.isGuarding ? 2 : 1);
+            int damage = (user.GetStat(Stats.attack) + 20) - target.GetStat(Stats.magicDefence) / (target.isGuarding ? 2 : 1);
 
             if (damage < 1) {
                 damage = 1;
             }
 
+            if (!target.isAlive) {
+                ChooseRandomTarget();
+            }
             target.ModifyStat(Stats.hitPoints, -damage);
         }
     }

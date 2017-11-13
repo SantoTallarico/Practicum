@@ -18,6 +18,9 @@ public class HealAction extends FightAction {
         if (user.isAlive && !user.isStunned) {
             int heal = user.GetStat(Stats.magicDefence) / 2;
 
+            if (!target.isAlive) {
+                ChooseRandomTarget();
+            }
             target.ModifyStat(Stats.hitPoints, heal);
         }
     }

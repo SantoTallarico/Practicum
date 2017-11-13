@@ -15,8 +15,9 @@ import java.io.Serializable;
 public class GameObject implements Serializable {
     public String spriteLocation;
     public boolean isSpriteGenerated = false;
-    public transient Bitmap generatedSprite;
-    public int textureID;
+    public transient Bitmap[] generatedSprites = new Bitmap[1];
+    public int[] textureIDs = new int[1];
+    public int currentTextureID;
 
     public final float[] VERTICES = {-0.5f, 0.5f, 0.0f,
                                     -0.5f, -0.5f, 0.0f,
@@ -65,7 +66,7 @@ public class GameObject implements Serializable {
         translation[1] = d.top + d.height() / 2;
         scale[0] = d.width();
         scale[1] = -d.height();
-        generatedSprite = sprite;
+        generatedSprites[0] = sprite;
         isSpriteGenerated = true;
         spriteLayer = layer;
 

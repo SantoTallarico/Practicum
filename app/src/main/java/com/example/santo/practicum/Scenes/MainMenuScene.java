@@ -13,11 +13,9 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 
 import com.example.santo.practicum.Enums.TextAlign;
-import com.example.santo.practicum.FighterClassAdapter;
 import com.example.santo.practicum.GameObjects.Cleric;
 import com.example.santo.practicum.GameObjects.Equipment;
 import com.example.santo.practicum.GameObjects.GameButton;
@@ -40,12 +38,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class MainMenuScene extends GameScene {
@@ -273,7 +268,7 @@ public class MainMenuScene extends GameScene {
                         }
                     }
 
-                    p1.generatedSprite = palette1;
+                    p1.generatedSprites[0] = palette1;
 
                     if (colourInfo[0] % 2 == 0) {
                         Fighter character;

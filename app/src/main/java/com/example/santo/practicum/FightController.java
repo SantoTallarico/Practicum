@@ -1,6 +1,7 @@
 package com.example.santo.practicum;
 
 import com.example.santo.practicum.Enums.FightState;
+import com.example.santo.practicum.Enums.SpriteState;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.Team;
@@ -96,8 +97,21 @@ public class FightController {
         queuedActions.add(action);
     }
 
+    public void StartFight() {
+        for (Fighter fighter : playerFighters) {
+            fighter.isAlive = true;
+            fighter.ChangeSprite(SpriteState.idle);
+        }
+
+        for (Fighter fighter : enemyFighters) {
+            fighter.isAlive = true;
+            fighter.ChangeSprite(SpriteState.idle);
+        }
+
+        StartRound();
+    }
+
     public void StartRound() {
-        //activeFighter = playerFighters.get(0);
         activeIndex = -1;
 
         for (Fighter fighter : playerFighters) {

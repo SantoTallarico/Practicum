@@ -52,7 +52,10 @@ public class Rogue extends Fighter implements Serializable {
 
     @Override
     public void Init(Context context) {
-        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/roguewalkpalette", null, context.getPackageName()));
+        textureIDs = new int[2];
+        generatedSprites = new Bitmap[2];
+        generatedSprites[0] = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/roguewalkpalette", null, context.getPackageName()));
+        generatedSprites[1] = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriordead", null, context.getPackageName()));
         super.Init(context);
 
         type = this.getClass().getSimpleName();

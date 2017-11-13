@@ -55,6 +55,7 @@ public abstract class FightAction implements Comparable<FightAction> {
 
                     target = playerFighters.get(validTargets.get(r.nextInt(validTargets.size())));
                 }
+                break;
             case ally:
                 if (user.isPlayerControlled) {
                     for (Fighter fighter : playerFighters) {
@@ -76,6 +77,7 @@ public abstract class FightAction implements Comparable<FightAction> {
 
                     target = enemyFighters.get(validTargets.get(r.nextInt(validTargets.size())));
                 }
+                break;
             default:
                 //should not get here
                 target = user;

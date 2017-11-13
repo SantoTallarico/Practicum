@@ -80,12 +80,12 @@ public class EditScene extends GameScene {
         txtMagicDefence.SetText("Magic Defence: " + selectedCharacter.GetStat(Stats.magicDefence), TextAlign.right);
         txtSpeed.SetText("Speed: " + selectedCharacter.GetStat(Stats.speed), TextAlign.right);
 
-        glView.AddTexture(txtClass);
-        glView.AddTexture(txtHitPoints);
-        glView.AddTexture(txtAttack);
-        glView.AddTexture(txtDefence);
-        glView.AddTexture(txtMagicDefence);
-        glView.AddTexture(txtSpeed);
+        glView.AddTexture(txtClass, 0);
+        glView.AddTexture(txtHitPoints, 0);
+        glView.AddTexture(txtAttack, 0);
+        glView.AddTexture(txtDefence, 0);
+        glView.AddTexture(txtMagicDefence, 0);
+        glView.AddTexture(txtSpeed, 0);
     }
 
     @Override

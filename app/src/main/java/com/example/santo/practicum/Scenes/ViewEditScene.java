@@ -64,8 +64,8 @@ public class ViewEditScene extends GameScene {
                 if (selectedCharacter != null) {
                     team.Add(selectedCharacter, 0);
                     btnTeam1.isSpriteGenerated = true;
-                    btnTeam1.generatedSprite = selectedCharacter.tileIcon;
-                    glView.AddTexture(btnTeam1);
+                    btnTeam1.generatedSprites[0] = selectedCharacter.tileIcon;
+                    glView.AddTexture(btnTeam1, 0);
                 }
             }
         });
@@ -74,8 +74,8 @@ public class ViewEditScene extends GameScene {
                 if (selectedCharacter != null) {
                     team.Add(selectedCharacter, 1);
                     btnTeam2.isSpriteGenerated = true;
-                    btnTeam2.generatedSprite = selectedCharacter.tileIcon;
-                    glView.AddTexture(btnTeam2);
+                    btnTeam2.generatedSprites[0] = selectedCharacter.tileIcon;
+                    glView.AddTexture(btnTeam2, 0);
                 }
             }
         });
@@ -84,8 +84,8 @@ public class ViewEditScene extends GameScene {
                 if (selectedCharacter != null) {
                     team.Add(selectedCharacter, 2);
                     btnTeam3.isSpriteGenerated = true;
-                    btnTeam3.generatedSprite = selectedCharacter.tileIcon;
-                    glView.AddTexture(btnTeam3);
+                    btnTeam3.generatedSprites[0] = selectedCharacter.tileIcon;
+                    glView.AddTexture(btnTeam3, 0);
                 }
             }
         });
@@ -94,8 +94,8 @@ public class ViewEditScene extends GameScene {
                 if (selectedCharacter != null) {
                     team.Add(selectedCharacter, 3);
                     btnTeam4.isSpriteGenerated = true;
-                    btnTeam4.generatedSprite = selectedCharacter.tileIcon;
-                    glView.AddTexture(btnTeam4);
+                    btnTeam4.generatedSprites[0] = selectedCharacter.tileIcon;
+                    glView.AddTexture(btnTeam4, 0);
                 }
             }
         });
@@ -171,12 +171,12 @@ public class ViewEditScene extends GameScene {
         txtMagicDefence.SetText("Magic Defence: " + selectedCharacter.GetStat(Stats.magicDefence), TextAlign.right);
         txtSpeed.SetText("Speed: " + selectedCharacter.GetStat(Stats.speed), TextAlign.right);
 
-        glView.AddTexture(txtClass);
-        glView.AddTexture(txtHitPoints);
-        glView.AddTexture(txtAttack);
-        glView.AddTexture(txtDefence);
-        glView.AddTexture(txtMagicDefence);
-        glView.AddTexture(txtSpeed);
+        glView.AddTexture(txtClass, 0);
+        glView.AddTexture(txtHitPoints, 0);
+        glView.AddTexture(txtAttack, 0);
+        glView.AddTexture(txtDefence, 0);
+        glView.AddTexture(txtMagicDefence, 0);
+        glView.AddTexture(txtSpeed, 0);
     }
 
     @Override

@@ -21,7 +21,6 @@ import java.util.List;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import static android.opengl.GLES20.glGetError;
 import static javax.microedition.khronos.opengles.GL10.GL_CLAMP_TO_EDGE;
 
 /**
@@ -37,8 +36,6 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
     private FloatBuffer uvBuffer;
-
-    private int[] textureNames;
 
     private float m_ScreenWidth = 1080;
     private float m_ScreenHeight = 1776;
@@ -95,57 +92,58 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
     public void SetupTextures()
     {
+        int[] textureName = new int[1];
         ByteBuffer bb = ByteBuffer.allocateDirect(uvs.length * 4);
         bb.order(ByteOrder.nativeOrder());
         uvBuffer = bb.asFloatBuffer();
         uvBuffer.put(uvs);
         uvBuffer.position(0);
 
-        textureNames = new int[m_gameObjects.size()];
-        GLES20.glGenTextures(m_gameObjects.size(), textureNames, 0);
-
-        int i = 0;
         for (GameObject object : m_gameObjects) {
-            object.textureID = textureNames[i];
-            Bitmap bmp;
-            if (object.isSpriteGenerated) {
-                bmp = object.generatedSprite.copy(object.generatedSprite.getConfig(), object.generatedSprite.isMutable());
+            for (int i = 0; i < object.textureIDs.length; i++) {
+                GLES20.glGenTextures(1, textureName, 0);
+                object.textureIDs[i] = textureName[0];
+                if (i == 0) {
+                    object.currentTextureID = textureName[0];
+                }
+                Bitmap bmp;
+                if (object.isSpriteGenerated) {
+                    bmp = object.generatedSprites[i].copy(object.generatedSprites[i].getConfig(), object.generatedSprites[i].isMutable());
+                } else {
+                    int id = mContext.getResources().getIdentifier(object.spriteLocation, null, mContext.getPackageName());
+
+                    bmp = BitmapFactory.decodeResource(mContext.getResources(), id);
+                }
+
+                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, object.textureIDs[i]);
+
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+                        GLES20.GL_LINEAR);
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
+                        GLES20.GL_LINEAR);
+
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S,
+                        GL_CLAMP_TO_EDGE);
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
+                        GL_CLAMP_TO_EDGE);
+
+                GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmp, 0);
+
+                bmp.recycle();
             }
-            else {
-                int id = mContext.getResources().getIdentifier(object.spriteLocation, null, mContext.getPackageName());
-
-                bmp = BitmapFactory.decodeResource(mContext.getResources(), id);
-            }
-
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, object.textureID);
-
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
-                    GLES20.GL_LINEAR);
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
-                    GLES20.GL_LINEAR);
-
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S,
-                    GL_CLAMP_TO_EDGE);
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
-                    GL_CLAMP_TO_EDGE);
-
-            GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmp, 0);
-
-            bmp.recycle();
-
-            i++;
         }
     }
 
-    public void AddTexture(final GameObject object) {
+    public void AddTexture(final GameObject object, int textureIndex) {
         int[] textureName = new int[1];
         GLES20.glGenTextures(1, textureName, 0);
-        object.textureID = textureName[0];
+        object.textureIDs[textureIndex] = textureName[0];
+        object.currentTextureID = object.textureIDs[textureIndex];
 
         Bitmap bmp;
         if (object.isSpriteGenerated) {
-            bmp = object.generatedSprite.copy(object.generatedSprite.getConfig(), object.generatedSprite.isMutable());
+            bmp = object.generatedSprites[0].copy(object.generatedSprites[0].getConfig(), object.generatedSprites[0].isMutable());
         }
         else {
             int id = mContext.getResources().getIdentifier(object.spriteLocation, null, mContext.getPackageName());
@@ -154,7 +152,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
         }
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, object.textureID);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, object.textureIDs[textureIndex]);
 
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
                 GLES20.GL_LINEAR);
@@ -268,7 +266,7 @@ public class PB_GLRenderer implements GLSurfaceView.Renderer {
 
                 // Bind texture to texturename
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, object.textureID);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, object.currentTextureID);
 
                 // get handle to vertex shader's vPosition member
                 int mPositionHandle = GLES20.glGetAttribLocation(Shaders.sp_Image, "vPosition");

@@ -133,13 +133,14 @@ public class Equipment extends GameObject implements Serializable {
                 filePath = "drawable/swordpalette";
                 break;
         }
-        generatedSprite = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier(filePath, null, context.getPackageName()));
-        generatedSprite = ApplyPalette();
-        tileIcon = generatedSprite;
+        generatedSprites = new Bitmap[1];
+        generatedSprites[0] = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier(filePath, null, context.getPackageName()));
+        generatedSprites[0] = ApplyPalette();
+        tileIcon = generatedSprites[0];
     }
 
     public Bitmap ApplyPalette() {
-        Bitmap temp = generatedSprite.copy(generatedSprite.getConfig(), true);
+        Bitmap temp = generatedSprites[0].copy(generatedSprites[0].getConfig(), true);
 
         int w = temp.getWidth();
         int h = temp.getHeight();

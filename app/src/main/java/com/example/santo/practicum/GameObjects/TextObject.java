@@ -24,8 +24,8 @@ public class TextObject extends GameObject {
     public void SetText(String t, TextAlign alignment) {
         text = t;
 
-        Canvas canvas = new Canvas(generatedSprite);
-        generatedSprite.eraseColor(0x00ffffff);
+        Canvas canvas = new Canvas(generatedSprites[0]);
+        generatedSprites[0].eraseColor(0x00ffffff);
 
         Paint paint = new Paint();
         paint.setTextSize(32);

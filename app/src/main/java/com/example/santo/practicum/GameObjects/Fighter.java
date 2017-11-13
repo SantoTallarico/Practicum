@@ -8,6 +8,7 @@ import android.util.Pair;
 
 import com.example.santo.practicum.Enums.CharacterClass;
 import com.example.santo.practicum.Enums.EquipmentType;
+import com.example.santo.practicum.Enums.SpriteState;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.PhotoGeneration;
@@ -97,11 +98,13 @@ public abstract class Fighter extends GameObject implements Serializable {
         level = startingLevel;
         tileIcon = sprite;
         animates = true;
+        textureIDs = new int[2];
     }
 
     public void Init(Context context) {
-        generatedSprite = ApplyPalette();
-        tileIcon = Bitmap.createBitmap(generatedSprite, 0, 0, 84, 75);
+        generatedSprites[0] = ApplyPalette(generatedSprites[0]);
+        generatedSprites[1] = ApplyPalette(generatedSprites[1]);
+        tileIcon = Bitmap.createBitmap(generatedSprites[0], 0, 0, 84, 75);
         ApplyEquipment();
 
         isAlive = true;
@@ -137,13 +140,15 @@ public abstract class Fighter extends GameObject implements Serializable {
                 break;
         }
         random.Init(context);
-        random.ApplyPalette();
+        for (int i = 0; i < random.generatedSprites.length; i++) {
+            random.generatedSprites[i] = random.ApplyPalette(random.generatedSprites[i]);
+        }
         random.isPlayerControlled = false;
         return random;
     }
 
-    public Bitmap ApplyPalette() {
-        Bitmap temp = generatedSprite.copy(generatedSprite.getConfig(), true);
+    public Bitmap ApplyPalette(Bitmap bitmap) {
+        Bitmap temp = bitmap.copy(bitmap.getConfig(), true);
 
         int w = temp.getWidth();
         int h = temp.getHeight();
@@ -236,6 +241,7 @@ public abstract class Fighter extends GameObject implements Serializable {
 
     public void Death() {
         isAlive = false;
+        ChangeSprite(SpriteState.dead);
     }
 
     public void Guard() {
@@ -248,6 +254,25 @@ public abstract class Fighter extends GameObject implements Serializable {
 
     public void Stun() {
         isStunned = true;
+    }
+
+    public void ChangeSprite(SpriteState state) {
+        switch (state) {
+            case idle:
+                currentTextureID = textureIDs[0];
+                animates = true;
+                ScaleTo(isPlayerControlled == true ? 150 : -150, 200);
+                break;
+            case dead:
+                currentTextureID = textureIDs[1];
+                animates = false;
+                ScaleTo(isPlayerControlled == true ? 150 : -150200, 150);
+                break;
+            case stunned:
+                animates = false;
+                ScaleTo(isPlayerControlled == true ? 150 : -150, 200);
+                break;
+        }
     }
 
     public void LevelUp() {

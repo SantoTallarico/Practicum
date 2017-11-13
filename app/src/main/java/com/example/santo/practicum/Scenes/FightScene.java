@@ -198,7 +198,7 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(ally3Highlight);
         gameObjects.add(ally4Highlight);
 
-        controller.StartRound();
+        controller.StartFight();
     }
 
     @Override
@@ -247,9 +247,9 @@ public class FightScene extends GameScene implements FightListener {
             }
         });
 
-        glView.AddTexture(txtAction1);
-        glView.AddTexture(txtAction2);
-        glView.AddTexture(txtAction3);
+        glView.AddTexture(txtAction1, 0);
+        glView.AddTexture(txtAction2, 0);
+        glView.AddTexture(txtAction3, 0);
     }
 
     @Override
@@ -259,27 +259,27 @@ public class FightScene extends GameScene implements FightListener {
         txtFighter3HP.SetText("Fighter 3 HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
         txtFighter4HP.SetText("Fighter 4 HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
 
-        glView.AddTexture(txtFighter1HP);
-        glView.AddTexture(txtFighter2HP);
-        glView.AddTexture(txtFighter3HP);
-        glView.AddTexture(txtFighter4HP);
+        glView.AddTexture(txtFighter1HP, 0);
+        glView.AddTexture(txtFighter2HP, 0);
+        glView.AddTexture(txtFighter3HP, 0);
+        glView.AddTexture(txtFighter4HP, 0);
 
         txtEnemy1HP.SetText("Enemy 1 HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
         txtEnemy2HP.SetText("Enemy 2 HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
         txtEnemy3HP.SetText("Enemy 3 HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
         txtEnemy4HP.SetText("Enemy 4 HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
 
-        glView.AddTexture(txtEnemy1HP);
-        glView.AddTexture(txtEnemy2HP);
-        glView.AddTexture(txtEnemy3HP);
-        glView.AddTexture(txtEnemy4HP);
+        glView.AddTexture(txtEnemy1HP, 0);
+        glView.AddTexture(txtEnemy2HP, 0);
+        glView.AddTexture(txtEnemy3HP, 0);
+        glView.AddTexture(txtEnemy4HP, 0);
     }
 
     @Override
     public void UpdateState(FightState state) {
         txtCurrentState.SetText("" + state, TextAlign.center);
 
-        glView.AddTexture(txtCurrentState);
+        glView.AddTexture(txtCurrentState, 0);
 
         switch (state) {
             case selectingAction:
@@ -360,7 +360,7 @@ public class FightScene extends GameScene implements FightListener {
             txtCurrentState.SetText("You lose...", TextAlign.center);
         }
 
-        glView.AddTexture(txtCurrentState);
+        glView.AddTexture(txtCurrentState, 0);
 
         UninteractiveState();
 

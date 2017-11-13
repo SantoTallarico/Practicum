@@ -27,10 +27,10 @@ public class PB_GLSurfaceView extends GLSurfaceView {
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 
-    public void AddTexture(final GameObject object) {
+    public void AddTexture(final GameObject object, final int textureIndex) {
         queueEvent(new Runnable() {
             public void run() {
-                renderer.AddTexture(object);
+                renderer.AddTexture(object, textureIndex);
             }
         });
     }

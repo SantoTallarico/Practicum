@@ -232,6 +232,10 @@ public class FightController {
                     i++;
                 }
 
+                if (validTargets.size() == 0) {
+                    return activeFighter;
+                }
+
                 return enemyFighters.get(validTargets.get(r.nextInt(validTargets.size())));
             case self:
                 return activeFighter;

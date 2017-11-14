@@ -28,6 +28,7 @@ public class EditScene extends GameScene {
 
         selectedCharacter = ViewEditScene.selectedCharacter;
 
+        selectedCharacter.TranslateTo(0, 0);
         gameObjects.add(selectedCharacter);
 
         GameObject statsBackground = new GameObject(new Rect(100, 700, 500, -600), "drawable/btnbackground", 10);

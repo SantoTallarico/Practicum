@@ -380,6 +380,9 @@ public class FightScene extends GameScene implements FightListener {
     public void EndFight(boolean isPlayerWinner) {
         if (isPlayerWinner == true) {
             txtCurrentState.SetText("You win!", TextAlign.center);
+            for (Fighter fighter : playerTeam.GetTeam()) {
+                fighter.LevelUp();
+            }
         }
         else {
             txtCurrentState.SetText("You lose...", TextAlign.center);

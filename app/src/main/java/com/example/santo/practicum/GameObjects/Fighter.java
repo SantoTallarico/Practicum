@@ -28,11 +28,11 @@ public abstract class Fighter extends GameObject implements Serializable {
     int level;
     transient int experience = 0;
     int maxHitPoints, attack, defence, magicDefence, speed;
-    transient int tempMaxHitPoints, tempHitPoints, hitPointsGrowth,
-            tempAttack, attackGrowth,
-            tempDefence, defenceGrowth,
-            tempMagicDefence, magicDefenceGrowth,
-            tempSpeed, speedGrowth;
+    transient int tempMaxHitPoints, tempHitPoints,
+            tempAttack,
+            tempDefence,
+            tempMagicDefence,
+            tempSpeed;
 
     public Equipment weapon;
     public Equipment armor;
@@ -47,7 +47,7 @@ public abstract class Fighter extends GameObject implements Serializable {
     public transient Bitmap tileIcon;
     public int palette1, palette2, palette3;
 
-    public static final int MAX_LEVEL = 20;
+    public static final int MAX_LEVEL = 10;
     public static int genId = 0;
     public int _id;
 
@@ -90,8 +90,6 @@ public abstract class Fighter extends GameObject implements Serializable {
             add(new Pair<Stats, Stats>(Stats.speed, Stats.speed));
         }
     };
-
-    public static final int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900 };
 
     public Fighter(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel) {
         super(d, sprite, layer);
@@ -293,16 +291,5 @@ public abstract class Fighter extends GameObject implements Serializable {
         }
     }
 
-    public void LevelUp() {
-        if (level < MAX_LEVEL) {
-            level++;
-            maxHitPoints += hitPointsGrowth;
-            attack += attackGrowth;
-            defence += defenceGrowth;
-            magicDefence += magicDefenceGrowth;
-            speed += speedGrowth;
-
-            ApplyEquipment();
-        }
-    }
+    public abstract void LevelUp();
 }

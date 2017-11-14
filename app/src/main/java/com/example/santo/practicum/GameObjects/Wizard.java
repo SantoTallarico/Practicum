@@ -24,13 +24,23 @@ import java.util.Map;
  */
 
 public class Wizard extends Fighter implements Serializable {
-    private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
+    private final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 35);
             put(Stats.attack, 20);
             put(Stats.defence, 10);
             put(Stats.magicDefence, 25);
             put(Stats.speed, 20);
+        }
+    };
+
+    private final static Map<Stats, Integer> statGrowths = new HashMap<Stats, Integer>() {
+        {
+            put(Stats.hitPoints, 5);
+            put(Stats.attack, 3);
+            put(Stats.defence, 1);
+            put(Stats.magicDefence, 2);
+            put(Stats.speed, 2);
         }
     };
 
@@ -80,5 +90,19 @@ public class Wizard extends Fighter implements Serializable {
         speed = baseStats.get(Stats.speed) + (statMods.first == Stats.speed ? 5 : 0) + (statMods.second == Stats.speed ? -5 : 0);
 
         ApplyEquipment();
+    }
+
+    @Override
+    public void LevelUp() {
+        if (level < MAX_LEVEL) {
+            level++;
+            maxHitPoints += statGrowths.get(Stats.hitPoints);
+            attack += statGrowths.get(Stats.attack);
+            defence += statGrowths.get(Stats.defence);
+            magicDefence += statGrowths.get(Stats.magicDefence);
+            speed += statGrowths.get(Stats.speed);
+
+            ApplyEquipment();
+        }
     }
 }

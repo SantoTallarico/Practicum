@@ -24,13 +24,23 @@ import java.util.Map;
  */
 
 public class Rogue extends Fighter implements Serializable {
-    private transient final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
+    private final static Map<Stats, Integer> baseStats = new HashMap<Stats, Integer>() {
         {
             put(Stats.hitPoints, 45);
             put(Stats.attack, 30);
             put(Stats.defence, 15);
             put(Stats.magicDefence, 15);
             put(Stats.speed, 40);
+        }
+    };
+
+    private final static Map<Stats, Integer> statGrowths = new HashMap<Stats, Integer>() {
+        {
+            put(Stats.hitPoints, 6);
+            put(Stats.attack, 2);
+            put(Stats.defence, 1);
+            put(Stats.magicDefence, 2);
+            put(Stats.speed, 3);
         }
     };
 
@@ -80,5 +90,19 @@ public class Rogue extends Fighter implements Serializable {
         speed = baseStats.get(Stats.speed) + (statMods.first == Stats.speed ? 5 : 0) + (statMods.second == Stats.speed ? -5 : 0);
 
         ApplyEquipment();
+    }
+
+    @Override
+    public void LevelUp() {
+        if (level < MAX_LEVEL) {
+            level++;
+            maxHitPoints += statGrowths.get(Stats.hitPoints);
+            attack += statGrowths.get(Stats.attack);
+            defence += statGrowths.get(Stats.defence);
+            magicDefence += statGrowths.get(Stats.magicDefence);
+            speed += statGrowths.get(Stats.speed);
+
+            ApplyEquipment();
+        }
     }
 }

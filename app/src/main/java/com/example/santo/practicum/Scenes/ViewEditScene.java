@@ -45,13 +45,13 @@ public class ViewEditScene extends GameScene implements MongoAdapter {
 
         gameObjects.add(selectedCharacterHighlight);
 
-        GameObject statsBackground = new GameObject(new Rect(-400, 750, 400, 450), "drawable/btnbackground", 90);
-        txtClass = new TextObject(new Rect(-350, 750, -50, 650), "Class: ", 100, TextAlign.right);
-        txtHitPoints = new TextObject(new Rect(-350, 650, -50, 550), "Hit Points: ", 100, TextAlign.right);
-        txtAttack = new TextObject(new Rect(-350, 550, -50, 450), "Attack: ", 100, TextAlign.right);
-        txtDefence = new TextObject(new Rect(50, 750, 350, 650), "Defence: ", 100, TextAlign.right);
-        txtMagicDefence = new TextObject(new Rect(50, 650, 350, 550), "Magic Defence: ", 100, TextAlign.right);
-        txtSpeed = new TextObject(new Rect(50, 550, 350, 450), "Speed: ", 100, TextAlign.right);
+        GameObject statsBackground = new GameObject(new Rect(-400, 850, 400, 550), "drawable/btnbackground", 90);
+        txtClass = new TextObject(new Rect(-350, 850, -50, 750), "Class: ", 100, TextAlign.right);
+        txtHitPoints = new TextObject(new Rect(-350, 750, -50, 650), "Hit Points: ", 100, TextAlign.right);
+        txtAttack = new TextObject(new Rect(-350, 650, -50, 550), "Attack: ", 100, TextAlign.right);
+        txtDefence = new TextObject(new Rect(50, 850, 350, 750), "Defence: ", 100, TextAlign.right);
+        txtMagicDefence = new TextObject(new Rect(50, 750, 350, 650), "Magic Defence: ", 100, TextAlign.right);
+        txtSpeed = new TextObject(new Rect(50, 650, 350, 550), "Speed: ", 100, TextAlign.right);
         gameObjects.add(statsBackground);
         gameObjects.add(txtClass);
         gameObjects.add(txtHitPoints);
@@ -60,10 +60,10 @@ public class ViewEditScene extends GameScene implements MongoAdapter {
         gameObjects.add(txtMagicDefence);
         gameObjects.add(txtSpeed);
 
-        final GameButton btnTeam1 = new GameButton(new Rect(-350, 400, -250, 300), team.Get(0).tileIcon, 100);
-        final GameButton btnTeam2 = new GameButton(new Rect(-150, 400, -50, 300), team.Get(1).tileIcon, 100);
-        final GameButton btnTeam3 = new GameButton(new Rect(50, 400, 150, 300), team.Get(2).tileIcon, 100);
-        final GameButton btnTeam4 = new GameButton(new Rect(250, 400, 350, 300), team.Get(3).tileIcon, 100);
+        final GameButton btnTeam1 = new GameButton(new Rect(-475, 500, -275, 300), team.Get(0).tileIcon, 100);
+        final GameButton btnTeam2 = new GameButton(new Rect(-225, 500, -25, 300), team.Get(1).tileIcon, 100);
+        final GameButton btnTeam3 = new GameButton(new Rect(25, 500, 225, 300), team.Get(2).tileIcon, 100);
+        final GameButton btnTeam4 = new GameButton(new Rect(275, 500, 475, 300), team.Get(3).tileIcon, 100);
         gameObjects.add(btnTeam1);
         gameObjects.add(btnTeam2);
         gameObjects.add(btnTeam3);

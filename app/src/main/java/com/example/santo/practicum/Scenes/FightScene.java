@@ -10,6 +10,7 @@ import com.example.santo.practicum.Enums.Aiming;
 import com.example.santo.practicum.Enums.FightState;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.Enums.TextAlign;
+import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.FightListener;
 import com.example.santo.practicum.FightController;
 import com.example.santo.practicum.GameObjects.GameButton;
@@ -31,9 +32,9 @@ public class FightScene extends GameScene implements FightListener {
     TextObject txtFighter1HP, txtFighter2HP, txtFighter3HP, txtFighter4HP;
     TextObject txtEnemy1HP, txtEnemy2HP, txtEnemy3HP, txtEnemy4HP;
 
-    Rect action1 = new Rect(-100, -300, 100, -400);
-    Rect action2 = new Rect(-100, -400, 100, -500);
-    Rect action3 = new Rect(-100, -500, 100, -600);
+    Rect action1 = new Rect(-100, -450, 100, -550);
+    Rect action2 = new Rect(-100, -550, 100, -650);
+    Rect action3 = new Rect(-100, -650, 100, -750);
     Rect highlight = new Rect(0, 250, 250, 0);
 
     GameObject activeFighterHighlight = new GameObject(highlight, Bitmap.createBitmap(new int[] { 0xff000000 }, 1, 1, Bitmap.Config.ARGB_8888), 10);
@@ -119,17 +120,24 @@ public class FightScene extends GameScene implements FightListener {
 
         Intent i = getIntent();
         boolean isNetworked = i.getBooleanExtra("isNetworked", false);
+        boolean isCampaign = i.getBooleanExtra("isCampaign", false);
         if (isNetworked) {
             enemyTeam.Add(FightSelectScene.networkedFighters.get(0), 0);
             enemyTeam.Add(FightSelectScene.networkedFighters.get(1), 1);
             enemyTeam.Add(FightSelectScene.networkedFighters.get(2), 2);
             enemyTeam.Add(FightSelectScene.networkedFighters.get(3), 3);
         }
+        else if (isCampaign) {
+            enemyTeam.Add(FightCampaignSelectScene.campaignFighters.get(0), 0);
+            enemyTeam.Add(FightCampaignSelectScene.campaignFighters.get(1), 1);
+            enemyTeam.Add(FightCampaignSelectScene.campaignFighters.get(2), 2);
+            enemyTeam.Add(FightCampaignSelectScene.campaignFighters.get(3), 3);
+        }
         else {
-            enemyTeam.Add(Fighter.RandomFighter(this), 0);
-            enemyTeam.Add(Fighter.RandomFighter(this), 1);
-            enemyTeam.Add(Fighter.RandomFighter(this), 2);
-            enemyTeam.Add(Fighter.RandomFighter(this), 3);
+            enemyTeam.Add(Fighter.RandomFighter(this, 1), 0);
+            enemyTeam.Add(Fighter.RandomFighter(this, 1), 1);
+            enemyTeam.Add(Fighter.RandomFighter(this, 1), 2);
+            enemyTeam.Add(Fighter.RandomFighter(this, 1), 3);
         }
         enemyTeam.Get(0).TranslateTo(-300, 300);
         enemyTeam.Get(1).TranslateTo(-300, 100);
@@ -174,7 +182,7 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(enemyTeam.Get(2));
         gameObjects.add(enemyTeam.Get(3));
 
-        GameObject statsBackground = new GameObject(new Rect(150, -450, 450, -850), "drawable/btnbackground", 90);
+        GameObject statsBackground = new GameObject(new Rect(100, -450, 500, -850), "drawable/btnbackground", 90);
         txtFighter1HP = new TextObject(new Rect(150, -450, 450, -550), playerTeam.Get(0).name + " HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
         txtFighter2HP = new TextObject(new Rect(150, -550, 450, -650), playerTeam.Get(1).name + " HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
         txtFighter3HP = new TextObject(new Rect(150, -650, 450, -750), playerTeam.Get(2).name + " HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
@@ -185,7 +193,7 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(txtFighter3HP);
         gameObjects.add(txtFighter4HP);
 
-        GameObject enemyStatsBackground = new GameObject(new Rect(-450, -450, -150, -850), "drawable/btnbackground", 90);
+        GameObject enemyStatsBackground = new GameObject(new Rect(-500, -450, -100, -850), "drawable/btnbackground", 90);
         txtEnemy1HP = new TextObject(new Rect(-450, -450, -150, -550), enemyTeam.Get(0).name + " HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
         txtEnemy2HP = new TextObject(new Rect(-450, -550, -150, -650), enemyTeam.Get(1).name + " HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
         txtEnemy3HP = new TextObject(new Rect(-450, -650, -150, -750), enemyTeam.Get(2).name + " HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
@@ -265,20 +273,20 @@ public class FightScene extends GameScene implements FightListener {
 
     @Override
     public void UpdateText() {
-        txtFighter1HP.SetText("Fighter 1 HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
-        txtFighter2HP.SetText("Fighter 2 HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
-        txtFighter3HP.SetText("Fighter 3 HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
-        txtFighter4HP.SetText("Fighter 4 HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter1HP.SetText(playerTeam.Get(0).name + " HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter2HP.SetText(playerTeam.Get(1).name + " HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter3HP.SetText(playerTeam.Get(2).name + " HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
+        txtFighter4HP.SetText(playerTeam.Get(3).name + " HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
 
         glView.AddTexture(txtFighter1HP, 0);
         glView.AddTexture(txtFighter2HP, 0);
         glView.AddTexture(txtFighter3HP, 0);
         glView.AddTexture(txtFighter4HP, 0);
 
-        txtEnemy1HP.SetText("Enemy 1 HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
-        txtEnemy2HP.SetText("Enemy 2 HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
-        txtEnemy3HP.SetText("Enemy 3 HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
-        txtEnemy4HP.SetText("Enemy 4 HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy1HP.SetText(enemyTeam.Get(0).name + " HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy2HP.SetText(enemyTeam.Get(1).name + " HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy3HP.SetText(enemyTeam.Get(2).name + " HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), TextAlign.right);
+        txtEnemy4HP.SetText(enemyTeam.Get(3).name + " HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), TextAlign.right);
 
         glView.AddTexture(txtEnemy1HP, 0);
         glView.AddTexture(txtEnemy2HP, 0);
@@ -360,6 +368,12 @@ public class FightScene extends GameScene implements FightListener {
                 UninteractiveState();
                 break;
         }
+    }
+
+    public void ActionText(FightAction action) {
+        txtCurrentState.SetText(action.name, TextAlign.center);
+
+        glView.AddTexture(txtCurrentState, 0);
     }
 
     @Override

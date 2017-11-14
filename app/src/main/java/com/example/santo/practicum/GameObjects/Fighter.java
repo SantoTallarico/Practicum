@@ -103,15 +103,17 @@ public abstract class Fighter extends GameObject implements Serializable {
 
         _id = ++genId;
         animates = true;
-        textureIDs = new int[2];
+        textureIDs = new int[3];
     }
 
     public void Init(Context context) {
         generatedSprites[0] = ApplyPalette(generatedSprites[0]);
         generatedSprites[1] = ApplyPalette(generatedSprites[1]);
+        generatedSprites[2] = ApplyPalette(generatedSprites[2]);
         tileIcon = Bitmap.createBitmap(generatedSprites[0], 0, 0, 84, 75);
         ApplyEquipment();
 
+        name = charClass.name();
         isSpriteGenerated = true;
         visible = true;
         animates = true;
@@ -125,7 +127,7 @@ public abstract class Fighter extends GameObject implements Serializable {
         time = 0;
     }
 
-    public static Fighter RandomFighter(Context context) {
+    public static Fighter RandomFighter(Context context, int startingLevel) {
         Random r = new Random();
         int[] randColours = new int[32 * 32];
         for (int i = 0; i < 32 * 32; i++) {
@@ -136,19 +138,19 @@ public abstract class Fighter extends GameObject implements Serializable {
         Fighter random;
         switch (r.nextInt(4)) {
             case 0:
-                random = new Warrior(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Warrior(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, startingLevel, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             case 1:
-                random = new Rogue(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Rogue(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, startingLevel, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             case 2:
-                random = new Wizard(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Wizard(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, startingLevel, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             case 3:
-                random = new Cleric(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Cleric(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, startingLevel, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
             default:
-                random = new Warrior(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, 1, colourInfo[0], colourInfo[1], colourInfo[2]);
+                random = new Warrior(new Rect(75, 100, -75, -100), b, colourInfo[3], colourInfo[4], colourInfo[5], 100, startingLevel, colourInfo[0], colourInfo[1], colourInfo[2]);
                 break;
         }
         random.Init(context);
@@ -268,6 +270,7 @@ public abstract class Fighter extends GameObject implements Serializable {
 
     public void Stun() {
         isStunned = true;
+        ChangeSprite(SpriteState.stunned);
     }
 
     public void ChangeSprite(SpriteState state) {
@@ -283,6 +286,7 @@ public abstract class Fighter extends GameObject implements Serializable {
                 ScaleTo(isPlayerControlled ? 200 : -200, 150);
                 break;
             case stunned:
+                currentTextureID = textureIDs[2];
                 animates = false;
                 ScaleTo(isPlayerControlled ? 150 : -150, 200);
                 break;

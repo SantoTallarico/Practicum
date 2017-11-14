@@ -54,49 +54,62 @@ public class EquipScene extends GameScene {
 
         int i = 0;
 
-        for (final Equipment equipment : displayedEquipment) {
-            GameButton statsBackground = new GameButton(new Rect(-500, 700 - i * 300, 500, 400 - i * 300), "drawable/btnbackground", 10);
-            gameObjects.add(statsBackground);
+        if (displayedEquipment.size() == 0) {
+            GameButton btnNoEquipment = new GameButton(new Rect(-200, 50, 200, -50), "drawable/btnbackground", 90);
+            TextObject txtNoEquipment = new TextObject(new Rect(-200, 50, 200, -50), "No valid equipment!", 100, TextAlign.center);
+            gameObjects.add(btnNoEquipment);
+            gameObjects.add(txtNoEquipment);
 
-            statsBackground.SetOnClickListener(new View.OnClickListener() {
+            btnNoEquipment.SetOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (isWeapon) {
-                        if (selectedCharacter.weapon != null) {
-                            selectedCharacter.weapon.inUse = false;
-                        }
-                        equipment.inUse = true;
-                        selectedCharacter.weapon = equipment;
-                        selectedCharacter.ApplyEquipment();
-                    }
-                    else {
-                        if (selectedCharacter.armor != null) {
-                            selectedCharacter.armor.inUse = false;
-                        }
-                        equipment.inUse = true;
-                        selectedCharacter.armor = equipment;
-                        selectedCharacter.ApplyEquipment();
-                    }
-
                     finish();
                 }
             });
+        }
+        else {
+            for (final Equipment equipment : displayedEquipment) {
+                GameButton statsBackground = new GameButton(new Rect(-500, 700 - i * 300, 500, 400 - i * 300), "drawable/btnbackground", 10);
+                gameObjects.add(statsBackground);
 
-            GameObject object = new GameObject(new Rect(-450, 650 - i * 300, -350, 550 - i * 300), equipment.tileIcon, 100);
-            TextObject txtType = new TextObject(new Rect(-300, 700 - i * 300, 50, 600 - i * 300), "Type: " + equipment.type, 100, TextAlign.right);
-            TextObject txtHitPoints = new TextObject(new Rect(-300, 600 - i * 300, 50, 500 - i * 300), "Hit Points: " + equipment.modHitPoints, 100, TextAlign.right);
-            TextObject txtAttack = new TextObject(new Rect(-300, 500 - i * 300, 50, 400 - i * 300), "Attack: " + equipment.modAttack, 100, TextAlign.right);
-            TextObject txtDefence = new TextObject(new Rect(50, 700 - i * 300, 400, 600 - i * 300), "Defence: " + equipment.modDefence, 100, TextAlign.right);
-            TextObject txtMagicDefence = new TextObject(new Rect(50, 600 - i * 300, 400, 500 - i * 300), "Magic Defence: " + equipment.modMagicDefence, 100, TextAlign.right);
-            TextObject txtSpeed = new TextObject(new Rect(50, 500 - i * 300, 400, 400 - i * 300), "Speed: " + equipment.modSpeed, 100, TextAlign.right);
-            gameObjects.add(object);
-            gameObjects.add(txtType);
-            gameObjects.add(txtHitPoints);
-            gameObjects.add(txtAttack);
-            gameObjects.add(txtDefence);
-            gameObjects.add(txtMagicDefence);
-            gameObjects.add(txtSpeed);
+                statsBackground.SetOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if (isWeapon) {
+                            if (selectedCharacter.weapon != null) {
+                                selectedCharacter.weapon.inUse = false;
+                            }
+                            equipment.inUse = true;
+                            selectedCharacter.weapon = equipment;
+                            selectedCharacter.ApplyEquipment();
+                        } else {
+                            if (selectedCharacter.armor != null) {
+                                selectedCharacter.armor.inUse = false;
+                            }
+                            equipment.inUse = true;
+                            selectedCharacter.armor = equipment;
+                            selectedCharacter.ApplyEquipment();
+                        }
 
-            i++;
+                        finish();
+                    }
+                });
+
+                GameObject object = new GameObject(new Rect(-450, 650 - i * 300, -350, 550 - i * 300), equipment.tileIcon, 100);
+                TextObject txtType = new TextObject(new Rect(-300, 700 - i * 300, 50, 600 - i * 300), "Type: " + equipment.type, 100, TextAlign.right);
+                TextObject txtHitPoints = new TextObject(new Rect(-300, 600 - i * 300, 50, 500 - i * 300), "Hit Points: " + equipment.modHitPoints, 100, TextAlign.right);
+                TextObject txtAttack = new TextObject(new Rect(-300, 500 - i * 300, 50, 400 - i * 300), "Attack: " + equipment.modAttack, 100, TextAlign.right);
+                TextObject txtDefence = new TextObject(new Rect(50, 700 - i * 300, 400, 600 - i * 300), "Defence: " + equipment.modDefence, 100, TextAlign.right);
+                TextObject txtMagicDefence = new TextObject(new Rect(50, 600 - i * 300, 400, 500 - i * 300), "Magic Defence: " + equipment.modMagicDefence, 100, TextAlign.right);
+                TextObject txtSpeed = new TextObject(new Rect(50, 500 - i * 300, 400, 400 - i * 300), "Speed: " + equipment.modSpeed, 100, TextAlign.right);
+                gameObjects.add(object);
+                gameObjects.add(txtType);
+                gameObjects.add(txtHitPoints);
+                gameObjects.add(txtAttack);
+                gameObjects.add(txtDefence);
+                gameObjects.add(txtMagicDefence);
+                gameObjects.add(txtSpeed);
+
+                i++;
+            }
         }
     }
 

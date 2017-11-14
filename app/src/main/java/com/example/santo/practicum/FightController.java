@@ -51,19 +51,20 @@ public class FightController {
         Collections.sort(queuedActions);
 
         for (FightAction action : queuedActions) {
-            if (action.user.isAlive) {
-                action.user.Translate(action.user.isPlayerControlled ? -30 : 30, 0);
+            if (action.user.isAlive && !action.user.isStunned) {
+                action.user.Translate(action.user.isPlayerControlled ? -50 : 50, 0);
                 action.ApplyAction();
                 listener.UpdateText();
+                listener.ActionText(action);
 
                 try {
-                    TimeUnit.MILLISECONDS.sleep(1000);
+                    TimeUnit.MILLISECONDS.sleep(2000);
                 }
                 catch(InterruptedException e) {
                     //should never happen
                 }
 
-                action.user.Translate(action.user.isPlayerControlled ? 30 : -30, 0);
+                action.user.Translate(action.user.isPlayerControlled ? 50 : -50, 0);
             }
 
             boolean isPlayerDefeated = true;
@@ -131,12 +132,18 @@ public class FightController {
             fighter.isGuarding = false;
             fighter.isGuarded = false;
             fighter.isStunned = false;
+            if (fighter.isAlive) {
+                fighter.ChangeSprite(SpriteState.idle);
+            }
         }
 
         for (Fighter fighter : enemyFighters) {
             fighter.isGuarding = false;
             fighter.isGuarded = false;
             fighter.isStunned = false;
+            if (fighter.isAlive) {
+                fighter.ChangeSprite(SpriteState.idle);
+            }
         }
 
         NextFighter();

@@ -47,7 +47,6 @@ public class MainMenuScene extends GameScene implements MongoAdapter {
     public static Bitmap bitmap;
     public static Bitmap palette1 = Bitmap.createBitmap(30, 30, Bitmap.Config.ARGB_8888);
     public static Fighter EMPTY_CHARACTER;
-    public static GameObject EMPTY_OBJECT;
 
     public static Team team = new Team(4);
 
@@ -124,12 +123,8 @@ public class MainMenuScene extends GameScene implements MongoAdapter {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        EMPTY_OBJECT = new GameObject(new Rect(0, 0, 0, 0),
-                BitmapFactory.decodeResource(this.getResources(), this.getResources().getIdentifier("drawable/painting", null, this.getPackageName())),
-                100);
-
         EMPTY_CHARACTER = new Warrior(new Rect(0, 0, 0, 0),
-                BitmapFactory.decodeResource(this.getResources(), this.getResources().getIdentifier("drawable/painting", null, this.getPackageName())),
+                BitmapFactory.decodeResource(this.getResources(), this.getResources().getIdentifier("drawable/empty", null, this.getPackageName())),
                 0, 0, 0, 100, 1, 0, 0, 0);
 
         team.Init(EMPTY_CHARACTER);

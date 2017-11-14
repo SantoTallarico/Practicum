@@ -12,6 +12,7 @@ import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.DamageAction;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.FightActions.GuardAction;
+import com.example.santo.practicum.FightActions.GuardAllyAction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,10 +52,11 @@ public class Warrior extends Fighter implements Serializable {
 
     @Override
     public void Init(Context context) {
-        textureIDs = new int[2];
-        generatedSprites = new Bitmap[2];
+        textureIDs = new int[3];
+        generatedSprites = new Bitmap[3];
         generatedSprites[0] = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriorwalkpalette", null, context.getPackageName()));
         generatedSprites[1] = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriordead", null, context.getPackageName()));
+        generatedSprites[2] = BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier("drawable/warriorstunned", null, context.getPackageName()));
         super.Init(context);
 
         type = this.getClass().getSimpleName();
@@ -65,7 +67,7 @@ public class Warrior extends Fighter implements Serializable {
         fightActions = new ArrayList<FightAction>();
         fightActions.add(new DamageAction("Attack", this));
         fightActions.add(new GuardAction("Defend", this));
-        fightActions.add(new DamageAction("Guard Ally", this));
+        fightActions.add(new GuardAllyAction("Guard Ally", this));
     }
 
     private void InitializeStats(int red, int green, int blue) {

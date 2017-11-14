@@ -73,6 +73,8 @@ public class GenerationResultsScene extends GameScene {
         gameObjects.add(btnOK);
         gameObjects.add(txtOK);
 
+        gameObjects.add(MainMenuScene.p1);
+
         btnOK.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();

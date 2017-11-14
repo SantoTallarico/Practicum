@@ -16,15 +16,24 @@ public class DamageAction extends FightAction {
 
     public void ApplyAction() {
         if (user.isAlive && !user.isStunned) {
-            int damage = user.GetStat(Stats.attack) - target.GetStat(Stats.defence) / (target.isGuarding ? 2 : 1);
+            int damage;
+
+            if (!target.isAlive) {
+                ChooseRandomTarget();
+            }
+
+            if (target.isGuarded && target.protector.isAlive) {
+                damage = (user.GetStat(Stats.attack) - target.protector.GetStat(Stats.defence)) / 2;
+                target = target.protector;
+            }
+            else {
+                damage = (user.GetStat(Stats.attack) - target.GetStat(Stats.defence)) / (target.isGuarding ? 2 : 1);
+            }
 
             if (damage < 1) {
                 damage = 1;
             }
 
-            if (!target.isAlive) {
-                ChooseRandomTarget();
-            }
             target.ModifyStat(Stats.hitPoints, -damage);
         }
     }

@@ -59,6 +59,9 @@ public class Warrior extends Fighter implements Serializable {
 
         type = this.getClass().getSimpleName();
 
+        weaponType = EquipmentType.sword;
+        armorType = EquipmentType.armor;
+
         fightActions = new ArrayList<FightAction>();
         fightActions.add(new DamageAction("Attack", this));
         fightActions.add(new GuardAction("Defend", this));

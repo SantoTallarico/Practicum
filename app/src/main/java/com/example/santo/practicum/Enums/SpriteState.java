@@ -7,5 +7,6 @@ package com.example.santo.practicum.Enums;
 public enum SpriteState {
     idle,
     dead,
-    stunned
+    stunned,
+    guarding
 }

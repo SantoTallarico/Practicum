@@ -1,5 +1,6 @@
 package com.example.santo.practicum.GameObjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +8,11 @@ import java.util.List;
  * Created by Santo on 10/18/2017.
  */
 
-public class Team {
+public class Team implements Serializable {
     List<Fighter> teamCharacters;
-    final int TEAM_SIZE;
+    final static int TEAM_SIZE = 4;
 
     public Team(int teamSize) {
-        TEAM_SIZE = teamSize;
         teamCharacters = new ArrayList<Fighter>(TEAM_SIZE);
     }
 

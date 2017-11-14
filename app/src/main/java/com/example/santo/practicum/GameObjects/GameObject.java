@@ -14,17 +14,17 @@ import java.io.Serializable;
 
 public class GameObject implements Serializable {
     public String spriteLocation;
-    public boolean isSpriteGenerated = false;
+    public transient boolean isSpriteGenerated = false;
     public transient Bitmap[] generatedSprites = new Bitmap[1];
-    public int[] textureIDs = new int[1];
-    public int currentTextureID;
+    public transient int[] textureIDs = new int[1];
+    public transient int currentTextureID;
 
-    public final float[] VERTICES = {-0.5f, 0.5f, 0.0f,
+    public static final float[] VERTICES = {-0.5f, 0.5f, 0.0f,
                                     -0.5f, -0.5f, 0.0f,
                                     0.5f, -0.5f, 0.0f,
                                     0.5f, 0.5f, 0.0f};
 
-    public float[] uvsAnimation = new float[] {
+    public static float[] uvsAnimation = new float[] {
             0.0f, 0.0f,
             0.0f, 1.0f,
             0.5f, 1.0f,
@@ -37,16 +37,16 @@ public class GameObject implements Serializable {
     public float[] scale = {1, 1};
     public float rotation = 0;
     public int spriteLayer = 0;
-    public boolean animates = false;
-    public int currentFrame = 0;
-    public int numFrames = 2;
-    public float xOffset = 0.5f;
-    public final int FRAME_LENGTH = 250;
-    public long time = 0;
+    public transient boolean animates = false;
+    public transient int currentFrame = 0;
+    public transient int numFrames = 2;
+    public static float xOffset = 0.5f;
+    public static final int FRAME_LENGTH = 250;
+    public transient long time = 0;
 
-    public boolean visible = true;
-    public boolean active = true;
-    public boolean touchable = false;
+    public transient boolean visible = true;
+    public transient boolean active = true;
+    public transient boolean touchable = false;
 
     public transient View.OnClickListener clickListener;
 

@@ -60,6 +60,9 @@ public class Wizard extends Fighter implements Serializable {
 
         type = this.getClass().getSimpleName();
 
+        weaponType = EquipmentType.staff;
+        armorType = EquipmentType.robe;
+
         fightActions = new ArrayList<FightAction>();
         fightActions.add(new DamageAction("Attack", this));
         fightActions.add(new GuardAction("Defend", this));

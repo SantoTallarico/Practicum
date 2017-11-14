@@ -6,13 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.santo.practicum.Enums.TextAlign;
+import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.GameObjects.TextObject;
+import com.example.santo.practicum.Mongo;
+import com.example.santo.practicum.MongoAdapter;
 import com.example.santo.practicum.PB_GLSurfaceView;
-import com.example.santo.practicum.PhotoAccess.PhotoAccess;
+import com.google.gson.reflect.TypeToken;
 
-public class FightSelectScene extends GameScene {
+import java.lang.reflect.Type;
+import java.util.List;
+
+import static com.example.santo.practicum.Scenes.MainMenuScene.API_KEY;
+import static com.example.santo.practicum.Scenes.MainMenuScene.DATABASE_NAME;
+
+public class FightSelectScene extends GameScene implements MongoAdapter {
+    public static List<Fighter> networkedFighters;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +64,7 @@ public class FightSelectScene extends GameScene {
         btnRandom.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
+                i.putExtra("isNetworked", false);
                 startActivity(i);
             }
         });
@@ -60,6 +72,8 @@ public class FightSelectScene extends GameScene {
         btnNetwork.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
+                i.putExtra("isNetworked", true);
+                Mongo.get(FightSelectScene.this, "teams", null);
                 startActivity(i);
             }
         });
@@ -78,5 +92,26 @@ public class FightSelectScene extends GameScene {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+
+    @Override
+    public String dbName() {
+        return DATABASE_NAME;
+    }
+
+    @Override
+    public String apiKey() {
+        return API_KEY;
+    }
+
+    @Override
+    public void processResult(String result) {
+        Type fightCollectionType = new TypeToken<List<Fighter>>(){}.getType();
+        networkedFighters = MainMenuScene.gsonBuilder.create().fromJson(result, fightCollectionType);
+        for (Fighter fighter : networkedFighters) {
+            fighter.Init(this);
+            fighter.isPlayerControlled = false;
+        }
     }
 }

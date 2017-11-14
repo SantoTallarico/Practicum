@@ -23,7 +23,7 @@ import java.util.Random;
  */
 
 public abstract class Fighter extends GameObject implements Serializable {
-    String name;
+    public String name;
     public CharacterClass charClass;
     int level;
     transient int experience = 0;
@@ -47,14 +47,17 @@ public abstract class Fighter extends GameObject implements Serializable {
     public transient Bitmap tileIcon;
     public int palette1, palette2, palette3;
 
-    public transient static final int MAX_LEVEL = 20;
+    public static final int MAX_LEVEL = 20;
+    public static int genId = 0;
+    public int _id;
 
     public transient List<FightAction> fightActions = new ArrayList<FightAction>();
+    public transient Fighter protector;
 
     public String type = this.getClass().getSimpleName();
 
     //First stat is raised, second stat is lowered. If stats are the same, no change
-    protected transient final static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
+    protected final static List<Pair<Stats, Stats>> genStatMods = new ArrayList<Pair<Stats, Stats>>() {
         {
             add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.hitPoints));
             add(new Pair<Stats, Stats>(Stats.hitPoints, Stats.attack));
@@ -88,7 +91,7 @@ public abstract class Fighter extends GameObject implements Serializable {
         }
     };
 
-    public static final transient int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900 };
+    public static final int[] expTable = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900 };
 
     public Fighter(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel) {
         super(d, sprite, layer);
@@ -97,6 +100,8 @@ public abstract class Fighter extends GameObject implements Serializable {
         palette3 = p3;
         level = startingLevel;
         tileIcon = sprite;
+
+        _id = ++genId;
         animates = true;
         textureIDs = new int[2];
     }
@@ -107,10 +112,17 @@ public abstract class Fighter extends GameObject implements Serializable {
         tileIcon = Bitmap.createBitmap(generatedSprites[0], 0, 0, 84, 75);
         ApplyEquipment();
 
+        isSpriteGenerated = true;
+        visible = true;
+        animates = true;
         isAlive = true;
         isGuarding = false;
         isGuarded = false;
         isPlayerControlled = true;
+
+        currentFrame = 0;
+        numFrames = 2;
+        time = 0;
     }
 
     public static Fighter RandomFighter(Context context) {
@@ -144,6 +156,7 @@ public abstract class Fighter extends GameObject implements Serializable {
             random.generatedSprites[i] = random.ApplyPalette(random.generatedSprites[i]);
         }
         random.isPlayerControlled = false;
+        random.name = random.charClass.name();
         return random;
     }
 
@@ -248,8 +261,9 @@ public abstract class Fighter extends GameObject implements Serializable {
         isGuarding = true;
     }
 
-    public void Guarded(Fighter protector) {
+    public void Guarded(Fighter guardian) {
         isGuarded = true;
+        protector = guardian;
     }
 
     public void Stun() {

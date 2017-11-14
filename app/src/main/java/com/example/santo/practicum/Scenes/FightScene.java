@@ -1,5 +1,6 @@
 package com.example.santo.practicum.Scenes;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -115,11 +116,21 @@ public class FightScene extends GameScene implements FightListener {
 
         enemyTeam = new Team(4);
         enemyTeam.Init(MainMenuScene.EMPTY_CHARACTER);
-        enemyTeam.Add(Fighter.RandomFighter(this), 0);
-        enemyTeam.Add(Fighter.RandomFighter(this), 1);
-        enemyTeam.Add(Fighter.RandomFighter(this), 2);
-        enemyTeam.Add(Fighter.RandomFighter(this), 3);
 
+        Intent i = getIntent();
+        boolean isNetworked = i.getBooleanExtra("isNetworked", false);
+        if (isNetworked) {
+            enemyTeam.Add(FightSelectScene.networkedFighters.get(0), 0);
+            enemyTeam.Add(FightSelectScene.networkedFighters.get(1), 1);
+            enemyTeam.Add(FightSelectScene.networkedFighters.get(2), 2);
+            enemyTeam.Add(FightSelectScene.networkedFighters.get(3), 3);
+        }
+        else {
+            enemyTeam.Add(Fighter.RandomFighter(this), 0);
+            enemyTeam.Add(Fighter.RandomFighter(this), 1);
+            enemyTeam.Add(Fighter.RandomFighter(this), 2);
+            enemyTeam.Add(Fighter.RandomFighter(this), 3);
+        }
         enemyTeam.Get(0).TranslateTo(-300, 300);
         enemyTeam.Get(1).TranslateTo(-300, 100);
         enemyTeam.Get(2).TranslateTo(-300, -100);
@@ -164,10 +175,10 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(enemyTeam.Get(3));
 
         GameObject statsBackground = new GameObject(new Rect(150, -450, 450, -850), "drawable/btnbackground", 90);
-        txtFighter1HP = new TextObject(new Rect(150, -450, 450, -550), "Fighter 1 HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
-        txtFighter2HP = new TextObject(new Rect(150, -550, 450, -650), "Fighter 2 HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
-        txtFighter3HP = new TextObject(new Rect(150, -650, 450, -750), "Fighter 3 HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
-        txtFighter4HP = new TextObject(new Rect(150, -750, 450, -850), "Fighter 4 HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter1HP = new TextObject(new Rect(150, -450, 450, -550), playerTeam.Get(0).name + " HP: " + playerTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter2HP = new TextObject(new Rect(150, -550, 450, -650), playerTeam.Get(1).name + " HP: " + playerTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter3HP = new TextObject(new Rect(150, -650, 450, -750), playerTeam.Get(2).name + " HP: " + playerTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtFighter4HP = new TextObject(new Rect(150, -750, 450, -850), playerTeam.Get(3).name + " HP: " + playerTeam.Get(3).GetStat(Stats.hitPoints), 100, TextAlign.right);
         gameObjects.add(statsBackground);
         gameObjects.add(txtFighter1HP);
         gameObjects.add(txtFighter2HP);
@@ -175,10 +186,10 @@ public class FightScene extends GameScene implements FightListener {
         gameObjects.add(txtFighter4HP);
 
         GameObject enemyStatsBackground = new GameObject(new Rect(-450, -450, -150, -850), "drawable/btnbackground", 90);
-        txtEnemy1HP = new TextObject(new Rect(-450, -450, -150, -550), "Enemy 1 HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
-        txtEnemy2HP = new TextObject(new Rect(-450, -550, -150, -650), "Enemy 2 HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
-        txtEnemy3HP = new TextObject(new Rect(-450, -650, -150, -750), "Enemy 3 HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
-        txtEnemy4HP = new TextObject(new Rect(-450, -750, -150, -850), "Enemy 4 HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy1HP = new TextObject(new Rect(-450, -450, -150, -550), enemyTeam.Get(0).name + " HP: " + enemyTeam.Get(0).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy2HP = new TextObject(new Rect(-450, -550, -150, -650), enemyTeam.Get(1).name + " HP: " + enemyTeam.Get(1).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy3HP = new TextObject(new Rect(-450, -650, -150, -750), enemyTeam.Get(2).name + " HP: " + enemyTeam.Get(2).GetStat(Stats.hitPoints), 100, TextAlign.right);
+        txtEnemy4HP = new TextObject(new Rect(-450, -750, -150, -850), enemyTeam.Get(3).name + " HP: " + enemyTeam.Get(3).GetStat(Stats.hitPoints), 100, TextAlign.right);
         gameObjects.add(enemyStatsBackground);
         gameObjects.add(txtEnemy1HP);
         gameObjects.add(txtEnemy2HP);

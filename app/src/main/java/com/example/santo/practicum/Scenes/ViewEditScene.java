@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.santo.practicum.Enums.CharacterClassHelper;
@@ -14,12 +15,21 @@ import com.example.santo.practicum.GameObjects.GameButton;
 import com.example.santo.practicum.GameObjects.Fighter;
 import com.example.santo.practicum.GameObjects.GameObject;
 import com.example.santo.practicum.GameObjects.TextObject;
+import com.example.santo.practicum.Mongo;
+import com.example.santo.practicum.MongoAdapter;
 import com.example.santo.practicum.PB_GLSurfaceView;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.example.santo.practicum.Scenes.MainMenuScene.API_KEY;
+import static com.example.santo.practicum.Scenes.MainMenuScene.DATABASE_NAME;
 import static com.example.santo.practicum.Scenes.MainMenuScene.team;
 
 
-public class ViewEditScene extends GameScene {
+public class ViewEditScene extends GameScene implements MongoAdapter {
     static Fighter selectedCharacter;
 
     TextObject txtClass, txtHitPoints, txtAttack, txtDefence, txtMagicDefence, txtSpeed;
@@ -121,7 +131,20 @@ public class ViewEditScene extends GameScene {
 
         btnSendTeam.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Gson innerGson = MainMenuScene.gsonBuilder.create();
+                String genChar1 = innerGson.toJson(team.Get(0));
+                String genChar2 = innerGson.toJson(team.Get(1));
+                String genChar3 = innerGson.toJson(team.Get(2));
+                String genChar4 = innerGson.toJson(team.Get(3));
+                try {
+                    Mongo.post(ViewEditScene.this, "teams", new JSONObject(genChar1));
+                    Mongo.post(ViewEditScene.this, "teams", new JSONObject(genChar2));
+                    Mongo.post(ViewEditScene.this, "teams", new JSONObject(genChar3));
+                    Mongo.post(ViewEditScene.this, "teams", new JSONObject(genChar4));
+                }
+                catch (JSONException e) {
+                    Log.d("InputStream", e.getLocalizedMessage());
+                }
             }
         });
 
@@ -195,5 +218,20 @@ public class ViewEditScene extends GameScene {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public String dbName() {
+        return DATABASE_NAME;
+    }
+
+    @Override
+    public String apiKey() {
+        return API_KEY;
+    }
+
+    @Override
+    public void processResult(String result) {
+
     }
 }

@@ -60,6 +60,9 @@ public class Rogue extends Fighter implements Serializable {
 
         type = this.getClass().getSimpleName();
 
+        weaponType = EquipmentType.knife;
+        armorType = EquipmentType.armor;
+
         fightActions = new ArrayList<FightAction>();
         fightActions.add(new DamageAction("Attack", this));
         fightActions.add(new GuardAction("Defend", this));

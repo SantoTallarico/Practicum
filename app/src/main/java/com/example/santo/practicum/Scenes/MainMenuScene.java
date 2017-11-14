@@ -26,6 +26,7 @@ import com.example.santo.practicum.GameObjects.Team;
 import com.example.santo.practicum.GameObjects.TextObject;
 import com.example.santo.practicum.GameObjects.Warrior;
 import com.example.santo.practicum.GameObjects.Wizard;
+import com.example.santo.practicum.MongoAdapter;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
 import com.example.santo.practicum.PhotoGeneration;
@@ -34,16 +35,13 @@ import com.example.santo.practicum.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoDatabase;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenuScene extends GameScene {
+public class MainMenuScene extends GameScene implements MongoAdapter {
     public static List<Fighter> generatedCharacters = new ArrayList<Fighter>();
     public static List<Equipment> generatedEquipment = new ArrayList<Equipment>();
     public static Bitmap bitmap;
@@ -55,7 +53,7 @@ public class MainMenuScene extends GameScene {
 
     public static GameObject generatedObject;
 
-    GameObject p1 = new GameObject(new Rect(-550, 350, -250, 50), palette1, 100);
+    public static GameObject p1 = new GameObject(new Rect(-550, -250, -250, -550), palette1, 100);
 
     MediaPlayer musicPlayer;
     AudioAttributes attributes = new AudioAttributes.Builder()
@@ -67,7 +65,7 @@ public class MainMenuScene extends GameScene {
             .setAudioAttributes(attributes)
             .build();
 
-    GsonBuilder gsonBuilder = new GsonBuilder();
+    public static GsonBuilder gsonBuilder = new GsonBuilder();
     public static final String PREFERENCES = "PBPreferences";
 
     RuntimeTypeAdapterFactory<Fighter> typeFactory = RuntimeTypeAdapterFactory.of(Fighter.class, "type")
@@ -79,11 +77,17 @@ public class MainMenuScene extends GameScene {
     SharedPreferences settings;
     SharedPreferences.Editor settingsEditor;
 
+    public static final String API_KEY = "5nO2whQBSRciOaL4wtkLSGR9cusmjokA";
+    public static final String DATABASE_NAME = "teamdata";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
         settingsEditor = settings.edit();
+
+        //settingsEditor.clear();
+        //settingsEditor.commit();
 
         gsonBuilder.registerTypeAdapterFactory(typeFactory);
         Gson gson = gsonBuilder.create();
@@ -110,13 +114,6 @@ public class MainMenuScene extends GameScene {
                 equipment.Init(this);
             }
         }
-
-        MongoClientURI uri = new MongoClientURI(
-                "mongodb://santot:<Pr0t0men!>@cluster0-shard-00-00-qpcpj.mongodb.net:27017,cluster0-shard-00-01-qpcpj.mongodb.net:27017,cluster0-shard-00-02-qpcpj.mongodb.net:27017/data?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
-
-        MongoClient mongoClient = new MongoClient(uri);
-        MongoDatabase database = mongoClient.getDatabase("data");
-
 
         musicPlayer = MediaPlayer.create(this, R.raw.costadelsanto);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -154,8 +151,6 @@ public class MainMenuScene extends GameScene {
         gameObjects.add(btnFightText);
         gameObjects.add(btnGeneratePhoto);
         gameObjects.add(btnViewEdit);
-
-        gameObjects.add(p1);
 
         btnFight.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -313,5 +308,20 @@ public class MainMenuScene extends GameScene {
                 }
             }
         }
+    }
+
+    @Override
+    public String dbName() {
+        return DATABASE_NAME;
+    }
+
+    @Override
+    public String apiKey() {
+        return API_KEY;
+    }
+
+    @Override
+    public void processResult(String result) {
+
     }
 }

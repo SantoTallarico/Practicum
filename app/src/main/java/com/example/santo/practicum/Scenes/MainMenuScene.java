@@ -140,12 +140,16 @@ public class MainMenuScene extends GameScene implements MongoAdapter {
 
         GameButton btnFight = new GameButton(new Rect(-150, 350, 150, 250), "drawable/btnbackground", 90);
         TextObject btnFightText = new TextObject(new Rect(-150, 350, 150, 250), "Fight!", 100, TextAlign.center);
-        GameButton btnGeneratePhoto = new GameButton(new Rect(-150, 50, 150, -50), "drawable/btngenerate", 100);
-        GameButton btnViewEdit = new GameButton(new Rect(-150, -250, 150, -350), "drawable/btnviewedit", 100);
+        GameButton btnGeneratePhoto = new GameButton(new Rect(-150, 50, 150, -50), "drawable/btnbackground", 90);
+        TextObject btnGenerateText = new TextObject(new Rect(-150, 50, 150, -50), "Generate Content", 100, TextAlign.center);
+        GameButton btnViewEdit = new GameButton(new Rect(-150, -250, 150, -350), "drawable/btnbackground", 90);
+        TextObject btnViewText = new TextObject(new Rect(-150, -250, 150, -350), "View/Edit Fighters", 100, TextAlign.center);
         gameObjects.add(btnFight);
         gameObjects.add(btnFightText);
         gameObjects.add(btnGeneratePhoto);
+        gameObjects.add(btnGenerateText);
         gameObjects.add(btnViewEdit);
+        gameObjects.add(btnViewText);
 
         btnFight.SetOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -127,10 +127,10 @@ public class Equipment extends GameObject implements Serializable {
                 filePath = "drawable/macepalette";
                 break;
             case armor:
-                filePath = "drawable/swordpalette";
+                filePath = "drawable/armorpalette";
                 break;
             case robe:
-                filePath = "drawable/swordpalette";
+                filePath = "drawable/robepalette";
                 break;
         }
         generatedSprites = new Bitmap[1];

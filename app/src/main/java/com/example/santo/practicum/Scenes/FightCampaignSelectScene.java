@@ -33,30 +33,30 @@ public class FightCampaignSelectScene extends GameScene {
         glView = new PB_GLSurfaceView(this, gameObjects);
         setContentView(glView);
 
-        final GameObject btnTeam1 = new GameObject(new Rect(-350, 550, -250, 450), MainMenuScene.team.Get(0).tileIcon, 100);
-        final GameObject btnTeam2 = new GameObject(new Rect(-150, 550, -50, 450), MainMenuScene.team.Get(1).tileIcon, 100);
-        final GameObject btnTeam3 = new GameObject(new Rect(50, 550, 150, 450), MainMenuScene.team.Get(2).tileIcon, 100);
-        final GameObject btnTeam4 = new GameObject(new Rect(250, 550, 350, 450), MainMenuScene.team.Get(3).tileIcon, 100);
+        final GameObject btnTeam1 = new GameObject(new Rect(-350, 750, -250, 650), MainMenuScene.team.Get(0).tileIcon, 100);
+        final GameObject btnTeam2 = new GameObject(new Rect(-150, 750, -50, 650), MainMenuScene.team.Get(1).tileIcon, 100);
+        final GameObject btnTeam3 = new GameObject(new Rect(50, 750, 150, 650), MainMenuScene.team.Get(2).tileIcon, 100);
+        final GameObject btnTeam4 = new GameObject(new Rect(250, 750, 350, 650), MainMenuScene.team.Get(3).tileIcon, 100);
         gameObjects.add(btnTeam1);
         gameObjects.add(btnTeam2);
         gameObjects.add(btnTeam3);
         gameObjects.add(btnTeam4);
 
-        GameButton btnBattle1 = new GameButton(new Rect(-150, 600, 150, 400), "drawable/btnbackground", 90);
-        TextObject btnBattle1Text1 = new TextObject(new Rect(-150, 600, 150, 500), "Campaign Battle 1", 100, TextAlign.center);
-        TextObject btnBattle1Text2 = new TextObject(new Rect(-150, 500, 150, 400), "Recommended Level: 1", 100, TextAlign.center);
-        GameButton btnBattle2 = new GameButton(new Rect(-150, 350, 150, 150), "drawable/btnbackground", 90);
-        TextObject btnBattle2Text1 = new TextObject(new Rect(-150, 350, 150, 250), "Campaign Battle 2", 100, TextAlign.center);
-        TextObject btnBattle2Text2 = new TextObject(new Rect(-150, 250, 150, 150), "Recommended Level: 3", 100, TextAlign.center);
-        GameButton btnBattle3 = new GameButton(new Rect(-150, 100, 150, -100), "drawable/btnbackground", 90);
-        TextObject btnBattle3Text1 = new TextObject(new Rect(-150, 100, 150, 0), "Campaign Battle 3", 100, TextAlign.center);
-        TextObject btnBattle3Text2 = new TextObject(new Rect(-150, 0, 150, -100), "Recommended Level: 5", 100, TextAlign.center);
-        GameButton btnBattle4 = new GameButton(new Rect(-150, -150, 150, -350), "drawable/btnbackground", 90);
-        TextObject btnBattle4Text1 = new TextObject(new Rect(-150, -150, 150, -250), "Campaign Battle 4", 100, TextAlign.center);
-        TextObject btnBattle4Text2 = new TextObject(new Rect(-150, -250, 150, -350), "Recommended Level: 7", 100, TextAlign.center);
-        GameButton btnBattle5 = new GameButton(new Rect(-150, -400, 150, -600), "drawable/btnbackground", 90);
-        TextObject btnBattle5Text1 = new TextObject(new Rect(-150, -400, 150, -50), "Campaign Battle 5", 100, TextAlign.center);
-        TextObject btnBattle5Text2 = new TextObject(new Rect(-150, -500, 150, -600), "Recommended Level: 10", 100, TextAlign.center);
+        GameButton btnBattle1 = new GameButton(new Rect(-250, 600, 250, 400), "drawable/btnbackground", 90);
+        TextObject btnBattle1Text1 = new TextObject(new Rect(-250, 600, 250, 500), "Campaign Battle 1", 100, TextAlign.center);
+        TextObject btnBattle1Text2 = new TextObject(new Rect(-250, 500, 250, 400), "Recommended Level: 1", 100, TextAlign.center);
+        GameButton btnBattle2 = new GameButton(new Rect(-250, 350, 250, 150), "drawable/btnbackground", 90);
+        TextObject btnBattle2Text1 = new TextObject(new Rect(-250, 350, 250, 250), "Campaign Battle 2", 100, TextAlign.center);
+        TextObject btnBattle2Text2 = new TextObject(new Rect(-250, 250, 250, 150), "Recommended Level: 3", 100, TextAlign.center);
+        GameButton btnBattle3 = new GameButton(new Rect(-250, 100, 250, -100), "drawable/btnbackground", 90);
+        TextObject btnBattle3Text1 = new TextObject(new Rect(-250, 100, 250, 0), "Campaign Battle 3", 100, TextAlign.center);
+        TextObject btnBattle3Text2 = new TextObject(new Rect(-250, 0, 250, -100), "Recommended Level: 5", 100, TextAlign.center);
+        GameButton btnBattle4 = new GameButton(new Rect(-250, -150, 250, -350), "drawable/btnbackground", 90);
+        TextObject btnBattle4Text1 = new TextObject(new Rect(-250, -150, 250, -250), "Campaign Battle 4", 100, TextAlign.center);
+        TextObject btnBattle4Text2 = new TextObject(new Rect(-250, -250, 250, -350), "Recommended Level: 7", 100, TextAlign.center);
+        GameButton btnBattle5 = new GameButton(new Rect(-250, -400, 250, -600), "drawable/btnbackground", 90);
+        TextObject btnBattle5Text1 = new TextObject(new Rect(-250, -400, 250, -500), "Campaign Battle 5", 100, TextAlign.center);
+        TextObject btnBattle5Text2 = new TextObject(new Rect(-250, -500, 250, -600), "Recommended Level: 10", 100, TextAlign.center);
         gameObjects.add(btnBattle1);
         gameObjects.add(btnBattle1Text1);
         gameObjects.add(btnBattle1Text2);
@@ -78,10 +78,10 @@ public class FightCampaignSelectScene extends GameScene {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
                 i.putExtra("isCampaign", true);
                 campaignFighters.clear();
-                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 1, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 1, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 1, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 1, 0xffffffff, 0xffffffff, 0xffffffff));
+                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 0xffff2244, 0xff00aa44, 0xff22dddd, 100, 1, 255, 255, 255));
+                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 0xffff2244, 0xff00aa44, 0xff22dddd, 100, 1, 255, 255, 255));
+                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 0xffff2244, 0xff00aa44, 0xff22dddd, 100, 1, 255, 255, 255));
+                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 0xffff2244, 0xff00aa44, 0xff22dddd, 100, 1, 255, 255, 255));
 
                 for (Fighter fighter : campaignFighters) {
                     fighter.Init(FightCampaignSelectScene.this);
@@ -96,10 +96,10 @@ public class FightCampaignSelectScene extends GameScene {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
                 i.putExtra("isCampaign", true);
                 campaignFighters.clear();
-                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 3, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 3, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 3, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 3, 0xffffffff, 0xffffffff, 0xffffffff));
+                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 0xff55ff55, 0xffbb00bb, 0xff444444, 100, 3, 255, 255, 255));
+                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 0xff55ff55, 0xffbb00bb, 0xff444444, 100, 3, 255, 255, 255));
+                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 0xff55ff55, 0xffbb00bb, 0xff444444, 100, 3, 255, 255, 255));
+                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 0xff55ff55, 0xffbb00bb, 0xff444444, 100, 3, 255, 255, 255));
 
                 for (Fighter fighter : campaignFighters) {
                     fighter.Init(FightCampaignSelectScene.this);
@@ -114,10 +114,10 @@ public class FightCampaignSelectScene extends GameScene {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
                 i.putExtra("isCampaign", true);
                 campaignFighters.clear();
-                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 5, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 5, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 5, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 5, 0xffffffff, 0xffffffff, 0xffffffff));
+                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 0xff000000, 0xffff0000, 0xffffffff, 100, 5, 255, 255, 255));
+                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 0xff000000, 0xffff0000, 0xffffffff, 100, 5, 255, 255, 255));
+                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 0xff000000, 0xffff0000, 0xffffffff, 100, 5, 255, 255, 255));
+                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 0xff000000, 0xffff0000, 0xffffffff, 100, 5, 255, 255, 255));
 
                 for (Fighter fighter : campaignFighters) {
                     fighter.Init(FightCampaignSelectScene.this);
@@ -132,10 +132,10 @@ public class FightCampaignSelectScene extends GameScene {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
                 i.putExtra("isCampaign", true);
                 campaignFighters.clear();
-                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 7, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 7, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 7, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 7, 0xffffffff, 0xffffffff, 0xffffffff));
+                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 0xff0000bb, 0xffbbbbbb, 0xffffffff, 100, 7, 255, 255, 255));
+                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 0xff0000bb, 0xffbbbbbb, 0xffffffff, 100, 7, 255, 255, 255));
+                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 0xff0000bb, 0xffbbbbbb, 0xffffffff, 100, 7, 255, 255, 255));
+                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 0xff0000bb, 0xffbbbbbb, 0xffffffff, 100, 7, 255, 255, 255));
 
                 for (Fighter fighter : campaignFighters) {
                     fighter.Init(FightCampaignSelectScene.this);
@@ -150,10 +150,10 @@ public class FightCampaignSelectScene extends GameScene {
                 Intent i = new Intent(getApplicationContext(), FightScene.class);
                 i.putExtra("isCampaign", true);
                 campaignFighters.clear();
-                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 10, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 10, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 10, 0xffffffff, 0xffffffff, 0xffffffff));
-                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 255, 255, 255, 100, 10, 0xffffffff, 0xffffffff, 0xffffffff));
+                campaignFighters.add(new Rogue(new Rect(-75, 100, 75, -100), palette1, 0xffaaaa00, 0xffffffff, 0xff000000, 100, 10, 255, 255, 255));
+                campaignFighters.add(new Wizard(new Rect(-75, 100, 75, -100), palette1, 0xffaaaa00, 0xffffffff, 0xff000000, 100, 10, 255, 255, 255));
+                campaignFighters.add(new Cleric(new Rect(-75, 100, 75, -100), palette1, 0xffaaaa00, 0xffffffff, 0xff000000, 100, 10, 255, 255, 255));
+                campaignFighters.add(new Warrior(new Rect(-75, 100, 75, -100), palette1, 0xffaaaa00, 0xffffffff, 0xff000000, 100, 10, 255, 255, 255));
 
                 for (Fighter fighter : campaignFighters) {
                     fighter.Init(FightCampaignSelectScene.this);

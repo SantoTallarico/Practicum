@@ -96,7 +96,6 @@ public abstract class Fighter extends GameObject implements Serializable {
         palette1 = p1;
         palette2 = p2;
         palette3 = p3;
-        level = startingLevel;
         tileIcon = sprite;
 
         _id = ++genId;
@@ -292,4 +291,5 @@ public abstract class Fighter extends GameObject implements Serializable {
     }
 
     public abstract void LevelUp();
+    public abstract int AIChooseAction();
 }

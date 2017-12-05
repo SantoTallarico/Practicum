@@ -175,19 +175,7 @@ public class FightController {
             }
             else {
                 listener.UpdateState(FightState.enemyAction);
-                int actionIndex = 0;
-                switch (r.nextInt(4)) {
-                    case 0:
-                    case 1:
-                        actionIndex = 0;
-                        break;
-                    case 2:
-                        actionIndex = 1;
-                        break;
-                    case 3:
-                        actionIndex = 2;
-                        break;
-                }
+                int actionIndex = activeFighter.AIChooseAction();
                 SetActiveAction(activeFighter.fightActions.get(actionIndex));
                 AddAction(activeAction, AIChooseTarget());
                 NextFighter();

@@ -5,19 +5,20 @@ import android.graphics.Color;
 
 public class PhotoGeneration {
     public static int[] Generate(Bitmap bitmap) {
-        int[] pixels = new int[32 * 32];
+        int[] pixels = new int[64 * 64];
         //bands of colour for palette generation
         int[] buckets = new int[8 * 8 * 8];
 
+        //for storing total amounts of colour in image
         int red = 0;
         int blue = 0;
         int green = 0;
 
         //using a scaled bitmap to not have to deal with actual photo dimensions, reduce number of
-        //computations whenever photo is larger than 32x32 (which would be most cases)
-        Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 32, 32, false);
+        //computations whenever photo is larger than 64x64 (which would be most cases)
+        Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 64, 64, false);
 
-        scaled.getPixels(pixels, 0, 32, 0, 0, 32, 32);
+        scaled.getPixels(pixels, 0, 64, 0, 0, 64, 64);
 
         for (int i = 0; i < pixels.length; i++) {
             red += Color.red(pixels[i]);
@@ -57,8 +58,30 @@ public class PhotoGeneration {
         }
 
         int p1 = Color.rgb(((max1i >> 6)  * 32 + 16) & 0xFF, ((max1i >> 3) * 32 + 16) & 0xFF, (max1i * 32 + 16) & 0xFF);
-        int p2 = Color.rgb(((max2i >> 6)  * 32 + 16) & 0xFF, ((max2i >> 3) * 32 + 16) & 0xFF, (max2i * 32 + 16) & 0xFF);
-        int p3 = Color.rgb(((max3i >> 6)  * 32 + 16) & 0xFF, ((max3i >> 3) * 32 + 16) & 0xFF, (max3i * 32 + 16) & 0xFF);
+        int p2 = 0;
+        int p3 = 0;
+
+        if (max2 == 0) {
+            int tempRed = (((max1i >> 6)  * 32 + 16) & 0xFF) - 32;
+            int tempGreen = (((max1i >> 3) * 32 + 16) & 0xFF) - 32;
+            int tempBlue = ((max1i * 32 + 16) & 0xFF) - 32;
+            int tempRed2 = (((max1i >> 6)  * 32 + 16) & 0xFF) + 32;
+            int tempGreen2 = (((max1i >> 3) * 32 + 16) & 0xFF) + 32;
+            int tempBlue2 = ((max1i * 32 + 16) & 0xFF) + 32;
+            p2 = Color.rgb(tempRed < 0 ? 0 : tempRed, tempGreen < 0 ? 0 : tempGreen, tempBlue < 0 ? 0 : tempBlue);
+            p3 = Color.rgb(tempRed2 > 255 ? 255 : tempRed2, tempGreen2 > 255 ? 255 : tempGreen2, tempBlue2 > 255 ? 255 : tempBlue2);
+        }
+        else if (max3 == 0) {
+            int tempRed = (((max1i >> 6)  * 32 + 16) & 0xFF) + 32;
+            int tempGreen = (((max1i >> 3) * 32 + 16) & 0xFF) + 32;
+            int tempBlue = ((max1i * 32 + 16) & 0xFF) + 32;
+            p3 = Color.rgb(tempRed > 255 ? 255 : tempRed, tempGreen > 255 ? 255 : tempGreen, tempBlue > 255 ? 255 : tempBlue);
+        }
+        else {
+            p2 = Color.rgb(((max2i >> 6)  * 32 + 16) & 0xFF, ((max2i >> 3) * 32 + 16) & 0xFF, (max2i * 32 + 16) & 0xFF);
+            p3 = Color.rgb(((max3i >> 6)  * 32 + 16) & 0xFF, ((max3i >> 3) * 32 + 16) & 0xFF, (max3i * 32 + 16) & 0xFF);
+        }
+
 
         return new int[] {red / (32 * 32), green / (32 * 32), blue / (32 * 32), p1, p2, p3};
     }

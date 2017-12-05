@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Santo on 11/12/2017.
@@ -56,6 +57,7 @@ public class Cleric extends Fighter implements Serializable{
         for (int i = 1; i < startingLevel; i++) {
             LevelUp();
         }
+        level = startingLevel;
 
         type = this.getClass().getSimpleName();
     }
@@ -103,6 +105,22 @@ public class Cleric extends Fighter implements Serializable{
             speed += statGrowths.get(Stats.speed);
 
             ApplyEquipment();
+        }
+    }
+
+    @Override
+    public int AIChooseAction() {
+        Random r = new Random();
+        switch (r.nextInt(4)) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            case 2:
+            case 3:
+                return 2;
+            default:
+                return 0;
         }
     }
 }

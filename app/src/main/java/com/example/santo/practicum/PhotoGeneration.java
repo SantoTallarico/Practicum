@@ -83,6 +83,6 @@ public class PhotoGeneration {
         }
 
 
-        return new int[] {red / (32 * 32), green / (32 * 32), blue / (32 * 32), p1, p2, p3};
+        return new int[] {red / (64 * 64), green / (64 * 64), blue / (64 * 64), p1, p2, p3};
     }
 }

@@ -16,13 +16,16 @@ import com.example.santo.practicum.PB_GLSurfaceView;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.example.santo.practicum.Scenes.MainMenuScene.API_KEY;
 import static com.example.santo.practicum.Scenes.MainMenuScene.DATABASE_NAME;
 
 public class FightSelectScene extends GameScene implements MongoAdapter {
-    public static List<Fighter> networkedFighters;
+    public static List<Fighter> networkedFighters = new ArrayList<>();
+    public static List<Fighter> tempNetworkedFighters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +111,25 @@ public class FightSelectScene extends GameScene implements MongoAdapter {
     @Override
     public void processResult(String result) {
         Type fightCollectionType = new TypeToken<List<Fighter>>(){}.getType();
-        networkedFighters = MainMenuScene.gsonBuilder.create().fromJson(result, fightCollectionType);
+
+        tempNetworkedFighters = MainMenuScene.gsonBuilder.create().fromJson(result, fightCollectionType);
+
+        Collections.shuffle(tempNetworkedFighters);
+
+        for (Fighter fighter : tempNetworkedFighters) {
+            if (!fighter.deviceID.equals(MainMenuScene.DEVICE_ID)) {
+                networkedFighters.add(fighter);
+            }
+            if (networkedFighters.size() == 4) {
+                break;
+            }
+        }
+
+        //just in case there are less than four unique fighters
+        while (networkedFighters.size() < 4) {
+            networkedFighters.add(Fighter.RandomFighter(this, 1));
+        }
+
         for (Fighter fighter : networkedFighters) {
             fighter.Init(this);
             fighter.isPlayerControlled = false;

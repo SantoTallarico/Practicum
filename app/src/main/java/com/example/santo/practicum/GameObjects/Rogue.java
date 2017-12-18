@@ -46,7 +46,7 @@ public class Rogue extends Fighter implements Serializable {
     };
 
     public Rogue(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel, int red, int green, int blue) {
-        super(d, sprite, p1, p2, p3, layer, startingLevel);
+        super(d, sprite, p1, p2, p3, layer);
         charClass = CharacterClass.rogue;
 
         weaponType = EquipmentType.knife;

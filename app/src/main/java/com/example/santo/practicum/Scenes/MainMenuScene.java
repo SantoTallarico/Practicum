@@ -26,6 +26,7 @@ import com.example.santo.practicum.GameObjects.Team;
 import com.example.santo.practicum.GameObjects.TextObject;
 import com.example.santo.practicum.GameObjects.Warrior;
 import com.example.santo.practicum.GameObjects.Wizard;
+import com.example.santo.practicum.Installation;
 import com.example.santo.practicum.MongoAdapter;
 import com.example.santo.practicum.PB_GLSurfaceView;
 import com.example.santo.practicum.PhotoAccess.PhotoAccess;
@@ -79,8 +80,12 @@ public class MainMenuScene extends GameScene implements MongoAdapter {
     public static final String API_KEY = "5nO2whQBSRciOaL4wtkLSGR9cusmjokA";
     public static final String DATABASE_NAME = "teamdata";
 
+    public static String DEVICE_ID;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DEVICE_ID = Installation.id(this);
 
         settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
         settingsEditor = settings.edit();
@@ -224,17 +229,8 @@ public class MainMenuScene extends GameScene implements MongoAdapter {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent resultData) {
-        // The ACTION_OPEN_DOCUMENT intent was sent with the request code
-        // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
-        // response to some other intent, and the code below shouldn't run at all.
-
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         if (requestCode == PhotoAccess.READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            // The document selected by the user won't be returned in the intent.
-            // Instead, a URI to that document will be contained in the return intent
-            // provided to this method as a parameter.
-            // Pull that URI using resultData.getData().
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();

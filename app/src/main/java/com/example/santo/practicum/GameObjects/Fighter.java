@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.provider.Settings;
 import android.util.Pair;
 
 import com.example.santo.practicum.Enums.CharacterClass;
@@ -12,11 +13,15 @@ import com.example.santo.practicum.Enums.SpriteState;
 import com.example.santo.practicum.Enums.Stats;
 import com.example.santo.practicum.FightActions.FightAction;
 import com.example.santo.practicum.PhotoGeneration;
+import com.example.santo.practicum.Scenes.MainMenuScene;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Santo on 7/20/2017.
@@ -26,7 +31,6 @@ public abstract class Fighter extends GameObject implements Serializable {
     public String name;
     public CharacterClass charClass;
     int level;
-    transient int experience = 0;
     int maxHitPoints, attack, defence, magicDefence, speed;
     transient int tempMaxHitPoints, tempHitPoints,
             tempAttack,
@@ -48,8 +52,8 @@ public abstract class Fighter extends GameObject implements Serializable {
     public int palette1, palette2, palette3;
 
     public static final int MAX_LEVEL = 10;
-    public static int genId = 0;
-    public int _id;
+    public String deviceID;
+    public String _id;
 
     public transient List<FightAction> fightActions = new ArrayList<FightAction>();
     public transient Fighter protector;
@@ -91,14 +95,16 @@ public abstract class Fighter extends GameObject implements Serializable {
         }
     };
 
-    public Fighter(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer, int startingLevel) {
+    public Fighter(Rect d, Bitmap sprite, int p1, int p2, int p3, int layer) {
         super(d, sprite, layer);
         palette1 = p1;
         palette2 = p2;
         palette3 = p3;
         tileIcon = sprite;
 
-        _id = ++genId;
+        deviceID = MainMenuScene.DEVICE_ID;
+
+        _id = UUID.randomUUID().toString();
         animates = true;
         textureIDs = new int[3];
     }

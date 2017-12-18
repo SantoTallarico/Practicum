@@ -7,7 +7,7 @@ public class PhotoGeneration {
     public static int[] Generate(Bitmap bitmap) {
         int[] pixels = new int[64 * 64];
         //bands of colour for palette generation
-        int[] buckets = new int[8 * 8 * 8];
+        int[] bands = new int[8 * 8 * 8];
 
         //for storing total amounts of colour in image
         int red = 0;
@@ -25,7 +25,7 @@ public class PhotoGeneration {
             green += Color.green(pixels[i]);
             blue += Color.blue(pixels[i]);
 
-            buckets[((Color.red(pixels[i]) / 32) << 6) | ((Color.green(pixels[i]) / 32) << 3) | (Color.blue(pixels[i]) / 32)]++;
+            bands[((Color.red(pixels[i]) / 32) << 6) | ((Color.green(pixels[i]) / 32) << 3) | (Color.blue(pixels[i]) / 32)]++;
         }
 
         //amount of three most used colours
@@ -33,25 +33,25 @@ public class PhotoGeneration {
         //index of three most used colours (corresponds with actual colour)
         int max1i = 0, max2i = 0, max3i = 0;
 
-        for (int i = 0; i < buckets.length; i++) {
-            if (buckets[i] > max1) {
+        for (int i = 0; i < bands.length; i++) {
+            if (bands[i] > max1) {
                 max3 = max2;
                 max2 = max1;
-                max1 = buckets[i];
+                max1 = bands[i];
 
                 max3i = max2i;
                 max2i = max1i;
                 max1i = i;
             }
-            else if (buckets[i] > max2) {
+            else if (bands[i] > max2) {
                 max3 = max2;
-                max2 = buckets[i];
+                max2 = bands[i];
 
                 max3i = max2i;
                 max2i = i;
             }
-            else if (buckets[i] > max3) {
-                max3 = buckets[i];
+            else if (bands[i] > max3) {
+                max3 = bands[i];
 
                 max3i = i;
             }

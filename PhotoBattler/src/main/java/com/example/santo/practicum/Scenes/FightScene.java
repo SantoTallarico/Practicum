@@ -432,5 +432,8 @@ public class FightScene extends GameScene implements FightListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        for (Fighter fighter : playerTeam.GetTeam()) {
+            fighter.ResetStats();
+        }
     }
 }

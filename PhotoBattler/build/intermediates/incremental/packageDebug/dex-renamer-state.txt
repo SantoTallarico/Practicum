@@ -1,0 +1,7 @@
+#Tue Dec 19 12:27:23 PST 2017
+base.0=C\:\\Users\\Santo\\AndroidStudioProjects\\Practicum\\PhotoBattler\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_53c6d51b573377d7187644f54c4fe4119a1a502f
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=C\:\\Users\\Santo\\AndroidStudioProjects\\Practicum\\PhotoBattler\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_935a435d5afbcc7ebb9fa93dcbb469507a64e5b9\\classes.dex
+base.1=C\:\\Users\\Santo\\AndroidStudioProjects\\Practicum\\PhotoBattler\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_935a435d5afbcc7ebb9fa93dcbb469507a64e5b9
+file.0=C\:\\Users\\Santo\\AndroidStudioProjects\\Practicum\\PhotoBattler\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_53c6d51b573377d7187644f54c4fe4119a1a502f\\classes.dex

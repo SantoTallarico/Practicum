@@ -1,0 +1,157 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:2:1-61:12
+	package
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:3:5-42
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+uses-feature#0x00020000
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:4:5-78
+	android:glEsVersion
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:4:19-51
+	android:required
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:4:52-75
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:6:5-67
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:6:22-64
+application
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:8:5-59:19
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Santo\.android\build-cache\0f36f8e291d73213969006249b1d3b5947412ec7\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Santo\.android\build-cache\e6272c45512712673cbbe8797e1df46f445e71db\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Santo\.android\build-cache\d0f913ef684f1b685c672a5e7e717d1413f8554a\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Santo\.android\build-cache\5431719c3549054d74a15ccd5902e65d3c37ab96\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Santo\.android\build-cache\fe8e61b9bb73984176fc5d2521e7efb2323ed031\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Santo\.android\build-cache\55c712ae8cdf486f25ac05524ad8dc3e26d7770a\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Santo\.android\build-cache\f9356e21c941bc873f3b0deb2703c4c56299b22e\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Santo\.android\build-cache\17fdaed346168eb4bfaab197a4520b71c990dfad\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Santo\.android\build-cache\89dcc79c6cf1b2c8996c2bdc3fd9a6bd5e956b33\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Santo\.android\build-cache\094634559834a1bc33e2a09ca0a203132e635917\output\AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:11:9-41
+	android:supportsRtl
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:13:9-35
+	android:roundIcon
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:12:9-54
+	android:allowBackup
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:9:9-35
+	android:icon
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:10:9-43
+	android:theme
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:14:9-40
+activity#com.example.santo.practicum.Scenes.MainMenuScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:15:9-23:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:16:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:17:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:15:19-55
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:18:13-22:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:19:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:21:27-74
+activity#com.example.santo.practicum.Scenes.GenerationResultsScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:25:9-28:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:26:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:27:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:25:19-64
+activity#com.example.santo.practicum.Scenes.ViewEditScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:30:9-33:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:31:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:32:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:30:19-55
+activity#com.example.santo.practicum.Scenes.EditScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:35:9-38:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:36:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:37:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:35:19-51
+activity#com.example.santo.practicum.Scenes.EquipScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:40:9-43:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:41:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:42:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:40:19-52
+activity#com.example.santo.practicum.Scenes.FightSelectScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:45:9-48:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:46:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:47:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:45:19-58
+activity#com.example.santo.practicum.Scenes.FightCampaignSelectScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:50:9-53:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:51:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:52:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:50:19-66
+activity#com.example.santo.practicum.Scenes.FightScene
+ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:55:9-58:20
+	android:screenOrientation
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:56:13-49
+	android:configChanges
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:57:13-74
+	android:name
+		ADDED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml:55:19-52
+uses-sdk
+INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Santo\.android\build-cache\0f36f8e291d73213969006249b1d3b5947412ec7\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Santo\.android\build-cache\e6272c45512712673cbbe8797e1df46f445e71db\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Santo\.android\build-cache\d0f913ef684f1b685c672a5e7e717d1413f8554a\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Santo\.android\build-cache\5431719c3549054d74a15ccd5902e65d3c37ab96\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Santo\.android\build-cache\fe8e61b9bb73984176fc5d2521e7efb2323ed031\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Santo\.android\build-cache\55c712ae8cdf486f25ac05524ad8dc3e26d7770a\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Santo\.android\build-cache\f9356e21c941bc873f3b0deb2703c4c56299b22e\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Santo\.android\build-cache\17fdaed346168eb4bfaab197a4520b71c990dfad\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Santo\.android\build-cache\89dcc79c6cf1b2c8996c2bdc3fd9a6bd5e956b33\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Santo\.android\build-cache\094634559834a1bc33e2a09ca0a203132e635917\output\AndroidManifest.xml:5:5-7:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Santo\.android\build-cache\0f36f8e291d73213969006249b1d3b5947412ec7\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Santo\AndroidStudioProjects\Practicum\PhotoBattler\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Santo\.android\build-cache\0f36f8e291d73213969006249b1d3b5947412ec7\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Santo\.android\build-cache\e6272c45512712673cbbe8797e1df46f445e71db\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Santo\.android\build-cache\d0f913ef684f1b685c672a5e7e717d1413f8554a\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Santo\.android\build-cache\5431719c3549054d74a15ccd5902e65d3c37ab96\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Santo\.android\build-cache\fe8e61b9bb73984176fc5d2521e7efb2323ed031\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Santo\.android\build-cache\55c712ae8cdf486f25ac05524ad8dc3e26d7770a\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Santo\.android\build-cache\f9356e21c941bc873f3b0deb2703c4c56299b22e\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Santo\.android\build-cache\17fdaed346168eb4bfaab197a4520b71c990dfad\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Santo\.android\build-cache\89dcc79c6cf1b2c8996c2bdc3fd9a6bd5e956b33\output\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Santo\.android\build-cache\0f36f8e291d73213969006249b1d3b5947412ec7\output\AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Santo\.android\build-cache\0f36f8e291d73213969006249b1d3b5947412ec7\output\AndroidManifest.xml:26:9-47
